@@ -1,0 +1,120 @@
+<template name="activities">
+    <div class="col-12">
+        <div id="activity-form" class="card" style="display:none;">
+            <form id="activity-form-content" class="new-activity">
+                <div class="lead card-header">
+                    <h1 class="cover-heading">Quelles anim's souhaitez-vous proposer cette année ?</h1>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="">Nommer l'anim's</label>
+                        <input class="form-control" type="text" name="name" id="name"
+                               placeholder="Nommer l'anim'ss" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Type d'anim's</label>
+                        <select name="type" id="type" class="form-control">
+                            <option value="soiree">Soirée</option>
+                            <option value="piste">Piste</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Niveau</label>
+                        {{> universeSelectize name="level" id="level-selector" options=lvlOptions multiple=true create=false remove=true sortMethod=sortSelect}}
+
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nombre de places</label>
+                        <input type="number" name="places" id="places" class="form-control" required>
+                    </div>
+                                        <div class="form-group">
+                        <label for="">Description de l'anim's</label>
+                        <input type="hidden" name="_id" id="_id">
+                        <textarea name="desc" id="desc" cols="30" rows="10" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Date estimée de l'anim's</label>
+                        <input type="text" class="form-control datepicker" name="date" id="date"></div>
+
+                    <div class="form-group">
+                        <label for="">Prix de l'anim's en €</label>
+                        <input type="text" class="form-control" name="price" id="price" required></div>
+
+                    <div class="form-group">
+                        <label for="">Respos d'anim's</label>
+                        {{> universeSelectize name="respos" id="respos" options=userOptions multiple=true create=false remove=true}}
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="form-group">
+                        <input type="submit" class="btn btn-primary" id="submit-btn"
+                               value="Valider"/>
+                        <input type="reset" class="btn reset-activity-form" value="Annuler" />
+                    </p></div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <ul class="list-inline sort-ul">
+                    <button class="btn list-inline-item btn-primary add-activity-btn">Ajouter une activité</button>
+                    <button class="btn list-inline-item">Ranger par :</button>
+                    <button class="btn list-inline-item sort-li" data-by="name">Nom</button>
+                    <button class="btn list-inline-item sort-li" data-by="createdAt">Date de création</button>
+                    <button class="btn list-inline-item sort-li" data-by="updatedAt">Dernière mise à jour</button>
+                </ul>
+            </div>
+            <div class="card-body">
+                {{#each activities}}
+                    <div class="list-group-item list-group-item-action flex-column align-items-start item-entity">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h3 class="mb-1">{{name}}</h3>
+                            <span class="pull-right">
+                                {{#if price }}
+                                <small class="badge badge-pill">{{price}} €</small>
+                                    {{/if}}
+                            <small class="badge badge-primary badge-pill">{{type}}</small>
+                            <small class="badge badge-primary badge-pill">{{places}} places</small>
+                            <small class="badge badge-success badge-pill">Voir les participants</small>
+                            <small class="badge badge-secondary badge-pill">Voir les candidats</small>
+                                <small class="badge badge-warning badge-pill edit-activity">Editer</small>
+                            <small class="badge badge-danger badge-pill delete-activity">Supprimer</small>
+                        </span>
+                        </div>
+                        <h5>{{realDate}}</h5>
+                        <p class="mb-1">{{desc}}</p>
+                        {{#each level}}
+                            <small class="badge badge-info">{{levelName}}</small>
+                        {{/each}}
+                        {{#each respos}}
+                            <small class="badge badge-secondary">{{userById}}</small>
+                        {{/each}}
+                    </div>
+                {{/each}}
+            </div>
+            <div class="card-footer">
+                <ul class="list-inline sort-ul">
+                    <button class="btn list-inline-item btn-primary add-activity-btn">Ajouter une activité</button>
+                    <button class="btn list-inline-item">Ranger par :</button>
+                    <button class="btn list-inline-item sort-li" data-by="name">Nom</button>
+                    <button class="btn list-inline-item sort-li" data-by="createdAt">Date de création</button>
+                    <button class="btn list-inline-item sort-li" data-by="updatedAt">Dernière mise à jour</button>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+
+    </script>
+</template>
+<template name="activity">
+    <p class="lead {{#if checked}}checked{{/if}}">
+    <div class="form-group">
+        <label class="text">{{name}}</label>
+        <button class="btn btn-secondary delete">&times;</button>
+    </div>
+    </p>
+</template>

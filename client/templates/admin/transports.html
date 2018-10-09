@@ -1,0 +1,75 @@
+<template name="AdminTransportsTpl">
+    <h1>Les Allers</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Départ</th>
+            <th>Agence</th>
+            <th>Horaire</th>
+            <th>Prix Aller</th>
+            <th>Prix Retour</th>
+            <th>Passagers</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each transportsAller }}
+            <tr>
+                <td>{{ tbk }}</td>
+                <td>{{ agence }}</td>
+                <td>{{ time }}</td>
+                <td>{{ priceA }}</td>
+                <td>{{ priceR }} </td>
+                <td>
+                    <a class="badge badge-danger badge-pill">Voir les passagers (nb)</a>
+                    <a class="badge badge-pill">Voir les candidats (nb)</a>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+
+    <h1>Les Retours</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Départ</th>
+            <th>Agence</th>
+            <th>Horaire</th>
+            <th>Prix/personne</th>
+            <th>Passagers</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each transportsRetour }}
+            <tr>
+                <td>{{ tbk }}</td>
+                <td>{{ agence }}</td>
+                <td>{{ time }}</td>
+                <td>{{ price }}</td>
+                <td>
+                    <a class="badge badge-danger badge-pill">Voir les passagers (nb)</a>
+                    <a class="badge badge-pill">Voir les candidats(nb)</a>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</template>
+
+<template name="TransportPassengersTpl">
+    {{#each trajet}}
+        <table class="table">
+            <h3>{{trajet.nick}} (Sibers->Station) ou Station->Birse</h3>
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Buque Num's</th>
+                <th>Prom's</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+        </table>
+        {{/each}}
+</template>

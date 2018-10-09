@@ -1,0 +1,166 @@
+<template name="Buildings">
+    <style>
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            cursor: pointer
+        }
+
+        .buildings a {
+            color: #333;
+        }
+        .buildings a:hover {
+            color:#333;
+        }
+        .buildings {
+            margin-bottom: 20px;
+        }
+        .badge, .tbk {
+            cursor: pointer;
+        }
+    </style>
+    <div class="col-12">
+        <button class="btn btn-danger">Faire une recherche</button>
+        <button class="btn btn-danger">Ajouter une résidence</button>
+
+        <br>
+        <form class="new-building" id="building-form">
+            <div class="card">
+
+                <div class="card-header">
+                    <h3 class="card-title">Ajouter une résidence</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="">Saisissez un nom pour une nouvelle résidence</label>
+                        <input type="text" name="name" id="name" placeholder=""
+                               class="form-control">
+                        <input type="hidden" name="_id" id="_id">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Type de résidence</label>
+                        <select name="type" id="type" class="form-control">
+                            <option value="calme">Calme</option>
+                            <option value="anims">Anim's</option>
+                            <option value="anims2">Anim's +</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">TBK</label>
+                        {{> universeSelectize name="tbk" id="tbk" options=tbkOptions multiple=true create=false remove=true sortMethod=sortSelect}}
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="submit" id="submit-form">Enregistrer</button>
+                    <button type="reset" class="btn reset-building-btn">Annuler</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <br>
+    <div class="row">
+        {{#each buildings}}
+
+            <div class="col-6 buildings">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-12 d-flex justify-content-between">
+                            <h3>{{name}}</h3>
+                            <span class="pull-right">
+                            <small class="badge badge-primary badge-pill">Voir les résidents</small>
+                            <small class="badge badge-warning badge-pill edit-building">Editer</small>
+                            <small class="badge badge-danger badge-pill delete-building">Supprimer</small>
+                        </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                            <div class="building">
+                                <h5>
+                                    <small>dernière modification {{realDate}}</small>
+                                </h5>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>TBK</th>
+                                            <th>Etage</th>
+                                            <th>Places</th>
+                                            <th>Respo</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                    {{#each rooms}}
+                                        <tr>
+                                            <td>{{name}}</td>
+                                            <td class="">
+                                                <a class="dropdown-toggle" data-toggle="dropdown"  href="#">{{tbk2}} <span class="caret"></span></a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item tbk" data-tbk="birse">Birse</a>
+                                                    <a class="dropdown-item tbk" data-tbk="boquette">Boquette</a>
+                                                    <a class="dropdown-item tbk" data-tbk="bordels">Bordel's</a>
+                                                    <a class="dropdown-item tbk" data-tbk="chalons">Chalon's</a>
+                                                    <a class="dropdown-item tbk" data-tbk="cluns">Clun's</a>
+                                                    <a class="dropdown-item tbk" data-tbk="kin">KIN</a>
+                                                    <a class="dropdown-item tbk" data-tbk="paris">Paris</a>
+                                                    <a class="dropdown-item tbk" data-tbk="sibers">Siber's</a>
+                                                </div>
+                                            </td>
+                                            <td>{{floor}}</td>
+                                            <td>{{places}}</td>
+                                            <td>{{respo}}</td>
+                                            <td><small class="badge badge-danger badge-pill delete-room">Supprimer</small></td>
+                                        </tr>
+                                    {{/each}}
+                                        </tbody>
+                                    </table>
+                                <div class="row">
+                                    <div class="col-12" style="">
+                                    </div>
+                                </div>
+                                <!--<small class="badge badge-primary badge-pill add-floor">ajouter un étage</small>-->
+                            </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="col-12">
+                            <ul class="list-inline sort-ul">
+                                <button class="btn list-inline-item">Ranger par :</button>
+                                <button class="btn list-inline-item sort-li" data-by="name">Nom</button>
+                                <button class="btn list-inline-item sort-li" data-by="createdAt">Date de création
+                                </button>
+                                <button class="btn list-inline-item sort-li" data-by="updatedAt">Dernière mise à jour
+                                </button>
+                            </ul>
+                            <hr>
+                            <h3>Ajouter des kagettes</h3>
+                            <form class="new-room">
+                                    <div class="form-group">
+                                        <label for="">Indicatif</label>
+                                        <input type="text" name="indicator" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Nombre de kagettes</label>
+                                        <input type="text" name="number" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Etage</label>
+                                        <input type="number" name="floor" id="floor" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-danger form-control " type="submit"
+                                               value="Enregistrer">
+                                    </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+        {{/each}}
+    </div>
+
+
+</template>

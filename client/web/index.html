@@ -1,0 +1,212 @@
+<template name="webTemplate">
+    <section class="top">
+        {{>HeaderTemplate}}
+        <div class="row">
+            <div class="col-12">
+                <article class="skz" style="max-width:50%; text-align: center; margin:auto; margin-top:50px;">
+                    <img src="/images/blancv.png" alt="" class="img-fluid">
+                    {{#if currentUser}}
+                        <a href="/reserver" class="btn btn-lg btn-danger">Je réserve ma place dès maintenant.</a>
+                    {{/if}}
+                    <!--skz arrive !-->
+                </article>
+            </div>
+        </div>
+    </section>
+    <section class="countdown-wrap">
+        <div class="row">
+            <div class="col-12">
+                <article class="countdown" style="margin-top:50px">
+                    {{> showCountdown }}
+                </article>
+            </div>
+        </div>
+    </section>
+    <section class="infals">
+        <div class="section centrer">
+            <div class="row" style="display:none">
+                <div class="col-8 offset-2">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" src="/images/ski.jpg" alt="First slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h2>Du ski !</h2>
+                                    <p>Des anim's pistes pour t'éclater ! Que tu sois débutant ou zident tu
+                                        trouveras forcément ton bonheur !</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/images/gadz.jpg" alt="Second slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h2>Une expérience 100% Gadz !</h2>
+                                    <p>Une semaine tout compris à prix PG !</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/images/soiree.jpg" alt="Third slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h2>Des soirées !</h2>
+                                    <p>Des soirées mémorables jusqu'au bout de la nuit !</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Précédent</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Suivant</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <!--<br>-->
+            <div class="row row-ski">
+                <div class="col-8">
+                    <div class="row nopadding">
+                        <div class="col-6"><img src="/images/ski.jpg" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-3">
+                            <img src="/images/ski.jpg" alt="" class="img-fluid"><br>
+                            <img src="/images/ski.jpg" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-3">
+                            <img src="/images/ski.jpg" alt="" class="img-fluid"><br>
+                            <img src="/images/ski.jpg" alt="" class="img-fluid">
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-4">
+                    <h2>Du Ski</h2>
+                    <p>
+                        Atteint du syndrome d'Asperger ainsi que de celui du savant, le Dr Shaun Murphy rejoint un prestigieux hôpital. Livré à lui-même, il éprouve des difficultés à socialiser. Mais en mettant son incroyable don au service de ses patients, ce jeune prodige divise le personnel médical. Saura-t-il être à la hauteur de sa mission ?
+                        Atteint du syndrome d'Asperger ainsi que de celui du savant, le Dr Shaun Murphy rejoint un prestigieux hôpital. Livré à lui-même, il éprouve des difficultés à socialiser. Mais en mettant son incroyable don au service de ses patients, ce jeune prodige divise le personnel médical. Saura-t-il être à la hauteur de sa mission ?<br>
+                        Atteint du syndrome d'Asperger ainsi que de celui du savant, le Dr Shaun Murphy rejoint un prestigieux hôpital. Livré à lui-même, il éprouve des difficultés à socialiser. Mais en mettant son incroyable don au service de ses patients, ce jeune prodige divise le personnel médical. Saura-t-il être à la hauteur de sa mission ?
+                    </p>
+                    <p class="center">
+                    <a href="/soirees" class="btn btn-danger">
+                        En savoir plus sur les Anim's Soirées
+                    </a>
+                    </p>
+                </div>
+            </div>
+            <div class="row row-gadz">
+                <div class="col-4 content">
+                    <h2>Une expérience conçue par des Gadz pour des Gadz !</h2>
+                    <p>
+                        Atteint du syndrome d'Asperger ainsi que de celui du savant, le Dr Shaun Murphy rejoint un prestigieux hôpital. Livré à lui-même, il éprouve des difficultés à socialiser. Mais en mettant son incroyable don au service de ses patients, ce jeune prodige divise le personnel médical. Saura-t-il être à la hauteur de sa mission ?
+                        Atteint du syndrome d'Asperger ainsi que de celui du savant, le Dr Shaun Murphy rejoint un prestigieux hôpital. Livré à lui-même, il éprouve des difficultés à socialiser. Mais en mettant son incroyable don au service de ses patients, ce jeune prodige divise le personnel médical. Saura-t-il être à la hauteur de sa mission ?<br>
+                        Atteint du syndrome d'Asperger ainsi que de celui du savant, le Dr Shaun Murphy rejoint un prestigieux hôpital. Livré à lui-même, il éprouve des difficultés à socialiser. Mais en mettant son incroyable don au service de ses patients, ce jeune prodige divise le personnel médical. Saura-t-il être à la hauteur de sa mission ?
+                    </p>
+                    <p class="center">
+                    <a href="/soirees" class="btn btn-danger">
+                        En savoir plus sur les Anim's Soirées
+                    </a>
+                    </p>
+                </div>
+                <div class="col-8">
+                    <div class="row nopadding">
+                        <div class="col-3">
+                            <img src="/images/gadz.jpg" alt="" class="img-fluid"><br>
+                            <img src="/images/gadz.jpg" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-3">
+                            <img src="/images/gadz.jpg" alt="" class="img-fluid"><br>
+                            <img src="/images/gadz.jpg" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-6"><img src="/images/gadz.jpg" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-soiree">
+                <div class="col-8">
+                    <div class="row nopadding">
+                        <div class="col-6"><img src="/images/soiree.jpg" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-3">
+                            <img src="/images/soiree.jpg" alt="" class="img-fluid"><br>
+                            <img src="/images/soiree.jpg" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-3">
+                            <img src="/images/soiree.jpg" alt="" class="img-fluid"><br>
+                            <img src="/images/soiree.jpg" alt="" class="img-fluid">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-4 content">
+                    <h2>Des soirées plus étonnantes les unes que les autres</h2>
+                    <p>
+                        Atteint du syndrome d'Asperger ainsi que de celui du savant, le Dr Shaun Murphy rejoint un prestigieux hôpital. Livré à lui-même, il éprouve des difficultés à socialiser. Mais en mettant son incroyable don au service de ses patients, ce jeune prodige divise le personnel médical. Saura-t-il être à la hauteur de sa mission ?
+                        Atteint du syndrome d'Asperger ainsi que de celui du savant, le Dr Shaun Murphy rejoint un prestigieux hôpital. Livré à lui-même, il éprouve des difficultés à socialiser. Mais en mettant son incroyable don au service de ses patients, ce jeune prodige divise le personnel médical. Saura-t-il être à la hauteur de sa mission ?<br>
+                        Atteint du syndrome d'Asperger ainsi que de celui du savant, le Dr Shaun Murphy rejoint un prestigieux hôpital. Livré à lui-même, il éprouve des difficultés à socialiser. Mais en mettant son incroyable don au service de ses patients, ce jeune prodige divise le personnel médical. Saura-t-il être à la hauteur de sa mission ?
+                    </p>
+                    <p class="center">
+                    <a href="/soirees" class="btn btn-danger">
+                        En savoir plus sur les Anim's Soirées
+                    </a>
+                    </p>
+                </div>
+            </div>
+            <div>
+                <!-- Icon Section -->
+                <div class="row specif">
+                    <div class="col-4 content">
+                        <div class="image">
+                            <img class="img-fluid" src="/images/ski.jpg">
+                            <span class="card-title">Du ski</span>
+                        </div>
+                        <div class="content">
+                            <p class="light">Des anim's pistes pour t'éclater ! Que tu sois débutant ou zident tu
+                                trouveras forcément ton bonheur !</p>
+                            <a href="/pistes" class="btn btn-danger">
+                                    En savoir plus sur les Anim's Pistes
+                            </a></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="image">
+                            <img class="img-fluid" src="/images/gadz.jpg">
+                            <span class="card-title">Une expérience 100% gadz !</span>
+                        </div>
+                        <div class="content">
+                            <p class="light">Une semaine tout compris à prix PG !</p>
+                            <a href="/pack" class="btn btn-danger">
+                                    En savoir plus sur Le Pack
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+
+                            <div class="image">
+                                <img class="img-fluid" src="/images/soiree.jpg">
+                                <span class="card-title">Des soirées</span>
+                            </div>
+                            <div class="content">
+                                <p class="light">Des soirées mémorables jusqu'au bout de la nuit !</p>
+                                <a href="/soirees" class="btn btn-danger">
+                                        En savoir plus sur les Anim's Soirées
+                                </a>
+                            </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <br><br>
+    <section class="video" style="min-height:600px;">
+        Ici une vidéo
+    </section>
+
+</template>

@@ -1,0 +1,99 @@
+<template name="Options">
+    <div class="col-12">
+        <div id="option-form-div" class="card" style="display:none">
+            <div class="card-header">
+                <h1 class="cover-heading">Quelles options souhaitez-vous proposer cette année ?</h1>
+            </div>
+            <form id="option-form" class="lead">
+                <div class="card-body lead">
+
+                    <div class="form-group">
+                        <input type="hidden" name="_id" id="_id">
+                        <label for="">Nom de l'option</label>
+                        <input class="form-control" type="text" id="name" name="name" placeholder=""/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Plusieurs choix possibles ?</label>
+                        <select name="multiple" id="multiple" class="form-control">
+                            <option value="0">Non</option>
+                            <option value="1">Oui</option>
+                        </select></div>
+                    <div class="form-group">
+                        <label for="">Description</label>
+                        <textarea name="desc" cols="5" id="desc" rows="5" class="form-control"></textarea>
+                    </div>
+                    <div class="row admin-choices">
+                        <div class="col-1"><i class="fa fa-plus-circle add-choice"></i></div>
+                        <div class="col-11 form-group">
+                            <div id="option-choices"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="form-group">
+                        <input type="submit" value="Enregistrer" id="submit-btn" class="form btn btn-primary">
+                        <input type="reset" class="btn reset-option-form" value="Annuler"/>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <ul class="list-inline sort-ul">
+                    <button class="btn list-inline-item btn-primary add-option-btn">Ajouter une option</button>
+                    <button class="btn list-inline-item">Ranger par :</button>
+                    <button class="btn list-inline-item sort-li" data-by="name">Nom</button>
+                    <button class="btn list-inline-item sort-li" data-by="createdAt">Date de création</button>
+                    <button class="btn list-inline-item sort-li" data-by="updatedAt">Dernière mise à jour</button>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {{#each options}}
+                        <div class="list-group-item list-group-item-action flex-column align-items-start item-entity">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h3 class="mb-1">
+                                    {{name}}</h3>
+                                <span class="pull-right">
+                                    {{#if isMultiple }}
+                                        <small class="badge badge-pill">Choix multiple</small>
+                                        {{/if}}
+
+                            <small class="badge badge-success badge-pill">Voir les commandes validées</small>
+                            <small class="badge badge-secondary badge-pill">Voir les commandes en cours</small>
+                            <small class="badge badge-warning badge-pill edit-option">Editer</small>
+                            <small class="badge badge-danger badge-pill delete-option">Supprimer</small>
+                        </span>
+                            </div>
+                            <p class="mb-1">{{desc}}</p>
+                            <hr style="margin:1rem">
+                            <h4>Les Produits</h4>
+                        <p>
+                            {{#each prices_choices}}
+                                <div class="btn-group" role="group" aria-label="Produit">
+                                    <button type="button" class="btn btn-danger"
+                                            style="font-size:1.25rem">{{choice}}</button>
+                                    <button type="button" class="btn btn-dark" style="font-size:1.25rem">{{price}}€
+                                    </button>
+                                </div>
+                            {{/each}}
+                            </p>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="card-footer">
+                <ul class="list-inline sort-ul">
+                    <button class="btn list-inline-item btn-primary add-option-btn">Ajouter une option</button>
+                    <button class="btn list-inline-item">Ranger par :</button>
+                    <button class="btn list-inline-item sort-li" data-by="name">Nom</button>
+                    <button class="btn list-inline-item sort-li" data-by="createdAt">Date de création</button>
+                    <button class="btn list-inline-item sort-li" data-by="updatedAt">Dernière mise à jour</button>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>

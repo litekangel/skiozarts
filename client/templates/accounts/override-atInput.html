@@ -1,0 +1,60 @@
+<template name="override-atInput">
+    {{> Template.dynamic template=templateName}}
+</template>
+
+<template name="override-atTextInput">
+    <div class="at-input form-group {{#if isValidating}}validating{{/if}} {{#if hasError}}has-error{{/if}} {{#if hasSuccess}}has-success{{/if}} {{#if feedback}}has-feedback{{/if}}">
+        {{#if showLabels}}
+            <label for="at-field-{{_id}}">
+                {{displayName}} {{#unless required}}{{optionalText}}{{/unless}}
+            </label>
+        {{/if}}
+        <input type="{{type}}" id="at-field-{{_id}}" class="form-control" name="at-field-{{_id}}" placeholder="{{placeholder}}" autocapitalize="none" autocorrect="off">
+        {{#if hasIcon}}
+            <span class="{{iconClass}}"></span>
+        {{/if}}
+        {{#if hasError}}
+            <span>{{errorText}}</span>
+        {{/if}}
+    </div>
+</template>
+
+<template name="override-atCheckboxInput">
+    <div class="at-input form-check">
+        <input type="{{type}}" id="at-field-{{_id}}" class="form-check-input" name="at-field-{{_id}}" {{disabled}}>
+        <label class="form-check-label" for="at-field-{{_id}}">{{displayName}}</label>
+    </div>
+</template>
+
+<template name="override-atSelectInput">
+    <div class="at-input form-group">
+        <label for="at-field-{{_id}}">{{displayName}}</label>
+        <select id="at-field-{{_id}}" class="form-control" name="at-field-{{_id}}">
+            {{#each values}}
+                <option value="{{value}}">{{text}}</option>
+            {{/each}}
+        </select>
+    </div>
+</template>
+
+<template name="override-atRadioInput">
+    <div class="at-input form-check">
+        <label>{{displayName}}</label>
+    </div>
+    {{#each values}}
+        <div class="at-input form-check">
+            <input id="at-field-{{id}}-choice-{{value}}" class="form-check-input" type="radio" name="at-field-{{id}}" value={{value}}>
+            <label class="form-check-label">{{text}}</label>
+        </div>
+    {{/each}}
+</template>
+
+<template name="override-atHiddenInput">
+    <input type="hidden" id="at-field-{{_id}}" name="at-field-{{_id}}">
+</template>
+
+<template name="override-atPwdFormBtn">
+    <button type="submit" class="at-btn btn btn-primary submit {{submitDisabled}}" id="at-btn">
+        {{buttonText}}
+    </button>
+</template>

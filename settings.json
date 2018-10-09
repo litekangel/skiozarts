@@ -1,0 +1,14 @@
+{
+  "cas": {
+    "baseUrl": "https://auth.gadz.org/cas/",
+    "autoClose": true
+  },
+  "public": {
+    "cas": {
+      "loginUrl": "https://auth.gadz.org/cas/login",
+      "serviceParam": "service",
+      "popupWidth": 810,
+      "popupHeight": 610
+    }
+  }
+}

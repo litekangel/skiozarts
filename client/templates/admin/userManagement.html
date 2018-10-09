@@ -1,0 +1,38 @@
+<template name="userManagement">
+    {{#if isInRole 'admin' }}
+
+        <div class="card">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Buque</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Nums</th>
+                    <th>TBK</th>
+                    <th>Date d'inscription</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each users}}
+                    {{>userM}}
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    {{else}}
+        <h1>Accès interdit</h1>
+    {{/if}}
+</template>
+<template name="userM">
+    <tr>
+        <td>{{profile.buque}}</td>
+        <td>{{profile.nom}}</td>
+        <td>{{profile.prenom}}</td>
+        <td>{{userEmail}}</td>
+        <td>{{profile.nums}}</td>
+        <td>{{profile.tbk}}</td>
+        <td>{{createdAt}}</td>
+    </tr>
+</template>

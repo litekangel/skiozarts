@@ -1,0 +1,218 @@
+<template name="ReserverTemplate">
+    <style>
+        section.top {
+            background: url("/images/booking/bg7.png") no-repeat fixed center;
+            background-size: cover;
+            padding-bottom: 50px;
+        }
+    </style>
+    <section class="top">
+        {{>HeaderTemplate}}
+        <div class="row">
+            <div class="col-12">
+                <article class="skz" style="max-width:10%; text-align: center; margin:auto; margin-top:10px;">
+                    <img src="/images/blancv.png" alt="" class="img-fluid">
+                </article>
+                <h1 style="text-align: center; color:#fff">Réservez votre place dès maintenant !</h1><br>
+            </div>
+        </div>
+    </section>
+    <section class="register_wrap">
+        {{#each order}}
+            <div id="prelude" class="row">
+                <div class="col-2 nopadding">
+                    <img src="/images/booking/i5.jpg" class="img-fluid" alt="">
+                </div>
+                <div class="col-10 padding20" style="text-align: left">
+                    <p>
+                    <h1>Vous y êtes presque !</h1> <br>
+                    <p>
+                        Le processus de réservation est composé de trois courtes étapes !</p>
+                    <p>
+                        Vous allez bientôt pouvoir profiter du Pack exceptionnel que vous propose la Team SKZ 216 ! </p>
+                    <p>
+                        Vous n'êtes pas prêt·e·s pour la semaine all inclusive
+                        <small>comme mon écriture</small>
+                        que vous allez vivre !
+                    </p>
+                    <br>
+                    <p>
+                        Veuillez simplement vous munir d'un exemplaire en état de fonctionnement de votre cerveau et ce
+                        sera rapide...<br>
+                        <small>Une pensée pour les Clun'sssois·e·s !</small>
+                    </p>
+                    <br>
+                    <p>
+                        <strong>La Team SKZ216</strong><br><br>
+                    </p>
+                    </p>
+                    <button class="btn btn-lg btn-danger start_btn">C'est parti !</button>
+                    <br>
+                </div>
+            </div>
+            <div class="row_reserver" id="just_start" style="">
+                <div class="row">
+                    <div class="col-2 nopadding" style="background:#ef4f4b">
+                        <div class="row nopadding">
+                            <div class="col-6">
+                                <img src="/images/booking/i5.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="col-6">
+                                <img src="/images/booking/i4.jpg" class="img-fluid pull-left" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9 padding20">
+                        <h1>Etape 1/3</h1>
+
+                        <form id="reserver_form_1">
+                            <div class="form-group">
+                                <label>Suivez-vous un regime alimentaire particulier ?</label>
+                                <input type="hidden" name="_id" value="{{ _id }}">
+                                <select name="food" id="food level" class="form-control">
+                                    <option value="0" {{ foodType 0 }}>Non</option>
+                                    <option value="1" {{ foodType 1 }}>Sans porc</option>
+                                    <option value="2" {{ foodType 2 }}>Végétarien</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Vous pratiquez : </label>
+                                <select name="sports" id="sports" class="form-control">
+                                    <option value="0" {{ sportsType 0 }}>Le ski</option>
+                                    <option value="1" {{ sportsType 1 }}>Le snowboard</option>
+                                    <option value="2" {{ sportsType 2 }}>Les deux</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Quel est votre niveau ?</label>
+                                <select name="level" id="level" class="form-control">
+                                    <option value="0" {{ levelType 0 }}>Débutant</option>
+                                    <option value="1" {{ levelType 1 }}>Intermédiaire</option>
+                                    <option value="2" {{ levelType 2 }}>Avancé</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-lg btn-danger" value="Enregistrer">
+                            </div>
+                            <!--Rajouter des commentaires débiles à la fin du truc (si vous avez un max de carré vous êtes psychorigide de niveau >= 3, vous êtes un AS de la Glisse (badge Ass de la glisse avec un cul))-->
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+            <div id="mid_things" class="row_reserver">
+                <div class="row">
+                    <div class="col-3 nopadding" style="background:#ef4f4b">
+                        <div class="row nopadding">
+                            <div class="col-4">
+                                <!--<h1>Etape 2/3</h1>-->
+                                <img src="/images/booking/i5.jpg" class="img-fluid" alt="">
+                            </div>
+
+                            <div class="col-4" style="text-align:left; background:#bbe4e5">
+                                <img src="/images/booking/i4.jpg" class="img-fluid" alt="">
+
+                            </div>
+
+                            <div class="col-4" style="text-align: left;">
+                                <img src="/images/booking/i3.jpg" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9 padding20">
+                        <h1>Etape 2/3<br>
+                            <small>Choix des activités et des options</small>
+                        </h1>
+
+                        <form action="" id="reserver_form_2">
+                            <div class="form-group one-at-time active" id="one-">
+                                <label for="">Par quelles activités es-tu intéressé·e ? (Pas plus de 3 éléments
+                                    !)</label>
+                                {{> universeSelectize name="activities" id="activities"  options=activitiesOptions multiple=true create=false remove=true}}
+                                <small id="activities-error"></small>
+                            </div>
+                            {{#each allOptions}}
+                                <div class="form-group one-at-time" id="one-{{@index}}">
+                                    <h3>{{name}}</h3>
+                                    <label for="{{option_id}}">{{desc}}</label>
+                                    {{> universeSelectize name=option_id id=option_id  options=ChoicesOptions multiple=option_multiple create=false remove=true}}
+                                </div>
+                            {{/each}}
+                            <div class="form-group">
+                                <button class="btn btn-lg one-at-time-prev" disabled>Précédent</button>
+                                <input type="submit" value="Enregistrer"
+                                       class="one-at-time-next btn btn-lg btn-danger"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="last_things" class="row_reserver">
+                <div class="row">
+                    <div class="col-5 nopadding" style="background:#ef4f4b">
+                        <div class="row nopadding" style="background:#ef4f4b">
+                            <div class="col-3" style="background:#ef4f4b">
+                                <img src="/images/booking/i5.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="col-3 nopadding" style="text-align:left; background:#bbe4e5">
+                                <img src="/images/booking/i4.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="col-3 nopadding" style="text-align: left;">
+                                <img src="/images/booking/i3.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="col-3 nopadding" style="text-align: left;">
+                                <img src="/images/booking/i2.jpg" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 padding20">
+                        <h1>Etape 3/3<br>
+                            <small>Finalisation et Paiement</small>
+                        </h1>
+                        <p>
+                            Vous touchez au but !<br>
+                            <small>Heureusement que c'était bref hein... J'espère qu'on n'a pas perdu Bordel's en
+                                chemin...
+                            </small>
+                            <br>
+                            Vous pourrez retrouver un récapitulatif de votre commande dans votre <a>Dashboard</a>.
+                        </p>
+                        <p>
+                            Vous pouvez d'ores et déjà procéder au premier paiement pour voir votre commande validée et
+                            votre réservation effective.<br>
+                        </p>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Paiement</th>
+                                <th>Somme</th>
+                                <th>Echéance</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1<sup>er</sup> Paiement</td>
+                                <td>{{ toPay1 }} €</td>
+                                <td>{{ date_paiement1 }}</td>
+                            </tr>
+                            <tr>
+                                <td>2<sup>nd</sup> Paiement</td>
+                                <td>{{toPay2}} €</td>
+                                <td>{{date_paiement2}}</td>
+                            </tr>
+                            <tr>
+                                <td>3<sup>ème</sup> Paiement</td>
+                                <td>{{toPay3}} €</td>
+                                <td>{{date_paiement3}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <button class="btn btn-lg one-at-time-prev">Précédent pour éditer la commande</button>
+                        <button class="btn btn-lg btn-danger">Payer {{toPay1}} € pour confirmer la réservation</button>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </section>
+</template>

@@ -1,0 +1,33 @@
+<template name="showCountdown">
+{{#if ended}}
+
+    <!--<h1>The Deadline has Arrived ....</h1>-->
+
+{{else}}
+    <div class="count-wrap">
+        {{> countdown}}
+    </div>
+{{/if}}
+</template>
+
+<template name="countdown">
+    <h1 style="font-family:Karla; color:#fff; text-align: center">Le plus grand évènement de ski étudiant arrive !</h1>
+    <div id="clockdiv">
+        <div class="countdown-section">
+            <span class="days">{{t.days}}</span>
+            <div class="smalltext">Jours</div>
+        </div>
+        <div class="countdown-section">
+            <span class="hours">{{t.hours}}</span>
+            <div class="smalltext">Heures</div>
+        </div>
+        <div class="countdown-section">
+            <span class="minutes" {{attributes}}>{{t.minutes}}</span>
+            <div class="smalltext">Minutes</div>
+        </div>
+        <div class="countdown-section">
+            <span class="seconds">{{t.seconds}}</span>
+            <div class="smalltext">secondes</div>
+        </div>
+    </div>
+</template>

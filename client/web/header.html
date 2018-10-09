@@ -1,0 +1,220 @@
+<template name="HeaderTemplate">
+    <header class="main-header">
+        <ul class="menu">
+            <li class="menu__item" data-sub="home"><a href="/">Accueil</a></li>
+            <li class="menu__item" data-sub="event"><a href="#">L'évènement</a></li>
+            <li class="menu__item" data-sub="station"><a href="#">La Station</a></li>
+            <li class="menu__item" data-sub="booking"><a href="/reservations">Réservations</a></li>
+            {{#if isInRole 'admin' }}
+                <li class="menu__item" data-sub="admin"><a href="/admin">Administration</a></li>
+            {{/if}}
+
+            {{#if currentUser }}
+                <li class="menu__item" data-sub="dash"><a href="/dashboard">Dashboard</a></li>
+                <li class="menu__item" data-sub="logout"><a href="#" id="userLogout">Logout</a></li>
+
+            {{else}}
+                <li class="menu__item" data-sub="conne"><a href="#" data-toggle="modal" data-target="#logModal">Connexion</a></li>
+            {{/if}}
+        </ul>
+        <div class="dropdown2-holder">
+            <div class="dropdown2__arrow"></div>
+            <div class="dropdown2__bg">
+                <div class="dropdown2__bg-bottom"></div>
+            </div>
+            <div class="dropdown2__wrap">
+                <div class="dropdown2-menu" id="event" data-sub="event">
+                    <div class="dropdown2-menu__content">
+                        <div class="top-section">
+                            <ul>
+                                <li><a href="">Payment</a></li>
+                                <li><a href="">Connect</a></li>
+                                <li><a href="">Atlas</a></li>
+                            </ul>
+                        </div>
+                        <div class="bottom-section info">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit totam officia
+                                molestias</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown2-menu" id="station" data-sub="station">
+                    <div class="dropdown2-menu__content">
+                        <div class="top-section">
+                            <ul>
+                                <li><a href="">Payment</a></li>
+                                <li><a href="">Connect</a></li>
+                                <li><a href="">Atlas</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="bottom-section info">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit totam officia
+                                molestias</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown2-menu" data-sub="booking">
+                    <div class="dropdown2-menu__content">
+                        <div class="top-section">
+                            <ul>
+                                <li><a href="">Payment</a></li>
+                                <li><a href="">Connect</a></li>
+                                <li><a href="">Atlas</a></li>
+                            </ul>
+                        </div>
+                        <div class="bottom-section">
+                            <ul>
+                                <li><a href="">Payment</a></li>
+                                <li><a href="">Connect</a></li>
+                                <li><a href="">Atlas</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown2-menu" data-sub="connexion">
+                    <div class="dropdown2-menu__content">
+                        <div class="top-section">
+
+                        </div>
+                        <div class="bottom-section">
+                            Réserve dès maintenant ta place pour le 30e anniversaire d'SKZ!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Fenêtre de Connexion</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {{> atForm }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <script>
+        $(document).ready(function () {
+            let menuItems = [].slice.call(document.querySelectorAll('.menu__item')),
+                    menuSubs = [].slice.call(document.querySelectorAll('.dropdown2-menu')),
+                    selectedMenu = undefined,
+                    subBg = document.querySelector('.dropdown2__bg'),
+                    subBgBtm = document.querySelector('.dropdown2__bg-bottom'),
+                    subArr = document.querySelector('.dropdown2__arrow'),
+                    subCnt = document.querySelector('.dropdown2__wrap'),
+                    header = document.querySelector('.main-header'),
+                    closedropdown2Timeout,
+
+                    startCloseTimeout = function startCloseTimeout() {
+                        closedropdown2Timeout = setTimeout(function () {
+                            return closedropdown2();
+                        }, 50);
+                    },
+
+                    stopCloseTimeout = function stopCloseTimeout() {
+                        clearTimeout(closedropdown2Timeout);
+                    },
+
+                    opendropdown2 = function opendropdown2(el) {
+                        //- get menu ID
+                        let menuId = el.getAttribute('data-sub');
+                        //- get related sub menu
+                        let menuSub = document.querySelector('.dropdown2-menu[data-sub="' + menuId + '"]');
+                        //- get menu sub content
+                        let menuSubCnt = menuSub.querySelector('.dropdown2-menu__content');
+                        //- get bottom section of current sub
+                        let menuSubBtm = menuSubCnt.querySelector('.bottom-section').getBoundingClientRect();
+                        //- get height of top section
+                        let menuSubTop = menuSubCnt.querySelector('.top-section').getBoundingClientRect();
+                        //- get menu position
+                        let menuMeta = el.getBoundingClientRect();
+                        //- get sub menu position
+                        let subMeta = menuSubCnt.getBoundingClientRect();
+                        //- set selected menu
+                        selectedMenu = menuId;
+                        //- Remove active Menu
+                        menuItems.forEach(function (el) {
+                            return el.classList.remove('active');
+                        });
+                        //- Set current menu to active
+                        el.classList.add('active');
+                        //- Remove active sub menu
+                        menuSubs.forEach(function (el) {
+                            return el.classList.remove('active');
+                        });
+                        //- Set current menu to active
+                        menuSub.classList.add('active');
+                        //- Set dropdown2 menu background style to match current submenu style
+                        subBg.style.opacity = 1;
+                        subBg.style.left = menuMeta.left - (subMeta.width / 2 - menuMeta.width / 2) + 'px';
+                        subBg.style.width = subMeta.width + 'px';
+                        subBg.style.height = subMeta.height + 'px';
+                        //- Set dropdown2 menu bottom section background position
+                        subBgBtm.style.top = menuSubTop.height + 'px';
+                        console.log(menuSubBtm);
+                        //- Set Arrow position
+                        subArr.style.opacity = 1;
+                        subArr.style.left = menuMeta.left + menuMeta.width / 2 - 10 + 'px';
+                        //- Set sub menu style
+                        subCnt.style.opacity = 1;
+                        subCnt.style.left = menuMeta.left - (subMeta.width / 2 - menuMeta.width / 2) + 'px';
+                        subCnt.style.width = subMeta.width + 'px';
+                        subCnt.style.height = subMeta.height + 'px';
+                        //- Set current sub menu style
+                        menuSub.style.opacity = 1;
+                        header.classList.add('dropdown2-active');
+                    },
+                    closedropdown2 = function closedropdown2() {
+                        //- Remove active class from all menu items
+                        menuItems.forEach(function (el) {
+                            return el.classList.remove('active');
+                        });
+                        //- Remove active class from all sub menus
+                        menuSubs.forEach(function (el) {
+                            el.classList.remove('active');
+                            el.style.opacity = 0;
+                        });
+                        //- set sub menu background opacity
+                        subBg.style.opacity = 0;
+                        //- set arrow opacity
+                        subArr.style.opacity = 0;
+                        // unset selected menu
+                        selectedMenu = undefined;
+                        header.classList.remove('dropdown2-active');
+                    };
+            //- Binding mouse event to each menu items
+            menuItems.forEach(function (el) {
+                //- mouse enter event
+                el.addEventListener('mouseenter', function () {
+                    stopCloseTimeout();
+                    opendropdown2(this);
+                }, false);
+                //- mouse leave event
+                el.addEventListener('mouseleave', function () {
+                    return startCloseTimeout();
+                }, false);
+            });
+            //- Binding mouse event to each sub menus
+            menuSubs.forEach(function (el) {
+                el.addEventListener('mouseenter', function () {
+                    return stopCloseTimeout();
+                }, false);
+                el.addEventListener('mouseleave', function () {
+                    return startCloseTimeout();
+                }, false);
+            });
+        });
+    </script>
+</template>
+
