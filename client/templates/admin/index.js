@@ -4,6 +4,7 @@ import './home.html';
 import './buildings';
 import './options';
 import './activities';
+import './orders';
 // import 'chart.js';
 import {Config} from '../../../collections/config'
 import {Template} from "meteor/templating";

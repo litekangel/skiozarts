@@ -49,6 +49,11 @@ adminRoutes.route('/users', {
         BlazeLayout.render('AdminMainLayout', {main: 'userManagement'})
     }
 });
+adminRoutes.route('/orders', {
+    action() {
+        BlazeLayout.render('AdminMainLayout', {main: 'ordersTpl'})
+    }
+});
 adminRoutes.route('/activities', {
     action()  {
         BlazeLayout.render('AdminMainLayout', {main: 'activities'});

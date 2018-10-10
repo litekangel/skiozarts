@@ -1,6 +1,20 @@
 <template name="Dashboard">
-    {{#if admin}}
-        <h1 class="">Dashboard</h1>
+    {{#if currentUser }}
+        <section class="top">
+            {{>HeaderTemplate}}
+            <div class="row">
+                <div class="col-12">
+                    <article class="skz" style="max-width:50%; text-align: center; margin:auto; margin-top:50px;">
+                        <img src="/images/blancv.png" alt="" class="img-fluid">
+
+                        <!--skz arrive !-->
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="profil"></section>
+        <section class="commande"></section>
+
     {{else}}
         <h1>Accès non autorisé</h1>
     {{/if}}
