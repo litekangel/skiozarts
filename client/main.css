@@ -14,10 +14,71 @@ body {
   overflow-x: hidden;
   font-family: 'Noto Sans JP', sans-serif;
 }
+h1, h2, h3,h4, h5, h6 {
+  font-family: 'Karla', sans-serif;
+}
 section.top {
   background: url("/images/bg7.jpg") no-repeat fixed center;
   background-size:cover;
   padding-bottom: 50px;
+}
+.img-circle {
+  border-radius:50%;
+}
+.profile-img img {
+  margin:auto;
+  border-radius:50%;
+}
+.profile-row {
+  padding-top:50px;
+  padding-bottom:20px;
+  background:url(/images/topography.png) repeat fixed;
+  font-size:1.5em;
+}
+.ski-holidays {
+  background: url(/images/snow.jpg) no-repeat fixed;
+  background-size: cover;
+  /*min-height:540px;*/
+  text-align:center;
+  padding:20px;
+  color: #fff;
+  display:flex;
+  text-transform:uppercase;
+}
+.ski-holidays h1 {
+  width:100%;
+
+  text-align:left;
+  margin-top:150px;
+  margin-bottom:150px;
+  /*vertical-align:middle;*/
+  padding:auto;
+  font-size:3em;
+  font-weight:500;
+}
+.pg-holidays {
+  background: url(/images/pgs.jpg) no-repeat fixed;
+  background-size: cover;
+  /*min-height:540px;*/
+  /*text-align:center;*/
+  padding:20px;
+  color: #fff;
+  display:flex;
+  text-transform:uppercase;
+}
+.pg-holidays h1 {
+  width:100%;
+  text-align:right;
+  margin-top:150px;
+  margin-bottom:150px;
+  /*vertical-align:middle;*/
+  padding:auto;
+  font-size:3em;
+  font-weight:500;
+}
+.profile-row h2 {
+  font-size:2.5em;
+  margin-bottom:.25em;
 }
 .countdown-wrap {
   background: #d24855;

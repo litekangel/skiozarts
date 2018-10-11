@@ -1,0 +1,35 @@
+<template name="orderTpl">
+    <div class="card">
+        <div class="card-header">
+            <ul class="list-inline sort-ul">
+                <button class="btn list-inline-item btn-primary add-activity-btn">Ajouter une activité</button>
+                <button class="btn list-inline-item">Ranger par :</button>
+                <button class="btn list-inline-item sort-li" data-by="name">Nom</button>
+                <button class="btn list-inline-item sort-li" data-by="createdAt">Date de création</button>
+                <button class="btn list-inline-item sort-li" data-by="updatedAt">Dernière mise à jour</button>
+            </ul>
+        </div>
+    </div><br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Participant</th>
+            <th>Date de réservation</th>
+            <th>Montant à payer</th>
+            <th>Montant Payé</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each orders}}
+            <tr>
+                <td>{{userById}}</td>
+                <td>{{creation}}</td>
+                <td>{{toPay}} €</td>
+                <td>{{paid}} €</td>
+                <td><a href="#"><small class="badge badge-pill badge-danger">Voir la commande</small></a> <a href="#" class=""><small class="badge badge-pill badge-warning">Editer</small></a></td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</template>

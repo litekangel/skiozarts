@@ -5,8 +5,8 @@ import {Activities} from "../../../collections/activities";
 import {Options} from "../../../collections/options";
 import {Config} from "../../../collections/config";
 import {Template} from "meteor/templating";
-import  moment from "moment";
-import  "moment/locale/fr"
+import moment from "moment";
+import "moment/locale/fr"
 import '../../helpers';
 
 let setActivitiesOpts = function () {
@@ -48,47 +48,49 @@ let resumeOrder = function () {
         resume.date_paiement3 = config.date_paiement3;
 
     });
-    order.forEach(function (o) {
-        if(typeof o.activities !== 'undefined') {
-            o.activities.forEach(function (activities_id) {
-                activities.push(Activities.findOne(activities_id));
-            });
-            activities.forEach(function (act) {
-                if (parseFloat(act.price) > 0)
-                    addons += parseFloat(act.price);
-            });
-        }
+    // order.forEach(function (o) {
+    let o = {activities: Session.get('order_activities'), options: Session.get('order_options')};
+    console.log(o);
+    if (typeof o.activities !== 'undefined') {
+        o.activities.forEach(function (activities_id) {
+            activities.push(Activities.findOne(activities_id));
+        });
+        activities.forEach(function (act) {
+            if (parseFloat(act.price) > 0)
+                addons += parseFloat(act.price);
+        });
+    }
 
-        for (let option_id in o.options) {
-                let opt = Options.findOne(option_id);
-                let more = 0;
-                if (typeof opt !== 'undefined') {
-                    let choices = [];
-                    let prices = [];
-                    if (Array.isArray(o.options[option_id])) {
-                        for (let choice in o.options[option_id]) {
-                            choices.push(opt.choices[parseInt(choice)]);
-                            prices.push(opt.prices[parseInt(choice)]);
-                            more = parseFloat(opt.prices[parseInt(choice)]);
-                        }
-                    }
-                    else {
-                        choices.push(opt.choices[parseInt(o.options[option_id]) - 1]);
-                        prices.push(opt.prices[parseInt(o.options[option_id]) - 1]);
-                        more = parseFloat(opt.prices[parseInt(o.options[option_id]) - 1]);
-                    }
-                    addons = addons+more;
-                    options.push({name: opt.name, choices: choices, prices: prices})
+    for (let option_id in o.options) {
+        let opt = Options.findOne(option_id);
+        let more = 0;
+        if (typeof opt !== 'undefined') {
+            let choices = [];
+            let prices = [];
+            if (Array.isArray(o.options[option_id])) {
+                for (let choice in o.options[option_id]) {
+                    choices.push(opt.choices[parseInt(choice)]);
+                    prices.push(opt.prices[parseInt(choice)]);
+                    more = parseFloat(opt.prices[parseInt(choice)]);
                 }
+            }
+            else {
+                choices.push(opt.choices[parseInt(o.options[option_id]) - 1]);
+                prices.push(opt.prices[parseInt(o.options[option_id]) - 1]);
+                more = parseFloat(opt.prices[parseInt(o.options[option_id]) - 1]);
+            }
+            addons = addons + more;
+            options.push({name: opt.name, choices: choices, prices: prices})
         }
-    });
+    }
+    // });
     resume.toPay1 = Math.round10(toPay / 3);
     resume.toPay2 = Math.round10((2 * toPay / 3 + addons) / 2);
     resume.toPay3 = Math.round10((2 * toPay / 3 + addons) / 2);
 
     resume.options = options;
     resume.activities = activities;
-    for(let key in resume) {
+    for (let key in resume) {
         Session.set(key, resume[key]);
     }
     Session.set('resume_order', resume);
@@ -191,22 +193,22 @@ Template.ReserverTemplate.helpers({
     resume() {
         return [Session.get('order_resume')];
     },
-    toPay1(){
+    toPay1() {
         return Session.get('toPay1');
     },
-    toPay2(){
+    toPay2() {
         return Session.get('toPay2');
     },
-    toPay3(){
+    toPay3() {
         return Session.get('toPay3');
     },
-    date_paiement1(){
+    date_paiement1() {
         return Session.get('date_paiement1');
     },
-    date_paiement2(){
+    date_paiement2() {
         return Session.get('date_paiement2');
     },
-    date_paiement3(){
+    date_paiement3() {
         return Session.get('date_paiement3');
     },
     sumToPay() {
@@ -274,7 +276,10 @@ Template.ReserverTemplate.events({
         });
         order._id = this._id;
         // order.paid = 0;
-        Meteor.call('orders.update', order);
+        // Meteor.call('orders.update', order);
+        Session.set('order_activities', order.activities);
+        Session.set('order_options', order.options);
+
         resumeOrder();
 
         order.paiement1 = Session.get('toPay1');

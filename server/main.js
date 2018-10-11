@@ -38,3 +38,14 @@ AccountsTemplates.configure({
     onSubmitHook: mySubmitFunc,
     postSignUpHook: myPostSubmitFunc,
 });
+Meteor.settings = {
+    "cas": {
+        "baseUrl": "https://auth.gadz.org/cas",
+        "autoClose": true,
+        "validateUrl":"https://auth.gadz.org/cas/p3/serviceValidate",
+        "casVersion": 3.0,
+        "attributes": {
+            "debug" : true
+        }
+    },
+}

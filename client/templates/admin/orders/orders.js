@@ -3,7 +3,11 @@ import {Template} from 'meteor/templating';
 import {ReactiveDict} from 'meteor/reactive-dict';
 import  moment from "moment";
 import  "moment/locale/fr"
-import {Orders} from '../../../collections/orders';
+import './order.html';
+
+moment.locale('fr');
+moment().format('LLLL'); // jeudi 2 août 2018 09:56
+import {Orders} from '../../../../collections/orders';
 
 
 import './orders.html';
@@ -35,6 +39,7 @@ Template.ordersTpl.onCreated(function bodyOnCreated() {
 });
 Template.ordersTpl.rendered = function () {
     setLvlOpts();
+    moment.locale('fr')
     // $('.datepicker').datepicker();
     // $('#responsables').selectize({
     //     maxItems: 3
@@ -111,17 +116,18 @@ Template.ordersTpl.helpers({
         return parseFloat(this.paiement1)+parseFloat(this.paiement2)+parseFloat(this.paiement3);
     },
     paid() {
-        if (this.paid === 0)
-            return 0;
+
         if(this.paid ===1)
             return this.paiement1;
         if(this.paid ===2)
             return parseFloat(this.paiement1) + parseFloat(this.paiement2);
         if(this.paid ===3)
             return parseFloat(this.paiement1) + parseFloat(this.paiement2) + parseFloat(this.paiement3);
+
+        return "0";
     },
-    createdAt() {
-        return moment(this.createdAt);
+    creation() {
+        return moment(this.createdAt).format('LLL');
     },
     levelName() {
         let lvls = ["Débutant", "Intermédiaire", "Avancé"];
@@ -131,7 +137,7 @@ Template.ordersTpl.helpers({
         return 'value';
     },
     realDate() {
-        return moment(this.date);
+        return moment(this.date).format('LLL');
     },
     userOptions() {
         return Session.get('userOpts');
@@ -225,7 +231,7 @@ Template.ordersTpl.events({
         }
     },
 });
-Template.order.events({
+Template.ordersTpl.events({
     'click .toggle-checked'() {
         // Set the checked property to the opposite of its current value
         Orders.update(this._id, {

@@ -43,9 +43,13 @@ rajit:bootstrap3-datepicker
 rajit:bootstrap3-datepicker-fr
 staringatlights:fast-render
 juliancwirko:s-alert
+nimble:restivus
+simple:rest
 juliancwirko:s-alert-jelly
 atoy40:accounts-cas
 random
+http
+meteorhacks:picker
 
 
 # vital packages

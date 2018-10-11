@@ -1,17 +1,21 @@
-import './userManagement';
+import './userManagement/userManagement';
 import './index.html';
 import './home.html';
-import './buildings';
-import './options';
-import './activities';
-import './orders';
+import './buildings/buildings';
+import './options/options';
+import './activities/activities';
+import './orders/orders';
 // import 'chart.js';
+import  "moment/locale/fr"
+moment.locale('fr');
+moment().format('L'); // jeudi 2 août 2018 09:56
 import {Config} from '../../../collections/config'
 import {Template} from "meteor/templating";
 import {Meteor} from "meteor/meteor";
 
 Template.AdminHome.onCreated(function bodyOnCreated() {
     Meteor.subscribe('config');
+    Meteor.subscribe('uDatas');
 
     this.autorun(() => {
         const configHandler = this.subscribe('config');
@@ -40,6 +44,9 @@ Template.AdminHome.helpers({
         $('.datepicker').datepicker();
 
         return Config.find({});
+    },
+    mo(date){
+        return moment(date).format('L');
     },
     is_it_open(value) {
         if(this.is_open === value) {

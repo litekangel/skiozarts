@@ -3,7 +3,9 @@ import {Template} from 'meteor/templating';
 import {ReactiveDict} from 'meteor/reactive-dict';
 import  moment from "moment";
 import  "moment/locale/fr"
-import {Activities} from '../../../collections/activities';
+moment.locale('fr');
+moment().format('LLLL'); // jeudi 2 août 2018 09:56
+import {Activities} from '../../../../collections/activities';
 
 
 import './activities.html';
@@ -35,6 +37,8 @@ Template.activities.onCreated(function bodyOnCreated() {
 });
 Template.activities.rendered = function () {
     setLvlOpts();
+    moment.locale('fr');
+
     $('.datepicker').datepicker();
     $('#responsables').selectize({
         maxItems: 3
@@ -114,7 +118,7 @@ Template.activities.helpers({
         return 'value';
     },
     realDate() {
-        return moment(this.date);
+        return moment(this.date).format('LLL');
     },
     userOptions() {
         return Session.get('userOpts');

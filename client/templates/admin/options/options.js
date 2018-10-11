@@ -1,7 +1,7 @@
 import './options.html';
 import {Template} from "meteor/templating";
 import {Meteor} from "meteor/meteor";
-import {Options} from "../../../collections/options";
+import {Options} from "../../../../collections/options";
 
 Template.Options.onCreated(function bodyOnCreated() {
     this.state = new ReactiveDict();

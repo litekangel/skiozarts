@@ -1,12 +1,15 @@
-
 import './css/header.css';
 import './header.html';
 import './countdown';
 import './index.html';
 import './register.html';
+import {UDatas} from '../../collections/oneid';
 
 Template.HeaderTemplate.helpers({});
-
+Template.HeaderTemplate.onCreated(function () {
+    // this.autorun()
+    Meteor.subscribe('uDatas')
+});
 Template.HeaderTemplate.events({
     "click #userLogout"(event,instance){
         Meteor.logout(function(){
@@ -32,12 +35,32 @@ Template.RegisterTemplate.events({
         $('.row_register').hide(500);
         $('#no_gadz').show(500);
     },
+});
+Template.HeaderTemplate.events({
     'click .gadzAuth'(event, instance) {
-        Meteor.loginWithCas(function() {
+        Meteor.loginWithCas(function(p1, p2) {
+            console.log(p1);
+            console.log(p2);
+            console.log(Meteor.user());
+            if(Meteor.user().profile.name !== Meteor.user().profile.auth) {
+                let name = Meteor.user().profile.name;
+                let data = UDatas.find({auth: name});
+                if (data.count() > 0) {
+                    data.forEach(function (u) {
+                        console.log(u);
+                        u.name = name;
+                        Meteor.users.update({_id: Meteor.userId()}, {$set: {"profile": u}});
+                    });
+                } else {
+                    Meteor.logout();
+                    sAlert.error("Connexion échouée, vous n'êtes pas inscrit !");
+                }
+            }
+            // Il serait question d'associer la réponse du login à une instance bdd;
             console.log("launched du sale");
         });
     }
-})
+});
 
 // Template.HeaderTemplate.events({
 //     'click .menu__item'(event, instance) {

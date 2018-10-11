@@ -24,10 +24,10 @@
         {{#each orders}}
             <tr>
                 <td>{{userById}}</td>
-                <td>{{createdAt}}</td>
+                <td>{{creation}}</td>
                 <td>{{toPay}} €</td>
                 <td>{{paid}} €</td>
-                <td><a href="#" class="badge badge-pill badge-danger">Voir la commande</a><a href="#" class="badge badge-pill badge-warning">Editer</a></td>
+                <td><a href="#"><small class="badge badge-pill badge-danger">Voir la commande</small></a> <a href="#" class=""><small class="badge badge-pill badge-warning">Editer</small></a></td>
             </tr>
             {{/each}}
         </tbody>

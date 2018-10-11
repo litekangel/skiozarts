@@ -1,10 +1,17 @@
 <template name="Dashboard">
+    <style>
+        section.top {
+            background: url("/images/booking/bg7.png") no-repeat fixed center;
+            background-size: cover;
+            padding-bottom: 50px;
+        }
+    </style>
     {{#if currentUser }}
         <section class="top">
             {{>HeaderTemplate}}
             <div class="row">
                 <div class="col-12">
-                    <article class="skz" style="max-width:50%; text-align: center; margin:auto; margin-top:50px;">
+                    <article class="skz" style="max-width:10%; text-align: center; margin:auto; margin-top:50px;">
                         <img src="/images/blancv.png" alt="" class="img-fluid">
 
                         <!--skz arrive !-->
@@ -12,7 +19,35 @@
                 </div>
             </div>
         </section>
-        <section class="profil"></section>
+
+        <section class="profil">
+            <div class="row profile-row" style="">
+                <div class="col-2 profile-img" style="text-align:center">
+                    <img src="/images/avatar/5.jpg" alt="" class="img-fluid img-circle">
+                </div>
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Dashboard</h2>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            Nom: Delafuentès Me199 dit Francis Bacon<br>
+                            Téléphone: 0767468278<br>
+                            Adresse: 12 rue Pinel 75013 Paris
+                        </div>
+                        <div class="col-6">
+                            Mon contact: Francis Bacon<br>
+                            Téléphone: 0611464275<br>
+                            Adresse: 12 rue Pinel 75013 Paris
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="commande"></section>
 
     {{else}}

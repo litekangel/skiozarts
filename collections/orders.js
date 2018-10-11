@@ -34,6 +34,10 @@ Meteor.methods({
                 sports: order.sports,
                 options: order.options,
                 activities: order.activities,
+                paiement1: order.paiement1,
+                paiement2: order.paiement2,
+                paiement3: order.paiement3,
+
                 // createdAt: new Date(),
                 updatedAt: new Date(),
                 editor: Meteor.userId(),

@@ -2,8 +2,8 @@ import {Meteor} from "meteor/meteor";
 import {Template} from "meteor/templating";
 import moment from "moment";
 import "moment/locale/fr"
-import {Buildings} from '../../../collections/buildings';
-import {Rooms} from '../../../collections/rooms';
+import {Buildings} from '../../../../collections/buildings';
+import {Rooms} from '../../../../collections/rooms';
 
 
 import './buildings.html';

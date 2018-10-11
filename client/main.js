@@ -11,7 +11,7 @@ Meteor.startup(function () {
     sAlert.config({
         effect: 'jelly',
         position: 'top-right',
-        timeout: 5000,
+        timeout: 3000,
         html: false,
         onRouteClose: true,
         stack: true,
@@ -30,7 +30,7 @@ Meteor.startup(function () {
         //     success: '/beep-success.mp3',
         //     warning: '/beep-warning.mp3'
         // }
-        onClose: _.noop //
+        // onClose: _.noop //
         // examples:
         // onClose: function() {
         //     /* Code here will be executed once the alert closes. */
@@ -38,3 +38,14 @@ Meteor.startup(function () {
     });
 
 });
+Meteor.settings = {
+    "public": {
+        "cas": {
+            "loginUrl": "https://auth.gadz.org/cas/login",
+            "serviceParam": "service",
+            "popupWidth": 810,
+            "popupHeight": 610,
+            "popup": true,
+        }
+    }
+};
