@@ -3,7 +3,11 @@
         section.top {
             background: url("/images/booking/bg7.png") no-repeat fixed center;
             background-size: cover;
-            padding-bottom: 50px;
+            padding-bottom: 30px;
+        }
+
+        body {
+            background: #ecf0f1;
         }
     </style>
     {{#if currentUser }}
@@ -11,9 +15,8 @@
             {{>HeaderTemplate}}
             <div class="row">
                 <div class="col-12">
-                    <article class="skz" style="max-width:10%; text-align: center; margin:auto; margin-top:50px;">
+                    <article class="skz" style="max-width:15%; text-align: center; margin:auto; margin-top:50px;">
                         <img src="/images/blancv.png" alt="" class="img-fluid">
-
                         <!--skz arrive !-->
                     </article>
                 </div>
@@ -28,27 +31,94 @@
                 <div class="col-10">
                     <div class="row">
                         <div class="col-12">
-                            <h2>Dashboard</h2>
+                            <h2>Dashboard - {{userName}}</h2>
                             <hr>
                         </div>
                     </div>
+                    {{#with currentUser}}
+                        {{#with profile}}
+                            <div class="row">
+                                <div class="col-6">
+                                    <p><i class="fa fa-at"></i> {{email}}</p>
+                                    <p><i class="fa fa-phone"></i> {{phone}}</p>
+                                    <p><i class="fa fa-map"></i> {{adresse}} {{cp}} {{ville}}</p>
+                                </div>
+                                {{#with emergency}}
+                                    <div class="col-6">
 
-                    <div class="row">
-                        <div class="col-6">
-                            Nom: Delafuentès Me199 dit Francis Bacon<br>
-                            Téléphone: 0767468278<br>
-                            Adresse: 12 rue Pinel 75013 Paris
-                        </div>
-                        <div class="col-6">
-                            Mon contact: Francis Bacon<br>
-                            Téléphone: 0611464275<br>
-                            Adresse: 12 rue Pinel 75013 Paris
-                        </div>
-                    </div>
+                                        <p><i class="fa fa-shield"
+                                              title="Nom de votre contact en cas d'urgence"></i> {{prenom}} {{nom}}</p>
+                                        <p><i class="fa fa-phone"
+                                              title="Téléphone de votre contact en cas d'urgence"></i> {{phone}}</p>
+                                        <p><i class="fa fa-map"
+                                              title="Adresse de votre contact en cas d'urgence"></i> {{adresse}} {{cp}} {{ville}}
+                                        </p>
+                                    </div>
+                                {{/with}}
+                            </div>
+                        {{/with}}
+                    {{/with}}
                 </div>
             </div>
         </section>
-        <section class="commande"></section>
+        <section class="commande-section">
+            <div class="row">
+                {{#if hasOrder}}
+                    <div class="col-8 offset-2">
+                    {{#with order }}
+                        <h1>Récapitulatif de commande</h1>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Paiement</th>
+                                <th>Somme</th>
+                                <th>Echéance</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1<sup>er</sup> Paiement</td>
+                                <td>{{ paiement1 }} €</td>
+                                <td>{{ date_paiement1 }}</td>
+                            </tr>
+                            <tr>
+                                <td>2<sup>nd</sup> Paiement</td>
+                                <td>{{paiement2}} €</td>
+                                <td>{{date_paiement2}}</td>
+                            </tr>
+                            <tr>
+                                <td>3<sup>ème</sup> Paiement</td>
+                                <td>{{paiement3}} €</td>
+                                <td>{{date_paiement3}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {{/with}}
+                    {{#with activities}}
+                        <h1>Mes activités sélectionnées</h1>
+                        {{#each activities}}
+                            <button class="btn">{{name}}</button>
+                        {{/each}}
+                    {{/with}}
+                    {{#with options}}
+                        <h1>Mes options & packs sélectionnées</h1>
+                        {{#each options}}
+                            <button class="btn btn-lg">{{name}}</button>
+                        {{/each}}
+                    {{/with}}
+                    </div>
+                {{else}}
+                    <div class="col-12" style="text-align:center">
+                        <h1>C'est Triste</h1>
+                        <p>Nous n'avons trouvé aucune réservation à votre nom pour SKZ 2019</p>
+                        <p>Vous pouvez ne pas en faire si vous n'aimez pas les gens et que vous penser que la branlette
+                            et les grottes, c'est l'avenir de l'humanité !</p>
+                        <p>Sinon, vous pouvez violemment cliquer sur ce bouton</p>
+                        <a href="/reserver" class="btn btn-lg btn-danger">Je résèrve ma place pour SKZ 2019</a>
+                    </div>
+                {{/if}}
+            </div>
+        </section>
 
     {{else}}
         <h1>Accès non autorisé</h1>

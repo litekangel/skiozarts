@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8c6f3c29-a381-43bb-adab-d03053e46b58" name="Default Changelist" comment="" />
+    <list default="true" id="8c6f3c29-a381-43bb-adab-d03053e46b58" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/templates/accounts/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/templates/accounts/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/templates/accounts/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/templates/accounts/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/templates/accounts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/templates/accounts/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/routes.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -17,7 +24,7 @@
         <counts>
           <entry key="project.closed" value="10" />
           <entry key="project.open.time.10" value="2" />
-          <entry key="project.open.time.11" value="3" />
+          <entry key="project.open.time.11" value="4" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.15" value="1" />
@@ -25,14 +32,14 @@
           <entry key="project.open.time.166" value="1" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="13" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="13" />
-          <entry key="html" value="73" />
-          <entry key="js" value="114" />
+          <entry key="css" value="14" />
+          <entry key="html" value="75" />
+          <entry key="js" value="120" />
           <entry key="json" value="3" />
           <entry key="packages" value="16" />
           <entry key="rb" value="2" />
@@ -43,10 +50,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="13" />
-          <entry key="HTML" value="74" />
+          <entry key="CSS" value="14" />
+          <entry key="HTML" value="76" />
           <entry key="JSON" value="3" />
-          <entry key="JavaScript" value="114" />
+          <entry key="JavaScript" value="120" />
           <entry key="PLAIN_TEXT" value="18" />
           <entry key="SCSS" value="1" />
           <entry key="TypeScript" value="1" />
@@ -54,19 +61,19 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="2536" />
-          <entry key="html" value="13605" />
-          <entry key="js" value="19097" />
+          <entry key="css" value="2679" />
+          <entry key="html" value="14994" />
+          <entry key="js" value="19916" />
           <entry key="json" value="4" />
           <entry key="packages" value="111" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="2536" />
-          <entry key="HTML" value="13605" />
+          <entry key="CSS" value="2679" />
+          <entry key="HTML" value="14994" />
           <entry key="JSON" value="4" />
-          <entry key="JavaScript" value="19097" />
+          <entry key="JavaScript" value="19916" />
           <entry key="PLAIN_TEXT" value="111" />
         </counts>
       </usages-collector>
@@ -75,19 +82,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/templates/admin/orders/order.html">
+        <entry file="file://$PROJECT_DIR$/client/web/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="12" column="30" lean-forward="true" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+            <state relative-caret-position="177">
+              <caret line="40" column="46" lean-forward="true" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -95,48 +93,54 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/templates/accounts/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="123" column="12" selection-start-line="123" selection-start-column="12" selection-end-line="123" selection-end-column="49" />
-              <folding>
-                <element signature="e#0#48#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-2749">
+              <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/routes.js">
+        <entry file="file://$PROJECT_DIR$/client/templates/accounts/dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="36" column="15" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="36" selection-end-column="15" />
+            <state relative-caret-position="474">
+              <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
               <folding>
-                <element signature="e#0#59#0" expanded="true" />
-                <element signature="e#1178#2095#0" />
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/web/index.js">
+        <entry file="file://$PROJECT_DIR$/client/templates/accounts/dashboard.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="55" column="78" selection-start-line="55" selection-start-column="78" selection-end-line="55" selection-end-column="78" />
+            <state relative-caret-position="252">
+              <caret line="92" column="55" selection-start-line="92" selection-start-column="55" selection-end-line="92" selection-end-column="55" />
               <folding>
-                <element signature="e#1#27#0" expanded="true" />
+                <element signature="n#style#0;n#article#0;n#div#0;n#div#0;n#section#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#section#2;n#template#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/templates/accounts/dashboard.html">
+        <entry file="file://$PROJECT_DIR$/client/templates/user/reserver.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-437">
-              <caret line="11" column="29" lean-forward="true" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+            <state relative-caret-position="241">
+              <caret line="84" column="5" lean-forward="true" selection-start-line="32" selection-start-column="4" selection-end-line="84" selection-end-column="5" />
               <folding>
-                <element signature="n#style#0;n#article#0;n#div#0;n#div#0;n#section#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="e#0#25#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/helpers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="494">
+              <caret line="31" column="1" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -144,8 +148,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+            <state relative-caret-position="482">
+              <caret line="99" column="15" selection-start-line="99" selection-start-column="15" selection-end-line="99" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -153,34 +157,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/templates/user/reserver.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="12" column="108" lean-forward="true" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="108" />
-              <folding>
-                <element signature="n#style#0;n#article#0;n#div#0;n#div#0;n#section#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="782">
+              <caret line="208" column="32" lean-forward="true" selection-start-line="183" selection-start-column="24" selection-end-line="208" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Dropbox/skz/client/web/index.html">
+        <entry file="file://$PROJECT_DIR$/client/web/css/header.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="36" column="14" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="36" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/web/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="667">
-              <caret line="214" column="47" selection-start-line="214" selection-start-column="47" selection-end-line="214" selection-end-column="47" />
-              <folding>
-                <element signature="n#style#0;n#section#4;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#section#2;n#template#0;n#!!top" />
-                <element signature="n#style#0;n#section#5;n#template#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="269">
+              <caret line="204" column="4" lean-forward="true" selection-start-line="204" selection-start-column="4" selection-end-line="204" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -198,8 +185,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>name=&quot;(.*?)&quot;</find>
-      <find>button</find>
       <find>option</find>
       <find>userO</find>
       <find>setuser</find>
@@ -228,9 +213,10 @@
       <find>login</find>
       <find>sA</find>
       <find>sAl</find>
+      <find>reser</find>
+      <find>strong</find>
     </findStrings>
     <replaceStrings>
-      <replace>offset</replace>
       <replace>.css(&quot;opacity&quot;, $1)</replace>
       <replace>.css(&quot;opacity&quot;, $1);</replace>
       <replace>.offset()</replace>
@@ -260,6 +246,7 @@
       <replace>Activities</replace>
       <replace>activities</replace>
       <replace>order</replace>
+      <replace>h</replace>
     </replaceStrings>
     <dirStrings>
       <dir>A:\skiozarts\client\templates\accounts</dir>
@@ -272,12 +259,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/templates/errors/forbidden.html" />
-        <option value="$PROJECT_DIR$/client/templates/errors/index.js" />
         <option value="Z:/SKZ/server/main.js" />
         <option value="$PROJECT_DIR$/client/web/countdown.js" />
         <option value="$PROJECT_DIR$/client/main.html" />
-        <option value="$PROJECT_DIR$/client/templates/accounts/index.js" />
         <option value="$PROJECT_DIR$/settings.json" />
         <option value="$PROJECT_DIR$/client/web/register.html" />
         <option value="$PROJECT_DIR$/collections/buildings.js" />
@@ -298,9 +282,7 @@
         <option value="$PROJECT_DIR$/collections/options.js" />
         <option value="$PROJECT_DIR$/client/templates/admin/options.html" />
         <option value="$PROJECT_DIR$/client/templates/admin/options.js" />
-        <option value="$PROJECT_DIR$/client/helpers.js" />
         <option value="$PROJECT_DIR$/client/templates/admin/activities.html" />
-        <option value="$PROJECT_DIR$/client/templates/user/reserver.html" />
         <option value="$PROJECT_DIR$/client/templates/admin/commandes.html" />
         <option value="$PROJECT_DIR$/client/templates/admin/index.html" />
         <option value="$PROJECT_DIR$/client/templates/user/reserver.js" />
@@ -318,11 +300,16 @@
         <option value="$PROJECT_DIR$/client/templates/admin/orders/order.html" />
         <option value="$PROJECT_DIR$/client/templates/admin/orders/orders.js" />
         <option value="$PROJECT_DIR$/client/web/index.html" />
-        <option value="$PROJECT_DIR$/client/main.css" />
-        <option value="$PROJECT_DIR$/client/templates/accounts/dashboard.html" />
-        <option value="$PROJECT_DIR$/imports/routes.js" />
         <option value="$PROJECT_DIR$/client/main.js" />
         <option value="$PROJECT_DIR$/client/web/index.js" />
+        <option value="$PROJECT_DIR$/client/templates/user/reserver.html" />
+        <option value="$PROJECT_DIR$/imports/routes.js" />
+        <option value="$PROJECT_DIR$/client/templates/accounts/index.js" />
+        <option value="$PROJECT_DIR$/client/helpers.js" />
+        <option value="$PROJECT_DIR$/client/templates/admin/activities/activities.js" />
+        <option value="$PROJECT_DIR$/client/main.css" />
+        <option value="$PROJECT_DIR$/client/templates/accounts/dashboard.js" />
+        <option value="$PROJECT_DIR$/client/templates/accounts/dashboard.html" />
       </list>
     </option>
   </component>
@@ -386,7 +373,36 @@
               <item name="skiozarts" type="b2602c69:ProjectViewProjectNode" />
               <item name="skiozarts" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="skiozarts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="skiozarts" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="activities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="skiozarts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="skiozarts" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="skiozarts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="skiozarts" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="skiozarts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="skiozarts" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="skiozarts" type="b2602c69:ProjectViewProjectNode" />
@@ -490,17 +506,18 @@
       <workItem from="1538733316727" duration="3027000" />
       <workItem from="1538991151411" duration="25534000" />
       <workItem from="1539162732089" duration="24304000" />
+      <workItem from="1539292597261" duration="4899000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="192179000" />
+    <option name="totallyTimeSpent" value="197078000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13272922" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1337953" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -521,7 +538,7 @@
       <window_info anchor="right" id="Remote Host" order="3" weight="0.23560767" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17857143" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1337953" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -535,7 +552,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32929516" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="File Transfer" order="11" weight="0.32929516" />
+      <window_info anchor="bottom" id="File Transfer" order="11" visible="true" weight="0.32929516" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -618,13 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/web/css/header.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4669">
-          <caret line="203" column="20" selection-start-line="203" selection-start-column="20" selection-end-line="203" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.deploy/settings.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -649,37 +659,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/accounts/dashboard.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/helpers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/collections/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/user/reserver.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/admin/userManagement/userManagement.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/admin/userManagement/userManagement.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-150">
-          <caret line="1" column="29" lean-forward="true" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -718,9 +701,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
           <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -759,9 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="908">
           <caret line="49" column="31" selection-start-line="49" selection-start-column="31" selection-end-line="49" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -779,20 +756,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/admin/activities/activities.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" selection-start-line="4" selection-end-line="6" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/templates/admin/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-46">
           <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -839,20 +806,15 @@
     </entry>
     <entry file="file://$USER_HOME$/Dropbox/skz/client/web/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="36" column="14" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="36" selection-end-column="14" />
+        <state relative-caret-position="828">
+          <caret line="36" column="14" selection-start-line="31" selection-start-column="4" selection-end-line="36" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/web/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
+        <state relative-caret-position="4922">
           <caret line="214" column="47" selection-start-line="214" selection-start-column="47" selection-end-line="214" selection-end-column="47" />
-          <folding>
-            <element signature="n#style#0;n#section#4;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#section#2;n#template#0;n#!!top" />
-            <element signature="n#style#0;n#section#5;n#template#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -863,67 +825,114 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/accounts/index.js">
+    <entry file="file://$PROJECT_DIR$/client/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="123" column="12" selection-start-line="123" selection-start-column="12" selection-end-line="123" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="115">
+          <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/user/reserver.html">
+    <entry file="file://$PROJECT_DIR$/client/templates/admin/userManagement/userManagement.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="108" lean-forward="true" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="108" />
-          <folding>
-            <element signature="n#style#0;n#article#0;n#div#0;n#div#0;n#section#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/templates/accounts/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-437">
-          <caret line="11" column="29" lean-forward="true" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#article#0;n#div#0;n#div#0;n#section#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="23">
+          <caret line="1" column="29" lean-forward="true" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="36" column="15" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="36" selection-end-column="15" />
+        <state relative-caret-position="207">
+          <caret line="75" column="35" lean-forward="true" selection-start-line="75" selection-start-column="35" selection-end-line="75" selection-end-column="35" />
           <folding>
             <element signature="e#0#59#0" expanded="true" />
-            <element signature="e#1178#2095#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="12" column="30" lean-forward="true" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/web/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="55" column="78" selection-start-line="55" selection-start-column="78" selection-end-line="55" selection-end-column="78" />
+        <state relative-caret-position="177">
+          <caret line="40" column="46" lean-forward="true" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/web/css/header.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="204" column="4" lean-forward="true" selection-start-line="204" selection-start-column="4" selection-end-line="204" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="482">
+          <caret line="99" column="15" selection-start-line="99" selection-start-column="15" selection-end-line="99" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/helpers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="31" column="1" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/admin/activities/activities.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="46" selection-start-line="46" selection-end-line="58" selection-end-column="2" />
           <folding>
-            <element signature="e#1#27#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/admin/userManagement/userManagement.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-345" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/accounts/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2749">
+          <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/user/reserver.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="208" column="32" lean-forward="true" selection-start-line="183" selection-start-column="24" selection-end-line="208" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/user/reserver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="84" column="5" lean-forward="true" selection-start-line="32" selection-start-column="4" selection-end-line="84" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/accounts/dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/templates/accounts/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="92" column="55" selection-start-line="92" selection-start-column="55" selection-end-line="92" selection-end-column="55" />
+          <folding>
+            <element signature="n#style#0;n#article#0;n#div#0;n#div#0;n#section#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#section#2;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

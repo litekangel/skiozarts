@@ -1,7 +1,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import './register.js';
 import './login.html';
-import './dashboard.html';
+import './dashboard.js';
 import './override-atInput.js';
 // var mySubmitFunc = function(error, state){
 //     if (!error) {

@@ -75,7 +75,7 @@ if (typeof WebApp.connectHandlers !== 'undefined') {
                 profile.tbk = qp.tbk.replace("'", "").toLowerCase();
             profile.emergency = {};
             profile.oneid = qp.oneid;
-            profile.emergency.name = qp.emergency_family_name;
+            profile.emergency.nom = qp.emergency_family_name;
             profile.emergency.prenom = qp.emergency_given_name;
             profile.emergency.phone = qp.emergency_phone_number;
             profile.emergency.adresse = qp.emergency_street_address;
