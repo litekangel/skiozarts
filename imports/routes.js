@@ -1,26 +1,7 @@
 import {FlowRouter} from 'meteor/ostrio:flow-router-extra';
 import {BlazeLayout} from 'meteor/kadira:blaze-layout';
-import {Restivus} from 'meteor/nimble:restivus';
 import {UDatas} from '../collections/oneid';
 
-// if (Meteor.isServer) {
-//
-// Global API configuration
-
-
-// HTTP.post("/methods", {
-//     data: [2, 2]
-// }, function (err, res) {
-//     this.setHttpStatusCode(201);
-//     console.log(res); // 4
-// });
-// Listen to incoming HTTP requests (can only be used on the server).
-// Picker.route('/post/:_id', function(params, req, res, next) {
-//     var post = Posts.findOne(params._id);
-//     res.end(post.content);
-// });
-// if(Meteor.absoluteUrl().indexOf('user-generator') !== -1) {
-// FlowRouter.wait();
 if (typeof WebApp.connectHandlers !== 'undefined') {
     WebApp.connectHandlers.use('/user-generator', (req, res, next) => {
         res.writeHead(200);
@@ -28,7 +9,7 @@ if (typeof WebApp.connectHandlers !== 'undefined') {
         let profile = {};
         // console.log(req);
         if (req.method.toLowerCase() === 'post') {
-            console.log(req.body);
+            console.log(req);
 
             let qp = req.body;
             // Meteor.subscribe('uDatas');
@@ -58,7 +39,6 @@ if (typeof WebApp.connectHandlers !== 'undefined') {
                 "emergency_locality": "Viroflay",
                 "oneid": "5w5nDp0h2LBNLh78"
             };
-            // console.log(qp);
             let user = {};
             user.email = qp.email;
             profile.nom = qp.family_name;
@@ -94,9 +74,13 @@ if (typeof WebApp.connectHandlers !== 'undefined') {
             Meteor.call('uDatas.insert', profile);
         }
 
-        res.end(`Chattnère  ${far}`);
+        res.end(`Le retour est positif`);
     });
 }
+
+
+
+
 FlowRouter.route('/', {
     action() {
         BlazeLayout.render('MainLayout', {main: 'webTemplate'});
@@ -109,13 +93,25 @@ FlowRouter.route('/register', {
 });
 FlowRouter.route('/reserver', {
     action() {
-        BlazeLayout.render('MainLayout', {main: 'ReserverTemplate'});
+        BlazeLayout.render('MainLayout', {main: 'ReserverTemplate', user_id: Meteor.userId(), step: 0});
     }
 });
 
 FlowRouter.route('/dashboard', {
     action() {
         BlazeLayout.render('MainLayout', {main: 'Dashboard'});
+    }
+});
+FlowRouter.route('/order/edit/:step', {
+    action(params) {
+        console.log(params);
+
+        BlazeLayout.render('MainLayout', {main: 'ReserverTemplate', user_id: Meteor.userId(), step:params.step});
+    }
+});
+FlowRouter.route('/dashboard/edit', {
+    action() {
+        BlazeLayout.render('MainLayout', {main: 'UserEdit'});
     }
 });
 FlowRouter.route('/forbidden', {
@@ -139,7 +135,19 @@ adminRoutes.route('/', {
         BlazeLayout.render('AdminMainLayout', {main: 'AdminHome'})
     }
 });
-
+adminRoutes.route('/users/:id/edit', {
+    action(params) {
+        console.log("béton");
+        console.log(params);
+        BlazeLayout.render('AdminMainLayout', {main: 'Dashboard', user_id:params.id})
+    }
+});
+adminRoutes.route('/users/:id', {
+    action(params) {
+        console.log(params);
+        BlazeLayout.render('AdminMainLayout', {main: 'ProfileTpl', user_id:params.id})
+    }
+});
 adminRoutes.route('/users', {
     action() {
         BlazeLayout.render('AdminMainLayout', {main: 'userManagement'})
@@ -170,5 +178,13 @@ adminRoutes.route('/options', {
 adminRoutes.route('/logements', {
     action() {
         BlazeLayout.render('AdminMainLayout', {main: 'Buildings'});
+    }
+});
+
+
+// Errors
+FlowRouter.route('*', {
+    action: function() {
+        BlazeLayout.render('MainLayout', {main: '404'});
     }
 });

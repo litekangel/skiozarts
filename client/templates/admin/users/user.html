@@ -1,27 +1,26 @@
-<template name="Dashboard">
+<template name="ProfileTpl">
     <style>
         section.top {
             background: url("/images/booking/bg7.png") no-repeat fixed center;
             background-size: cover;
             padding-bottom: 30px;
         }
-
-        .menu a {
-            color: #333;
+        .content.mt-3 {
+            margin: 0rem !important;
+        }
+        .commande-section {
+            padding:20px;
         }
 
         body {
             background: #ecf0f1;
         }
-
         .profil i {
-            color: #333;
+            color:#333;
         }
     </style>
-    {{#if currentUser }}
+    {{#if user_id }}
         <section class="profil">
-            {{>HeaderTemplate}}
-
             <div class="row profile-row" style="">
                 <div class="col-2 profile-img" style="text-align:center">
                     <img src="/images/avatar/5.jpg" alt="" class="img-fluid img-circle">
@@ -29,14 +28,14 @@
                 <div class="col-10">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="same-liner">
-                                <span class="same-line">Dashboard</span><br>
+                            <h2 class="same-liner" style="width:100%;">
+                                <span class="same-line">Edition utilisateur - mode admin</span><br>
                                 <span class="same-line">{{userName}}</span>
                             </h2>
                             <hr>
                         </div>
                     </div>
-                    {{#with currentUser}}
+                    {{#with thisUser}}
                         {{#with profile}}
                             <div class="row same-liner-infos">
                                 <div class="col-6 same-line">
@@ -46,13 +45,12 @@
                                 </div>
                                 {{#with emergency}}
                                     <div class="col-6 same-line">
-
                                         <span><i class="fa fa-shield"
-                                                 title="Nom de votre contact en cas d'urgence"></i> {{prenom}} {{nom}}</span>
+                                              title="Nom de votre contact en cas d'urgence"></i> {{prenom}} {{nom}}</span>
                                         <span><i class="fa fa-phone"
-                                                 title="Téléphone de votre contact en cas d'urgence"></i> {{phone}}</span><br>
+                                              title="Téléphone de votre contact en cas d'urgence"></i> {{phone}}</span><br>
                                         <span><i class="fa fa-map"
-                                                 title="Adresse de votre contact en cas d'urgence"></i> {{adresse}} {{cp}} {{ville}}
+                                              title="Adresse de votre contact en cas d'urgence"></i> {{adresse}} {{cp}} {{ville}}
                                         </span>
                                     </div>
                                 {{/with}}
@@ -65,23 +63,16 @@
         <section class="commande-section">
             <div class="row">
                 {{#if hasOrder}}
-                    <div class="col-2 carto" style="max-width:100%;">
-                    </div>
-                    <div class="col-8">
-                        <a href="/order/edit/1" class="btn btn-lg btn-danger">Modifier ma commande</a>
-                        {{> userOrder }}
-                    </div>
-                    <div class="col-2 carto">
-
+                    <div class="col-12">
+                        {{>userOrder}}
                     </div>
                 {{else}}
                     <div class="col-12" style="text-align:center">
                         <h1>C'est Triste</h1>
-                        <p>Nous n'avons trouvé aucune réservation à votre nom pour SKZ 2019</p>
-                        <p>Vous pouvez ne pas en faire si vous n'aimez pas les gens et que vous penser que la branlette
+                        <p>Nous n'avons trouvé aucune réservation au nom de cette personne pour SKZ 2019</p>
+                        <p>Elle pourrait ne pas en faire si elle n'aime pas les gens et qu'elle pense que la branlette
                             et les grottes, c'est l'avenir de l'humanité !</p>
-                        <p>Sinon, vous pouvez violemment cliquer sur ce bouton</p>
-                        <a href="/reserver" class="btn btn-lg btn-danger">Je résèrve ma place pour SKZ 2019</a>
+                        <p>Sinon, elle peut s'inscrire bientôt</p>
                     </div>
                 {{/if}}
             </div>

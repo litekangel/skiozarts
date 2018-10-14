@@ -9,6 +9,33 @@ import moment from "moment";
 import "moment/locale/fr"
 import '../../helpers';
 
+let launch_step = function (user_id) {
+    let orders = Orders.find({user_id: user_id}).forEach(function(order) {
+        Session.set('order_id', order._id);
+        Session.set('order_activities', order.activities);
+        Session.set('order_options', order.options)
+    });
+
+    if (Session.get('step') === 1) {
+        $('#prelude').hide('fade');
+        $('#just_start').show('fade');
+    }
+    if (Session.get('step') === 2) {
+        $('#prelude').hide('fade');
+        $('#just_start').hide('fade');
+        $('#mid_things').show('fade');
+    }
+    if (Session.get('step') === 3) {
+        $('#prelude').hide('fade');
+        $('#just_start').hide('fade');
+        $('#mid_things').hide('fade');
+        console.log('sadomaso');
+        // let orders = Orders.find({user_id: Meteor.userId()});
+        resumeOrder();
+        // $('#reserver_form_2').trigger('submit');
+        $('#last_things').show('fade');
+    }
+};
 let setActivitiesOpts = function () {
     let activitiess = Activities.find({});
     let activitiesOpts = [];
@@ -49,14 +76,14 @@ let resumeOrder = function () {
 
     });
     // order.forEach(function (o) {
+    // if (order)
     let o = {activities: Session.get('order_activities'), options: Session.get('order_options')};
-    console.log(o);
     if (typeof o.activities !== 'undefined') {
         o.activities.forEach(function (activities_id) {
             activities.push(Activities.findOne(activities_id));
         });
         activities.forEach(function (act) {
-            if (parseFloat(act.price) > 0)
+            if (typeof act !== "undefined" && parseFloat(act.price) > 0)
                 addons += parseFloat(act.price);
         });
     }
@@ -75,9 +102,12 @@ let resumeOrder = function () {
                 }
             }
             else {
-                choices.push(opt.choices[parseInt(o.options[option_id]) - 1]);
-                prices.push(opt.prices[parseInt(o.options[option_id]) - 1]);
-                more = parseFloat(opt.prices[parseInt(o.options[option_id]) - 1]);
+                // console.log(o.options[option_id]);
+                if(o.options[option_id]) {
+                    choices.push(opt.choices[parseInt(o.options[option_id]) - 1]);
+                    prices.push(opt.prices[parseInt(o.options[option_id]) - 1]);
+                    more = parseFloat(opt.prices[parseInt(o.options[option_id]) - 1]);
+                }
             }
             addons = addons + more;
             options.push({name: opt.name, choices: choices, prices: prices})
@@ -151,6 +181,9 @@ Template.ReserverTemplate.onCreated(function bodyOnCreated() {
     Meteor.subscribe('options');
     Meteor.subscribe('config');
     this.allOptions = [];
+    Session.set('step', parseInt(this.data.step()));
+    Session.set('step_init', 0);
+    Session.set('user_id', this.data.user_id())
     this.autorun(() => {
         const ordersHandler = this.subscribe('orders');
         this.subscribe('activities');
@@ -158,6 +191,8 @@ Template.ReserverTemplate.onCreated(function bodyOnCreated() {
         resumeOrder();
         setActivitiesOpts();
         setOptionsOpts();
+        launch_step(Session.get('user_id'));
+
         if (ordersHandler.ready()) {
             let orders = Orders.find({user_id: Meteor.userId()});
             if (orders.count() === 0) {
@@ -165,6 +200,7 @@ Template.ReserverTemplate.onCreated(function bodyOnCreated() {
             }
         }
     });
+
 });
 Template.ReserverTemplate.helpers({
     order() {
@@ -233,7 +269,7 @@ Template.ReserverTemplate.helpers({
 Template.ReserverTemplate.events({
     'click .start_btn'(event, instance) {
         $('#prelude').hide('fade');
-        $('#just_start').fadeIn();
+        $('#just_start').show('fade');
     },
     'change #activities'(event, instance) {
         let target = event.target;
@@ -259,12 +295,12 @@ Template.ReserverTemplate.events({
         $('#one-').show();
         $('#one-0').show();
         Session.set('this-one', 0);
-        $('#mid_things').fadeIn();
+        Session.set('step', 2);
+        $('#mid_things').show('fade');
     },
     'submit #reserver_form_2'(event, instance) {
         event.preventDefault();
-        Session.set('activitiesSelected', []);
-        setActivitiesOpts();
+        // setActivitiesOpts();
         let target = event.target;
         let order = {};
         order._id = this._id;
@@ -277,6 +313,8 @@ Template.ReserverTemplate.events({
         order._id = this._id;
         // order.paid = 0;
         // Meteor.call('orders.update', order);
+        Session.set('activitiesSelected', order.activities);
+        Session.set('optionsSelected', order.options);
         Session.set('order_activities', order.activities);
         Session.set('order_options', order.options);
 
@@ -291,31 +329,41 @@ Template.ReserverTemplate.events({
 
         $('#mid_things').hide('fade');
         $('#last_things').show('fade');
+        setActivitiesOpts();
+        setOptionsOpts();
+        checkOrder();
     },
     'click .one-at-time-next'(event, instance) {
         event.preventDefault();
+        console.log(this);
         let index = Session.get('this-one');
         let length = instance.state.get('options-length');
+        console.log(length);
         // instance.helpers.allOptions()
         if (index === 0) {
             $('.one-at-time-prev').removeAttr('disabled');
+            console.log('ici 0')
         }
-        if (index === length - 1) {
-            $('#reserver_form_2').trigger('submit')
+        if(index <= length-1) {
+            $('.one-at-time').hide('slide');
+            Session.set('this-one', index + 1);
+            $('#one-' + (index + 1)).show('slide');
         }
-        // if(index)
-        $('.one-at-time').hide('slide');
-        Session.set('this-one', index + 1);
-        $('#one-' + (index + 1)).show('slide');
+        if (index === length - 1 || (Session.get('step') === 2 && Session.get('this-one') < 0)) {
+            console.log('next-step');
+            $('#reserver_form_2').trigger('submit');
+            Session.set('step', 3);
+        }
     },
     'click .one-at-time-prev'(event, instance) {
         event.preventDefault();
         let target = event.target;
         let index = Session.get('this-one');
         let length = instance.state.get('options-length');
-        if (index === length) {
+        if (index === length || Session.get('step') === 3) {
             $('#last_things').hide('fade');
             $('#mid_things').show('fade');
+            Session.set('step', 2);
             // $('#reserver_form_2').trigger('submit')
         }
         if (index > 0) {

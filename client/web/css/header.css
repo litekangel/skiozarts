@@ -216,3 +216,29 @@ p.center {
 .form-control {
     height: calc(3rem + 2px) !important;
 }
+/*.video iframe {*/
+    /*width:80%;*/
+    /*height:auto;*/
+    /*margin: auto;*/
+/*}*/
+.video {
+    padding:20px;
+    text-align: center;
+    background: #000;
+}
+.video-responsive{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+.video-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+.mainLayout section {
+    padding-left:120px !important;
+}

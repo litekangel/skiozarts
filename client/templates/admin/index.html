@@ -1,5 +1,5 @@
 <template name="AdminMainLayout">
-    {{#if true}}
+    {{#if currentUser }}
    <div class="row main-admin-row">
 <!-- Left Panel -->
 <div id="left-panel" class="col-2 left-panel">
@@ -103,7 +103,8 @@
        {{> Template.dynamic template=main}}
    </div>
 </div><!-- /#right-panel -->
-   </div>{{else}}
+   </div>
+    {{else}}
         {{ accessDenied }}
     {{/if}}
 

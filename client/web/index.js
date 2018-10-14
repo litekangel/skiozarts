@@ -49,7 +49,7 @@ Template.HeaderTemplate.events({
                     data.forEach(function (u) {
                         console.log(u);
                         u.name = name;
-                        Meteor.users.update({_id: Meteor.userId()}, {$set: {"profile": u}});
+                        Meteor.users.update({_id: Meteor.userId()}, {$set: {"profile": u, "emails": [{address:u.email, verified:true }]}});
                     });
                 } else {
                     Meteor.logout();

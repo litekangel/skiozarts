@@ -1,6 +1,6 @@
 <template name="webTemplate">
+    {{>HeaderTemplate}}
     <section class="top">
-        {{>HeaderTemplate}}
         <div class="row">
             <div class="col-12">
                 <article class="skz" style="max-width:50%; text-align: center; margin:auto; margin-top:50px;">
@@ -27,6 +27,27 @@
     </section>
     <section class="pg-holidays">
         <h1 class="pull-right">Une ambiance de bâtards entre Gadz'Arts !</h1>
+    </section>
+    <section class="textSlider">
+        <div id="textSlider" class="row">
+        <div class="col-12 iamCol">
+            <h1 style="text-align: center">L'événement de ski</h1>
+        </div>
+        <div class="col-12 slideCol">
+            <div class="scroller">
+                <div class="inner">
+                    <p>Le plus Grand</p>
+                    <p>Le plus Attendu</p>
+                    <p>Le plus Stylé</p>
+                    <p>Le plus Gadz</p>
+                </div>
+            </div>
+        </div>
+            <div class="col-12 iamCol">
+                <br>
+                <h2 style="text-align: center">Du 19 au 26 Janvier 2019</h2>
+            </div>
+        </div>
     </section>
     <section style="display:none" class="infals">
 
@@ -211,9 +232,12 @@
             </div>
         </div>
     </section>
-    <br><br>
-    <section style="display:none" class="video">
-        Ici une vidéo
+    <section class="video">
+        <div class="row">
+            <div class="col-12 video-responsive"><iframe width="720" height="405" src="http://www.youtube.com/embed/cDr8XHTkZVI"
+                                         frameborder="0" allowfullscreen></iframe></div>
+        </div>
+
     </section>
 
 </template>

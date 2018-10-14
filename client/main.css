@@ -25,6 +25,57 @@ section.top {
 .img-circle {
   border-radius:50%;
 }
+.textSlider {
+  background-color: #0096D6;
+  color: #FFF;
+  padding:20px;
+  /*padding-top:50px;*/
+  padding-bottom:50px;
+}
+.iamCol {
+  /*text-align: right;*/
+  /*float: right;*/
+  /*font-weight: 300;*/
+  /*font-size:30pt;*/
+}
+/*iamCol*/
+.iamCol p:nth-child(2) { margin-top: -20pt !important; }
+.slideCol {
+  text-align: center;
+  overflow: hidden;
+  font-weight: 900;
+  font-size:70pt;
+  display: block;
+  white-space: nowrap;
+}
+.slideCol p { margin: 0px !important; }
+
+.scroller {
+  text-transform:uppercase;
+  height: 70pt;
+  line-height: 70pt;
+  overflow: hidden;
+}
+.scroller .inner { animation: 10s normal infinite running scroll; }
+@keyframes scroll {
+  0%   {margin-top: 0px;}
+  15%  {margin-top: 0px;}
+
+  25%  {margin-top: -70pt;}
+  40%  {margin-top: -70pt;}
+
+  50%  {margin-top: -140pt;}
+  65%  {margin-top: -140pt;}
+
+  75%  {margin-top: -210pt;}
+  90%  {margin-top: -210pt;}
+
+  100% {margin-top: 0px;}
+}
+.profil  {
+  background:url(/images/topography.png) repeat fixed;
+color:#333;
+}
 .profile-img img {
   margin:auto;
   border-radius:50%;
@@ -32,7 +83,6 @@ section.top {
 .profile-row {
   padding-top:20px;
   padding-bottom:20px;
-  background:url(/images/topography.png) repeat fixed;
   font-size:1.4em;
 }
 .ski-holidays {
@@ -44,6 +94,9 @@ section.top {
   color: #fff;
   display:flex;
   text-transform:uppercase;
+}
+.same-line {
+  display:inline-block;
 }
 .ski-holidays h1 {
   width:100%;
@@ -97,7 +150,13 @@ section.top {
 .commande-section {
   background:#ecf0f1;
   line-height:1.5;
-  padding:20px;
+  /*padding:20px;*/
+}
+.commande-section .carto {
+  background: url(/images/cartographer.png) repeat fixed;
+}
+.commande-section h3 {
+  color:#d24855;
 }
 
 
@@ -150,4 +209,36 @@ section.top {
 
 @media (min-width: 1200px) {
 
+}
+/*==========  Mobile First Method  ==========*/
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) and (max-width : 479px) {
+  #textSlider.row { margin-right: 0px !important; margin-left: 0px !important; }
+  .iamCol { text-align: center; font-size:20pt; }
+  .iamCol p { display: inline !important; }
+  .slideCol { font-size: 25pt; text-align: center; margin-top: -20px; }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) and (max-width : 765px) {
+  #textSlider.row { margin-right: 0px !important; margin-left: 0px !important; }
+  .iamCol { text-align: center; font-size:25pt; }
+  .iamCol p { display: inline !important; }
+  .slideCol { font-size: 38pt; text-align: center; margin-top: -20px; }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) and (max-width : 992px) {
+  #textSlider.row { margin-right: 0px !important; margin-left: 0px !important; }
+  .iamCol { text-align: center; font-size:30pt; }
+  .iamCol p { display: inline !important; }
+  .slideCol { font-size: 50pt; text-align: center; margin-top: 5px; }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) and (max-width : 1200px) {
+  #textSlider.row { margin-right: 0px !important; margin-left: 0px !important; }
+  .iamCol { text-align: right; font-size:30pt; }
+  .slideCol { font-size: 55pt; text-align: left; }
 }

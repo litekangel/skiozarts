@@ -12,6 +12,7 @@
                     <th>Nums</th>
                     <th>TBK</th>
                     <th>Date d'inscription</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,5 +35,6 @@
         <td>{{profile.nums}}</td>
         <td>{{profile.tbk}}</td>
         <td>{{createdAt}}</td>
+        <td><a href="/admin/users/{{_id}}" class="badge badge-pill badge-danger">Voir</a></td>
     </tr>
 </template>

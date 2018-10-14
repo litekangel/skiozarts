@@ -1,4 +1,5 @@
-import './userManagement/userManagement';
+import './users/userManagement';
+import './users/user';
 import './index.html';
 import './home.html';
 import './buildings/buildings';

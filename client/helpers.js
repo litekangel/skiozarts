@@ -30,3 +30,13 @@ if (!Math.round10) {
         return decimalAdjust('round', value, exp);
     };
 }
+
+function resizeFont(elemToR, factor=24) {
+    var parentW = elemToR.offsetWidth;
+
+    $(elemToR).find('.same-line').each(function(n) {
+        var newFontSize = (parentW / this.offsetWidth) * factor;
+        this.style.fontSize = newFontSize + 'px';
+        this.style.lineHeight = '100%';
+    });
+}
