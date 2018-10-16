@@ -11,7 +11,6 @@ import {Orders} from '../../../../collections/orders';
 
 
 import './orders.html';
-
 let tbks = function (tbk) {
     let tbkList = {
         "birse": 'Birse',
@@ -55,7 +54,7 @@ let format = function (user) {
         'sibers': 'Me',
         'kin': 'Ai'
     };
-
+    if(typeof user !== 'undefined')
     return user.profile.buque + " - " + user.profile.nums + "" + tbk[user.profile.tbk] + user.profile.proms + " dit " + user.profile.prenom + " " + user.profile.nom;
 };
 let setUserOpts = function () {

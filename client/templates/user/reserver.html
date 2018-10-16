@@ -5,12 +5,80 @@
             background-size: cover;
             padding-bottom: 50px;
         }
+        ul.accordeon {
+            display: flex;
+            min-height: 75vh;
+            max-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            list-style-type: none;
+        }
+
+        .accordeon li {
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+            padding: 5px;
+            background: #E74C3C;
+            cursor: pointer;
+            transition: all .5s ease;
+            min-width:10%;
+            max-width:15%
+
+        }
+        .accordeon li:hover {
+            background: #e53f2e;
+        }
+        .accordeon li.active {
+            flex: 6;
+            background: #fff;
+            cursor: default;
+            min-width:55%;
+
+        }
+        .accordeon li.active h2 {
+            color: #E74C3C;
+        }
+        .accordeon li.active .section-content {
+            flex: 5;
+            opacity: 1;
+            transform: scaleX(1);
+            color: #333;
+            text-align: left;
+        }
+        .accordeon li .section-title {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: white;
+        }
+        .accordeon li .section-title h2 {
+            margin: 0;
+            transform: rotate(-90deg);
+            white-space: nowrap;
+        }
+        .accordeon li .section-content {
+            /*flex: 1;*/
+            /*display: flex;*/
+            /*align-items: center;*/
+            margin: auto;
+            padding: 0;
+            opacity: 0;
+            transition: all .25s .1s ease-out;
+        }
+
     </style>
     <section class="top">
         {{>HeaderTemplate}}
         <div class="row">
             <div class="col-12">
-                <article class="skz" style="max-width:10%; text-align: center; margin:auto; margin-top:10px;">
+                <article class="skz" style="max-width:15%; text-align: center; margin:auto; margin-top:10px;">
                     <img src="/images/blancv.png" alt="" class="img-fluid">
                 </article>
                 <h1 style="text-align: center; color:#fff">Réservez votre place dès maintenant !</h1><br>
@@ -19,52 +87,35 @@
     </section>
     <section class="register_wrap">
         {{#each order}}
-            <div id="prelude" class="row reserver-0">
-                <div class="col-2 nopadding">
-                    <img src="/images/booking/i5.jpg" class="img-fluid" alt="">
-                </div>
-                <div class="col-10 padding20" style="text-align: left">
-                    <p>
-                    <h1>Vous y êtes presque !</h1> <br>
-                    <p>
-                        Le processus de réservation est composé de trois courtes étapes !</p>
-                    <p>
-                        Vous allez bientôt pouvoir profiter du Pack exceptionnel que vous propose la Team SKZ 216 ! </p>
-                    <p>
-                        Vous n'êtes pas prêt·e·s pour la semaine all inclusive
-                        <small>comme mon écriture</small>
-                        que vous allez vivre !
-                    </p>
-                    <br>
-                    <p>
-                        Veuillez simplement vous munir d'un exemplaire en état de fonctionnement de votre cerveau et ce
-                        sera rapide...<br>
-                        <small>Une pensée pour les Clun'sssois·e·s !</small>
-                    </p>
-                    <br>
-                    <p>
-                        <strong>La Team SKZ216</strong><br><br>
-                    </p>
-                    </p>
-                    <button class="btn btn-lg btn-danger start_btn">C'est parti !</button>
-                    <br>
-                </div>
-            </div>
-            <div id="just_start" class="row_reserver reserver-1" style="">
-                <div class="row">
-                    <div class="col-2 nopadding" style="background:#ef4f4b">
-                        <div class="row nopadding">
-                            <div class="col-6">
-                                <img src="/images/booking/i5.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="col-6">
-                                <img src="/images/booking/i4.jpg" class="img-fluid pull-left" alt="">
-                            </div>
+
+            <ul class="accordeon">
+                <li id="prelude" class="active">
+                    <div class="section-title">
+                        <h2>Etape 1</h2>
+                    </div>
+                    <div class="section-content">
+                       <div><h1>Vous y êtes presque !</h1> <br>
+
+                           <p>Le processus de réservation est composé de quatre courtes étapes !</p>
+                           <p>Vous allez bientôt pouvoir profiter du Pack exceptionnel que vous propose la Team SKZ 216 !</p>
+                            <p>Vous n'êtes pas prêt·e·s pour la semaine all inclusive
+                            <small>comme mon écriture</small>
+                                que vous allez vivre !</p>
+                        <br>
+                            <p>Veuillez simplement vous munir d'un exemplaire en état de fonctionnement de votre cerveau<br>
+                                et ce sera rapide...<br><small>Une pensée pour les Clun'sssois·e·s !</small></p>
+                        <br><br>
+                           <p><strong>La Team SKZ216</strong></p><br><br>
+                        <button class="btn btn-lg btn-danger start_btn">C'est parti !</button>
                         </div>
                     </div>
-                    <div class="col-9 padding20">
-                        <h1>Etape 1/3</h1>
-
+                </li>
+                <li id="just_start">
+                    <div class="section-title">
+                        <h2>Etape 2</h2>
+                    </div>
+                    <div class="section-content">
+                        <h2>Configurons votre réservation</h2>
                         <form id="reserver_form_1">
                             <div class="form-group">
                                 <label>Suivez-vous un regime alimentaire particulier ?</label>
@@ -97,37 +148,17 @@
                             <!--Rajouter des commentaires débiles à la fin du truc (si vous avez un max de carré vous êtes psychorigide de niveau >= 3, vous êtes un AS de la Glisse (badge Ass de la glisse avec un cul))-->
                         </form>
                     </div>
-
-
-                </div>
-            </div>
-            <div id="mid_things" class="row_reserver reserver-2">
-                <div class="row">
-                    <div class="col-3 nopadding" style="background:#ef4f4b">
-                        <div class="row nopadding">
-                            <div class="col-4">
-                                <!--<h1>Etape 2/3</h1>-->
-                                <img src="/images/booking/i5.jpg" class="img-fluid" alt="">
-                            </div>
-
-                            <div class="col-4" style="text-align:left; background:#bbe4e5">
-                                <img src="/images/booking/i4.jpg" class="img-fluid" alt="">
-
-                            </div>
-
-                            <div class="col-4" style="text-align: left;">
-                                <img src="/images/booking/i3.jpg" class="img-fluid" alt="">
-                            </div>
-                        </div>
+                </li>
+                <li id="mid_things">
+                    <div class="section-title">
+                        <h2>Etape 3
+                            </h2>
                     </div>
-                    <div class="col-9 padding20">
-                        <h1>Etape 2/3<br>
-                            <small>Choix des activités et des options</small>
-                        </h1>
-
+                    <div class="section-content">
+                        <h2>Choix des activités et des options</h2>
                         <form action="" id="reserver_form_2">
                             <div class="form-group one-at-time active" id="one-">
-                                <label for="">Par quelles activités es-tu intéressé·e ? (Pas plus de 3 éléments
+                                <label for="">Par quelles activités es-tu intéressé·e ? (Pas plus de 4 activités
                                     !)</label>
                                 {{> universeSelectize name="activities" id="activities"  options=activitiesOptions multiple=true create=false remove=true}}
                                 <small id="activities-error"></small>
@@ -140,53 +171,37 @@
                                 </div>
                             {{/each}}
                             <div class="form-group">
-                                <button class="btn btn-lg one-at-time-prev" disabled>Précédent</button>
+                                <button class="btn btn-lg one-at-time-prev">Précédent</button>
                                 <input type="submit" value="Enregistrer"
                                        class="one-at-time-next btn btn-lg btn-danger"></div>
-                        </form>
+                        </form> </div>
+                </li>
+                <li id="last_things">
+                    <div class="section-title">
+                        <h2>Etape 4</h2>
                     </div>
-                </div>
-            </div>
-            <div id="last_things" class="row_reserver reserver-3">
-                <div class="row">
-                    <div class="col-5 nopadding" style="background:#ef4f4b">
-                        <div class="row nopadding" style="background:#ef4f4b">
-                            <div class="col-3" style="background:#ef4f4b">
-                                <img src="/images/booking/i5.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="col-3 nopadding" style="text-align:left; background:#bbe4e5">
-                                <img src="/images/booking/i4.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="col-3 nopadding" style="text-align: left;">
-                                <img src="/images/booking/i3.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="col-3 nopadding" style="text-align: left;">
-                                <img src="/images/booking/i2.jpg" class="img-fluid" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 padding20">
-                        <h1>Etape 3/3<br>
-                            <small>Finalisation et Paiement</small>
-                        </h1>
+                    <div class="section-content">
                         <p>
-                            Vous touchez au but !<br>
-                            <small>Heureusement que c'était bref hein... J'espère qu'on n'a pas perdu Bordel's en
-                                chemin...
-                            </small>
+                            <h2>Vous touchez au but !<br>
+                            <small>Finalisation et Paiement</small>
+                            </h2>
                             <br>
                             Vous pourrez retrouver un récapitulatif de votre commande dans votre <a>Dashboard</a>.
                         </p>
                         <p>
-                            Vous pouvez d'ores et déjà procéder au premier paiement pour voir votre commande validée et
+                            Vous pouvez procéder au paiement pour voir votre commande validée et
                             votre réservation effective.<br>
                         </p>
+                        <p>
+                            <strong>Notez qu'après la date limite du premier paiement, vous ne pourrez plus modifier votre commande.</strong>
+                            </p>
                         <table class="table">
                             <thead>
                             <tr>
                                 <th>Paiement</th>
                                 <th>Somme</th>
                                 <th>Echéance</th>
+                                <th>Statut</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -194,25 +209,63 @@
                                 <td>1<sup>er</sup> Paiement</td>
                                 <td>{{ toPay1 }} €</td>
                                 <td>{{ date_paiement1 }}</td>
+                                <td>
+                                    {{#if status 1}}
+                                        <span class="btn btn-primary">Validé</span>
+                                    {{else}}
+                                        {{#if payWait 1}}
+                                            <span class="btn btn-light">En attente</span>
+                                        {{else}}
+                                            <button class="btn btn-danger pay-trigger-btn">Payer</button>
+                                        {{/if}}
+                                    {{/if}}
+                                    </td>
                             </tr>
                             <tr>
                                 <td>2<sup>nd</sup> Paiement</td>
                                 <td>{{toPay2}} €</td>
                                 <td>{{date_paiement2}}</td>
+                                <td>
+                                    {{#if status 2}}
+                                        <span class="btn btn-primary">Validé</span>
+                                    {{else}}
+                                        {{#if payWait 2}}
+                                            <span class="btn btn-light">En attente</span>
+                                        {{else}}
+                                            <button class="btn btn-danger pay-trigger-btn">Payer</button>
+                                        {{/if}}
+                                    {{/if}}
+                                </td>
                             </tr>
                             <tr>
                                 <td>3<sup>ème</sup> Paiement</td>
                                 <td>{{toPay3}} €</td>
                                 <td>{{date_paiement3}}</td>
+                                <td>
+                                    {{#if status 3}}
+                                    <span class="btn btn-primary">Validé</span>
+                                {{else}}
+                                    {{#if payWait 3}}
+                                        <span class="btn btn-light">En attente</span>
+                                    {{else}}
+                                        <button class="btn btn-danger pay-trigger-btn">Payer</button>
+                                    {{/if}}
+                                {{/if}}
+                                </td>
                             </tr>
                             </tbody>
                         </table>
-
-                        <button class="btn btn-lg one-at-time-prev">Précédent pour éditer la commande</button>
-                        <button class="btn btn-lg btn-danger">Payer {{toPay1}} € pour confirmer la réservation</button>
+                        <div style="text-align: center">
+                        <button class="btn btn-lg one-at-time-prev">Précédent pour éditer la commande</button><br><br>
+                        <div id="lydia-btn"></div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </li>
+            </ul>
+
+
+
         {{/each}}
     </section>
+    <script src="/js/LYDIASDK.js"></script>
 </template>

@@ -7,8 +7,8 @@
     "cas": {
       "loginUrl": "https://auth.gadz.org/cas/login",
       "serviceParam": "service",
-      "popupWidth": 810,
-      "popupHeight": 610
+      "popupWidth": 950,
+      "popupHeight": 720
     }
   }
 }

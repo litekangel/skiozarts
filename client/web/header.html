@@ -10,23 +10,28 @@
         ul.liste {
             list-style: none;
             font-family: Karla, sans-serif;
-            font-size:2.5rem;
-        }
-        ul.liste.socials {
-            font-size:2rem;
-        }
-        ul.liste>li {
-            margin:1rem;
+            font-size: 2.5rem;
         }
 
-        button.bouton {
+        ul.liste.socials {
+            font-size: 2rem;
+        }
+
+        ul.liste > li {
+            margin: 1rem;
+        }
+
+        .bouton {
             border: none;
             background: transparent;
             outline: none;
             cursor: pointer;
-            font-size:4.5rem !important;
+            font-size: 4.5rem !important;
+            color: #fff;
         }
-
+        .liste i {
+            font-size: 4.5rem
+        }
 
         button.bouton:active {
             color: #fff;
@@ -36,12 +41,14 @@
             text-decoration: none;
             color: #fff;
         }
+
         .socials a {
-            color:#fff !important;
+            color: #fff !important;
         }
+
         ul.liste a:hover {
             color: #333;
-            text-transform:none;
+            text-transform: none;
         }
 
         /* .menu-wrapper
@@ -55,13 +62,13 @@
             padding: 20px;
             transform: translateX(-250px);
             transition: transform .7s;
-            background-image: linear-gradient(to right, rgba(214,33,44,0.75), rgba(228,56,144,0.75));
+            background-image: linear-gradient(to right, rgba(214, 33, 44, 0.75), rgba(228, 56, 144, 0.75));
             /*background: #B1FFE5;*/
 
         }
 
         .top-nav .menu-wrapper.is-opened {
-            z-index:1000000;
+            z-index: 1000000;
             transform: translateX(105px);
         }
 
@@ -90,7 +97,6 @@
             font-size: 1.6rem;
         }
 
-
         /* .fixed menu
         –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
@@ -101,11 +107,11 @@
             bottom: 0;
             display: flex;
             flex-direction: column;
-            z-index:10000;
+            z-index: 10000;
             width: 105px;
             padding: 20px;
             background: #000;
-            color:#fff;
+            color: #fff;
         }
 
         .top-nav .fixed-menu .menu-open {
@@ -114,8 +120,6 @@
             margin: 30px 0 auto;
             width: 28px;
         }
-
-
 
 
     </style>
@@ -129,22 +133,37 @@
                         <li><a href="/station">— L'histoire</a></li>
                         <li><a href="/station">— Notre offre</a></li>
 
-                    </ul></li>
+                    </ul>
+                </li>
                 <li><a href="/station">La Station</a>
                     <ul class="liste sub-menu">
                         <li><a href="/station">— Valmeinier</a></li>
                         <li><a href="/station">— Les activités</a></li>
 
-                    </ul></li>
+                    </ul>
+                </li>
                 <li><a href="/equipe">L'équipe</a></li>
                 {{#if isInRole 'admin' }}
-                    <li><a href="/admin">Administration</a></li>
+                    <li><a href="/admin">Administration</a>
+                        <ul class="liste sub-menu">
+                            <li>
+                                <a href="/admin/users">— Utilisateurs</a>
+                            </li>
+                            <li><a href="/admin/orders">— Commandes</a></li>
+                            <li><a href="/admin/activities">— Activités</a></li>
+                            <li><a href="/admin/options">— Options</a></li>
+
+                            <li><a href="/admin/logements">— Logement</a></li>
+
+                        </ul>
+                    </li>
                 {{/if}}
                 {{#if currentUser }}
                     <li><a href="/dashboard">Dashboard</a></li>
                     <li><a href="#" id="userLogout">Logout</a></li>
 
                 {{else}}
+                    <li><a href="/register">Inscription</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#logModal">Connexion</a></li>
                     <li><a href="#" class="gadzAuth">Connexion Gadz</a></li>
                 {{/if}}
@@ -157,7 +176,8 @@
             <button class="bouton menu-open" aria-label="open menu" style="margin:auto;">
                 ☰
             </button>
-            <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel" aria-hidden="true" style="color:black">
+            <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logModalLabel"
+                 aria-hidden="true" style="color:black">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -173,43 +193,42 @@
                 </div>
             </div>
             <ul class="liste socials" style="text-align: left">
+                {{#if currentUser }}
+                    <li>
+                        <a href="/dashboard">
+                        <i class="fa fa-user"></i>
+                        </a>
+                    </li>
+                {{else}}
+                    <li>
+                        <a href="#" data-toggle="modal" class="gadzAuth" title="Connexion gadz">
+                        <i class="fa fa-user"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/register" title="Inscription">
+                            <i class="fa fa-user-plus"></i>
+                        </a>
+                    </li>
+                {{/if}}
                 <li>
-                    <a href="">FB</a>
+                    <a href=""><i class="fa fa-facebook-square"></i></a>
                 </li>
                 <li>
-                    <a href="">twitter</a>
+                    <a href=""><i class="fa fa-twitter-square"></i></a>
                 </li>
                 <li>
-                    <a href="">insta</a>
+                    <a href=""><i class="fa fa-instagram"></i></a>
                 </li>
             </ul>
         </div>
     </nav>
     <script>
         $(document).ready(function () {
-            const menuOpen = document.querySelector(".top-nav .menu-open");
-            const menuClose = document.querySelector(".top-nav .menu-close");
-            const menuWrapper = document.querySelector(".top-nav .menu-wrapper");
-            const topBannerOverlay = document.querySelector(".top-banner-overlay");
 
-            function toggleMenu() {
-                menuOpen.addEventListener("click", () => {
-                    if(menuWrapper)
-                    menuWrapper.classList.add("is-opened");
-                    if(topBannerOverlay)
-                    topBannerOverlay.classList.add("is-moved");
-                });
 
-                menuClose.addEventListener("click", () => {
-                    if (menuWrapper)
-                    menuWrapper.classList.remove("is-opened");
 
-                    if (topBannerOverlay)
-                    topBannerOverlay.classList.remove("is-moved");
-                });
-            }
 
-            toggleMenu();
         });
 
     </script>

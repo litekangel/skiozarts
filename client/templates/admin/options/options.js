@@ -2,6 +2,22 @@ import './options.html';
 import {Template} from "meteor/templating";
 import {Meteor} from "meteor/meteor";
 import {Options} from "../../../../collections/options";
+import {Orders} from "../../../../collections/orders";
+import '../../../helpers';
+
+let format = function (user) {
+    let tbk = {
+        'birse': 'Li',
+        'bordels': 'Bo',
+        'cluns': 'Cl',
+        'boquette': 'An',
+        'chalons': 'Ch',
+        'sibers': 'Me',
+        'kin': 'Ai'
+    };
+
+    return user.profile.buque + " - " + user.profile.nums + "" + tbk[user.profile.tbk] + user.profile.proms + " dit " + user.profile.prenom + " " + user.profile.nom;
+};
 
 Template.Options.onCreated(function bodyOnCreated() {
     this.state = new ReactiveDict();
@@ -9,6 +25,10 @@ Template.Options.onCreated(function bodyOnCreated() {
     this.state.set('sort-sign', -1);
     this.state.set('sort-by-before', 'updatedAt');
     Meteor.subscribe('options');
+    Meteor.subscribe('orders');
+    this.autorun(() => {
+        this.subscribe('allUsers');
+    });
 });
 
 
@@ -24,13 +44,36 @@ Template.Options.helpers({
     },
     isMultiple() {
         return !!parseInt(this.multiple);
+    },
+    hasCandidats() {
+        return Orders.find({options:this._id}).count();
+    },
+    candidats() {
+        let id = this.order;
+        let choice = this.id;
+        let orders = Orders.find({});
+        let users = [];
 
+        orders.forEach(function (order) {
+            let options = order.options;
+            if(typeof order.options[id] !== 'undefined') {
+                let opt = order.options[id];
+
+                if ((Array.isArray(opt) && opt.indexOf(choice) !== -1) || opt === choice) {
+                    users.push(Meteor.users.findOne(order.user_id));
+                }
+            }
+        });
+        return users;
+    },
+    candidatName() {
+        return format(this);
     },
     prices_choices() {
-        console.log(this);
+        // console.log(this);
         let prices_choices = [];
         for(let i=0; i<this.choices.length; i++) {
-            prices_choices.push({choice:this.choices[i], price:this.prices[i]})
+            prices_choices.push({name: this.name, order:this._id, id:(i+1).toString(), choice:this.choices[i], price:this.prices[i]})
         }
         return prices_choices;
     }

@@ -1,109 +1,15 @@
 <template name="AdminMainLayout">
     {{#if currentUser }}
-   <div class="row main-admin-row">
-<!-- Left Panel -->
-<div id="left-panel" class="col-2 left-panel">
-    <nav class="">
 
-        <div class="" style="text-align: center">
-            <button style="display:none;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars"></i>
-            </button>
-            <a class="brand" href="./"><img src="/images/blanc.png" class="img-responsive" alt="Logo"></a>
-            <!--<a class="navbar-brand hidden" href="./"><img src="/images/logo2.png" alt="Logo"></a>-->
+        <div class="row main-admin-row">
+
+            <div id="right-panel" class="col-12">
+
+                <div class="content mt-3">
+                    {{> Template.dynamic template=main}}
+                </div>
+            </div><!-- /#right-panel -->
         </div>
-
-        <div id="main-menu" class="main-menu">
-            <ul class="">
-                <li class="active">
-                    <a href="/admin"><i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
-                </li>
-                <li class="menu-item-has-children ">
-                    <a href="/admin/users" class="-toggle" data-toggle="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Utilisateurs</a>
-
-                </li>
-                <li><a href="/admin/orders"><i class="fa fa-shopping-cart"></i> Commandes</a></li>
-                <li><a href="/admin/activities"><i class="fa fa-calendar"></i> Activités</a></li>
-                <li><a href="/admin/options"><i class="fa fa-table"></i> Options (et goodies)</a></li>
-
-
-                <li class="menu-item-has-children ">
-                    <h2 class="menu-title"> <i class="menu-icon fa fa-th"></i>Logements</h2>
-                    <ul class="sub-menu children -menu">
-                        <li><i class="menu-icon fa fa-th"></i><a href="/admin/logements">Configuration</a></li>
-                        <li><i class="menu-icon fa fa-th"></i><a href="/admin/logements/fill">Répartition</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item-has-children ">
-                    <a href="#" class="-toggle" data-toggle="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
-                    <ul class="sub-menu children -menu">
-                        <li><i class="menu-icon fa fa-line-chart"></i><a href="/charts-chartjs.html">Chart JS</a></li>
-                        <li><i class="menu-icon fa fa-area-chart"></i><a href="/charts-flot.html">Flot Chart</a></li>
-                        <li><i class="menu-icon fa fa-pie-chart"></i><a href="/dfdfldsk/charts-peity.html">Peity Chart</a></li>
-                    </ul>
-                </li>
-
-                <li class="menu-item-has-children ">
-                    <a href="#" class="-toggle" data-toggle="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
-                    <ul class="sub-menu children -menu">
-                        <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Google Maps</a></li>
-                        <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a></li>
-                    </ul>
-                </li>
-                <h2 class="menu-title">Extras</h2><!-- /.menu-title -->
-                <li class="menu-item-has-children ">
-                    <a href="#" class="-toggle" data-toggle="" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
-                    <ul class="sub-menu children -menu">
-                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
-                        <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
-                        <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-</div><!-- /#left-panel -->
-<!-- Left Panel -->
-
-<!-- Right Panel -->
-       <div id="right-panel" class="right-panel col-10">
-    <!-- Header-->
-           <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand" href="/admin"><h3>Espace d'administration SKZ</h3></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                   <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                   <ul class="navbar-nav ml-auto">
-                       <li class="nav-item active">
-                           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="#">Features</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="#">Pricing</a>
-                       </li>
-                       <li class="nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               Dropdown link
-                           </a>
-                           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                               <a class="dropdown-item" href="#">Action</a>
-                               <a class="dropdown-item" href="#">Another action</a>
-                               <a class="dropdown-item" href="#">Something else here</a>
-                           </div>
-                       </li>
-                   </ul>
-               </div>
-           </nav>
-           <!--/header-->
-
-   <div class="content mt-3">
-       {{> Template.dynamic template=main}}
-   </div>
-</div><!-- /#right-panel -->
-   </div>
     {{else}}
         {{ accessDenied }}
     {{/if}}

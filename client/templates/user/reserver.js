@@ -10,30 +10,26 @@ import "moment/locale/fr"
 import '../../helpers';
 
 let launch_step = function (user_id) {
-    let orders = Orders.find({user_id: user_id}).forEach(function(order) {
+    let orders = Orders.find({user_id: user_id}).forEach(function (order) {
         Session.set('order_id', order._id);
         Session.set('order_activities', order.activities);
         Session.set('order_options', order.options)
     });
 
     if (Session.get('step') === 1) {
-        $('#prelude').hide('fade');
-        $('#just_start').show('fade');
+        $('.active').removeClass('active');
+        $('#just_start').addClass('active');
     }
     if (Session.get('step') === 2) {
-        $('#prelude').hide('fade');
-        $('#just_start').hide('fade');
-        $('#mid_things').show('fade');
+        $('.active').removeClass('active');
+        $('#mid_things').addClass('active');
     }
     if (Session.get('step') === 3) {
-        $('#prelude').hide('fade');
-        $('#just_start').hide('fade');
-        $('#mid_things').hide('fade');
-        console.log('sadomaso');
+        $('.active').removeClass('active');
         // let orders = Orders.find({user_id: Meteor.userId()});
         resumeOrder();
         // $('#reserver_form_2').trigger('submit');
-        $('#last_things').show('fade');
+        $('#last_things').addClass('active');
     }
 };
 let setActivitiesOpts = function () {
@@ -46,17 +42,17 @@ let setActivitiesOpts = function () {
         option.value = activities._id;
         let selected = Session.get('activitiesSelected');
         if (Array.isArray(selected) && selected.indexOf(activities._id) !== -1) {
-            // if (activities.Opts.length < 2){
             option.selected = true;
         }
         activitiesOpts.push(option)
     });
     Session.set('activitiesOpts', activitiesOpts)
 };
+
 let resumeOrder = function () {
-    let toPay;
+    let toPay=320;
     let addons = 0;
-    let order = Orders.find({user_id: Meteor.userId()});
+    let orders = Orders.find({user_id: Meteor.userId()});
     let options = [];
     let activities = [];
     let resume = {};
@@ -75,6 +71,14 @@ let resumeOrder = function () {
         resume.date_paiement3 = config.date_paiement3;
 
     });
+    orders.forEach(function(order) {
+        if(typeof order.paid !== 'undefined') {
+            resume.paid = order.paid;
+        } else {
+            resume.paid = 0;
+        }
+
+    });
     // order.forEach(function (o) {
     // if (order)
     let o = {activities: Session.get('order_activities'), options: Session.get('order_options')};
@@ -87,7 +91,6 @@ let resumeOrder = function () {
                 addons += parseFloat(act.price);
         });
     }
-
     for (let option_id in o.options) {
         let opt = Options.findOne(option_id);
         let more = 0;
@@ -95,20 +98,23 @@ let resumeOrder = function () {
             let choices = [];
             let prices = [];
             if (Array.isArray(o.options[option_id])) {
-                for (let choice in o.options[option_id]) {
-                    choices.push(opt.choices[parseInt(choice)]);
-                    prices.push(opt.prices[parseInt(choice)]);
-                    more = parseFloat(opt.prices[parseInt(choice)]);
+                more = 0;
+                for (let q in o.options[option_id]) {
+                    let choice = o.options[option_id][q];
+                    choices.push(opt.choices[parseInt(choice) - 1]);
+                    prices.push(opt.prices[parseInt(choice)] - 1);
+                    more = more + parseFloat(opt.prices[parseInt(choice) - 1]);
+
                 }
             }
             else {
-                // console.log(o.options[option_id]);
-                if(o.options[option_id]) {
+                if (o.options[option_id]) {
                     choices.push(opt.choices[parseInt(o.options[option_id]) - 1]);
                     prices.push(opt.prices[parseInt(o.options[option_id]) - 1]);
                     more = parseFloat(opt.prices[parseInt(o.options[option_id]) - 1]);
                 }
             }
+
             addons = addons + more;
             options.push({name: opt.name, choices: choices, prices: prices})
         }
@@ -117,7 +123,9 @@ let resumeOrder = function () {
     resume.toPay1 = Math.round10(toPay / 3);
     resume.toPay2 = Math.round10((2 * toPay / 3 + addons) / 2);
     resume.toPay3 = Math.round10((2 * toPay / 3 + addons) / 2);
-
+    resume.paiement1 = resume.toPay1;
+    resume.paiement2 = resume.toPay2;
+    resume.paiement3 = resume.toPay3;
     resume.options = options;
     resume.activities = activities;
     for (let key in resume) {
@@ -135,11 +143,13 @@ let setOptionsOpts = function () {
                 let option = {};
                 option.label = opt.choices[i] + " (" + opt.prices[i] + " €)";
                 option.value = i + 1;
-                if (typeof selected !== 'undefined' && ((Array.isArray(selected[opt._id]) && selected[opt._id].indexOf(i + 1) !== -1) || parseInt(selected[opt._id]) === i + 1)) {
-                    // if (activities.Opts.length < 2){
-                    option.selected = true;
+                if (typeof selected !== 'undefined') {
+                    if ((Array.isArray(selected[opt._id]) && selected[opt._id].indexOf((i + 1).toString()) !== -1) || parseInt(selected[opt._id]) === i + 1) {
+                        // if (activities.Opts.length < 2){
+                        option.selected = true;
+                    }
                 }
-                opts[opt._id].push(option)
+                opts[opt._id].push(option);
             }
         }
     });
@@ -172,7 +182,7 @@ let checkOrder = function () {
 
 };
 Template.ReserverTemplate.onCreated(function bodyOnCreated() {
-    console.log("plein de choses à vérifier... par ex si la réservation est déjà entamée ou non");
+    // console.log("plein de choses à vérifier... par ex si la réservation est déjà entamée ou non");
 
     this.state = new ReactiveDict();
     this.state.set('options-length', 0);
@@ -183,7 +193,8 @@ Template.ReserverTemplate.onCreated(function bodyOnCreated() {
     this.allOptions = [];
     Session.set('step', parseInt(this.data.step()));
     Session.set('step_init', 0);
-    Session.set('user_id', this.data.user_id())
+    Session.set('activities_error', 0);
+    Session.set('user_id', this.data.user_id());
     this.autorun(() => {
         const ordersHandler = this.subscribe('orders');
         this.subscribe('activities');
@@ -227,7 +238,7 @@ Template.ReserverTemplate.helpers({
         return Session.get('activitiesOpts');
     },
     resume() {
-        return [Session.get('order_resume')];
+        return [Session.get('resume_order')];
     },
     toPay1() {
         return Session.get('toPay1');
@@ -246,6 +257,16 @@ Template.ReserverTemplate.helpers({
     },
     date_paiement3() {
         return Session.get('date_paiement3');
+    },
+    status(pay_nb) {
+        let order = Session.get('resume_order');
+        return parseInt(order.paid) >= pay_nb;
+    },
+    payWait(pay_nb)  {
+        let order = Session.get('resume_order');
+        console.log(pay_nb);
+        return parseInt(order.paid) !== parseInt(pay_nb) - 1;
+
     },
     sumToPay() {
         return Session.get('1stToPay');
@@ -268,16 +289,27 @@ Template.ReserverTemplate.helpers({
 });
 Template.ReserverTemplate.events({
     'click .start_btn'(event, instance) {
-        $('#prelude').hide('fade');
-        $('#just_start').show('fade');
+        Session.set('step', 1);
+        $('#prelude').removeClass('active');
+        $('#just_start').addClass('active');
     },
     'change #activities'(event, instance) {
         let target = event.target;
         let activities = $(target).val();
-        if (activities.length > 3) {
-            $(target).addClass('border border-warning text-warning');
-            $('#activities-error').html('Vous dépassez les bornes !')
+        console.log(activities);
+        if (activities.length > 4) {
+            Session.set('activities_error', 1);
+            alert('Vous ne pouvez pas demander plus de 4 activités !');
+            $('#activities').parent().addClass('border border-danger text-danger');
+            $('.one-at-time-next').attr('disabled', true);
             // $('#submit-btn').removeClass('btn-warning');
+        }
+        else {
+            Session.set('activities_error', 0);
+            $('#activities').parent().removeClass('border border-danger text-danger');
+            $('.one-at-time-next').attr('disabled', false);
+
+
         }
     },
     'submit #reserver_form_1'(event, instance) {
@@ -290,13 +322,11 @@ Template.ReserverTemplate.events({
         order.level = target.level.value;
 
         Meteor.call('orders.update', order);
-        $('#just_start').hide('fade');
-        $('.one-at-time').hide();
-        $('#one-').show();
-        $('#one-0').show();
+
         Session.set('this-one', 0);
         Session.set('step', 2);
-        $('#mid_things').show('fade');
+        $('#just_start').removeClass('active');
+        $('#mid_things').addClass('active');
     },
     'submit #reserver_form_2'(event, instance) {
         event.preventDefault();
@@ -324,58 +354,71 @@ Template.ReserverTemplate.events({
         order.paiement2 = Session.get('toPay2');
         order.paiement3 = Session.get('toPay3');
         // update le price
-        console.log(order);
         Meteor.call('orders.update', order);
 
-        $('#mid_things').hide('fade');
-        $('#last_things').show('fade');
+        $('.active').removeClass('active');
+        $('#last_things').addClass('active');
         setActivitiesOpts();
         setOptionsOpts();
         checkOrder();
     },
+    'click .pay-trigger-btn'(event, instance) {
+        resumeOrder();
+
+        let order = Session.get('resume_order');
+        let now = new Date();
+        let toPay = order.paiement1;
+        if (typeof order.paid !== 'undefined' || parseInt(order.paid) !== 0) {
+            if(parseInt(order.paid) === 1 && now >= new Date(order.date_paiement1)) {
+                console.log('on peut faire le 2e paiement');
+                toPay = order.paiement2;
+            } else {
+                if(parseInt(order.paid) === 2 && now >= new Date(order.date_paiement1)) {
+                    console.log('on peut faire le 3e paiement');
+                    toPay = order.paiement3;
+                } else {
+                    toPay = 0;
+                }
+            }
+        }
+        console.log(toPay);
+
+        if (toPay === 0) {
+            console.log('pas de paiement attendu pour le moment');
+        } else {
+            $('#lydia-btn').payWithLYDIA({
+                amount: toPay, // amount in €
+                vendor_token: '5bc5012c744e0258160727',
+                recipient: '0711223344', //cellphone or email of your client. Leave it like this for your test
+                message: "Facture 004 pour un t-shirt taille M", //object of the payment
+                env: 'test',
+                render: '<button class="btn btn-lg btn-danger">Payer ' + toPay.toString() + ' maintenant via Lydia</button>', //button image
+                // The client will be redirect to this URL after the payment
+                browser_success_url: "http://skiozarts.fr:3000/pay/success?order_ref=123",
+                // This URL will be called by our server after the payment so you can update the order on your database
+                confirm_url: "http://skiozarts.fr:3000/pay/confirm/"
+            });
+        }
+    },
     'click .one-at-time-next'(event, instance) {
         event.preventDefault();
-        console.log(this);
-        let index = Session.get('this-one');
-        let length = instance.state.get('options-length');
-        console.log(length);
-        // instance.helpers.allOptions()
-        if (index === 0) {
-            $('.one-at-time-prev').removeAttr('disabled');
-            console.log('ici 0')
-        }
-        if(index <= length-1) {
-            $('.one-at-time').hide('slide');
-            Session.set('this-one', index + 1);
-            $('#one-' + (index + 1)).show('slide');
-        }
-        if (index === length - 1 || (Session.get('step') === 2 && Session.get('this-one') < 0)) {
-            console.log('next-step');
-            $('#reserver_form_2').trigger('submit');
-            Session.set('step', 3);
-        }
+        $('#reserver_form_2').trigger('submit');
+        Session.set('step', 3);
     },
     'click .one-at-time-prev'(event, instance) {
         event.preventDefault();
-        let target = event.target;
-        let index = Session.get('this-one');
-        let length = instance.state.get('options-length');
-        if (index === length || Session.get('step') === 3) {
-            $('#last_things').hide('fade');
-            $('#mid_things').show('fade');
-            Session.set('step', 2);
-            // $('#reserver_form_2').trigger('submit')
-        }
-        if (index > 0) {
-            $('.one-at-time').hide('slide');
-            Session.set('this-one', index - 1);
-            $('#one-' + (index - 1)).show('slide');
+        $('#lydia-btn').hide();
+        if (Session.get('step') === 2) {
+            $('.active').removeClass('active');
+            $('#just_start').addClass('active');
+            Session.set('step', 1);
         }
 
-        if (index === 1) {
-            // Session.set('this-one', 0);
-            $(target).attr('disabled', 'disabled');
-            $('#one-').show('slide');
+        if (Session.get('step') === 3) {
+            $('.active').removeClass('active');
+            $('#mid_things').addClass('active');
+            Session.set('step', 2);
+            // $('#reserver_form_2').trigger('submit')
         }
     },
 });

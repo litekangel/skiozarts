@@ -3,16 +3,22 @@ import './header.html';
 import './countdown';
 import './index.html';
 import './register.html';
+import './station.html';
+import './event.html';
+import './equipe.html';
 import {UDatas} from '../../collections/oneid';
 
 Template.HeaderTemplate.helpers({});
 Template.HeaderTemplate.onCreated(function () {
     // this.autorun()
-    Meteor.subscribe('uDatas')
+    Meteor.subscribe('uDatas');
 });
+
+
+
 Template.HeaderTemplate.events({
-    "click #userLogout"(event,instance){
-        Meteor.logout(function(){
+    "click #userLogout"(event, instance) {
+        Meteor.logout(function () {
             event.preventDefault();
             console.log("user logged out")
         });
@@ -37,19 +43,37 @@ Template.RegisterTemplate.events({
     },
 });
 Template.HeaderTemplate.events({
+    'click .menu-open'(event, instance) {
+        event.preventDefault();
+        $('.menu-wrapper').addClass("is-opened");
+        $('.top-banner-overlay').addClass("is-moved");
+    },
+    'click .menu-close'(event, instance) {
+        event.preventDefault();
+        $('.menu-wrapper').removeClass("is-opened");
+        $('.top-banner-overlay').removeClass("is-moved");
+    },
+    'click .liste a'(event, instance) {
+            $('.top-nav .menu-close').trigger('click');
+    },
     'click .gadzAuth'(event, instance) {
-        Meteor.loginWithCas(function(p1, p2) {
+        Meteor.loginWithCas(function (p1, p2) {
             console.log(p1);
             console.log(p2);
             console.log(Meteor.user());
-            if(Meteor.user().profile.name !== Meteor.user().profile.auth) {
+            if (Meteor.user().profile.name !== Meteor.user().profile.auth) {
                 let name = Meteor.user().profile.name;
                 let data = UDatas.find({auth: name});
                 if (data.count() > 0) {
                     data.forEach(function (u) {
                         console.log(u);
                         u.name = name;
-                        Meteor.users.update({_id: Meteor.userId()}, {$set: {"profile": u, "emails": [{address:u.email, verified:true }]}});
+                        Meteor.users.update({_id: Meteor.userId()}, {
+                            $set: {
+                                "profile": u,
+                                "emails": [{address: u.email, verified: true}]
+                            }
+                        });
                     });
                 } else {
                     Meteor.logout();

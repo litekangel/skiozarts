@@ -9,9 +9,10 @@ if (typeof WebApp.connectHandlers !== 'undefined') {
         let profile = {};
         // console.log(req);
         if (req.method.toLowerCase() === 'post') {
-            console.log(req);
+            console.log(req.body);
 
             let qp = req.body;
+            // console.log(req.body)
             // Meteor.subscribe('uDatas');
             UDatas.find({}).forEach(function (u) {
                 // console.log(u);
@@ -40,7 +41,6 @@ if (typeof WebApp.connectHandlers !== 'undefined') {
                 "oneid": "5w5nDp0h2LBNLh78"
             };
             let user = {};
-            user.email = qp.email;
             profile.nom = qp.family_name;
             profile.prenom = qp.given_name;
             profile.buque = qp.bucque;
@@ -62,6 +62,7 @@ if (typeof WebApp.connectHandlers !== 'undefined') {
             profile.emergency.cp = qp.emergency_postal_code;
             profile.emergency.ville = qp.emergency_locality;
             profile.email = qp.email;
+            user.email = qp.email;
 
             if (qp.proms.indexOf('2') === 0) {
                 let promo = "20" + qp.proms[1] + qp.proms[2];
@@ -96,6 +97,21 @@ FlowRouter.route('/reserver', {
         BlazeLayout.render('MainLayout', {main: 'ReserverTemplate', user_id: Meteor.userId(), step: 0});
     }
 });
+FlowRouter.route('/station', {
+    action() {
+        BlazeLayout.render('MainLayout', {main: 'LaStation'});
+    }
+});
+FlowRouter.route('/equipe', {
+    action() {
+        BlazeLayout.render('MainLayout', {main: 'EquipeTpl'});
+    }
+});
+FlowRouter.route('/pay/success', {
+    action() {
+        BlazeLayout.render('MainLayout', {main: 'Dashboard'});
+    }
+});
 
 FlowRouter.route('/dashboard', {
     action() {
@@ -116,7 +132,7 @@ FlowRouter.route('/dashboard/edit', {
 });
 FlowRouter.route('/forbidden', {
     action() {
-        this.render('MainLayout', {main: 'forbidden'});
+        BlazeLayout.render('MainLayout', {main: 'forbidden'});
     }
 });
 
@@ -163,6 +179,14 @@ adminRoutes.route('/orders/:id', {
         console.log(params);
         console.log(queryParams);
         BlazeLayout.render('AdminMainLayout', {main: 'orderTpl', id: params.id})
+    }
+});
+
+adminRoutes.route('/orders/:id/edit', {
+    action(params, queryParams) {
+        console.log(params);
+        console.log(queryParams);
+        BlazeLayout.render('AdminMainLayout', {main: 'ReserverTemplate', user_id: params.id, step:1})
     }
 });
 adminRoutes.route('/activities', {

@@ -1,63 +1,22 @@
 <template name="RegisterTemplate">
-    <section class="top">
-        {{>HeaderTemplate}}
+    <section class="register-tpl">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" style="text-align:center">
                 <article class="skz" style="max-width:50%; text-align: center; margin:auto; margin-top:50px;">
                     <img src="/images/blancv.png" alt="" class="img-fluid">
                     <!--skz arrive !-->
                 </article>
-            </div>
-        </div>
-    </section>
-    <section class="register_wrap">
-        <h1>Pré-inscription SKZ</h1><br>
-        <p>
-            Vous y êtes presque ! <br>
-            N'oubliez pas que pour vous inscrire, vous devez obligatoirement posséder un compte SOCE<br>
-            Les promotions 218 de tous les TBK sont priées de s'inscrire à la SOCE pour pouvoir participer à SKZ 2019.
-        </p>
-        <br>
-        <div class="row_register" id="just_start" style="display:block">
-            <div class="row">
-                <div class="col-3 offset-3">
-                    <button class="btn btn-lg btn-danger just_soce_btn pull-right">J'ai un compte SOCE</button>
-                </div>
-                <div class="col-3">
-                    <button class="btn btn-lg btn-secondary no_soce_btn pull-left">Je n'ai pas de compte SOCE</button>
-                </div>
-
-            </div>
-        </div>
-        <div id="just_soce" class="row_register">
-            <div class="row">
-                <div class="col-4 offset-4">
-                    <a href="#" class="btn btn-lg btn-danger gadzAuth">Je m'inscris à skz</a>
-                </div>
-            </div>
-        </div>
-        <div id="no_soce" class="row_register">
-            <div class="row" id="no_soce">
-                <div class="col-3 offset-3">
-                    <button class="btn btn-lg btn-danger just_gadz_btn pull-right">Je suis Gadz</button>
-                </div>
-                <div class="col-3">
-                    <button class="btn btn-lg btn-secondary no_gadz_btn pull-left">Je ne suis pas Gadz</button>
-                </div>
-            </div>
-        </div>
-        <div id="just_gadz" class="row_register">
-            <div class="row">
-                <div class="col-4 offset-4"><a href="https://gadz.org" class="btn btn-lg btn-danger">Je m'inscris à la
-                    SOCE</a>
-                </div>
-            </div>
-        </div>
-        <div id="no_gadz" class="row_register">
-            <div class="row form-group">
-                <div class="col-3 offset-4"><input type="text" class="form-control pull-right"
-                                                   placeholder="Numéro Sociétaire de mon parrain"></div>
-                <div class="col-3"><a href="" class="btn btn-lg btn-danger pull-left gadzAuth">Je me fais parrainer</a></div>
+                <h1>Pré-inscription SKZ<br><small>Vous y êtes presque !</small></h1>
+                <p>
+                    Vous êtes PGs ? N'oubliez pas que pour vous inscrire, vous devez obligatoirement posséder un compte SOCE</p>
+                <p>
+                    Les promotions 218 de tous les TBK sont priées de s'inscrire à la SOCE pour pouvoir participer à SKZ 2019.
+                </p>
+                <p>
+                    L'inscription sur skiozarts.fr est gérée par notre partenaire OneID<br><br>
+                    <a href="http://www.myoneid.fr/form/skz2019" class="btn btn-lg btn-danger">Je m'inscris via OneID !</a>
+                </p>
+                <br>
             </div>
         </div>
     </section>

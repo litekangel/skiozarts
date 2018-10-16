@@ -86,6 +86,28 @@
                         </div>
                         <h5>{{realDate}}</h5>
                         <p class="mb-1">{{desc}}</p>
+                        {{#if hasCandidats}}
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Candidat</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each candidats}}
+                                <tr>
+                                    <td>{{candidatName}}</td>
+                                    <td>{{email}}</td>
+                                    <td>{{profile.phone}}</td>
+                                    <td><a href="/admin/users/{{_id}}" class="badge badge-pill badge-danger">Voir</a></td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                            {{/if}}
                         {{#each level}}
                             <small class="badge badge-info">{{levelName}}</small>
                         {{/each}}

@@ -6,6 +6,8 @@ import  "moment/locale/fr"
 moment.locale('fr');
 moment().format('LLLL'); // jeudi 2 août 2018 09:56
 import {Activities} from '../../../../collections/activities';
+import {Orders} from '../../../../collections/orders';
+import '../../../helpers';
 
 
 import './activities.html';
@@ -23,12 +25,27 @@ let tbks = function (tbk) {
     return tbkList[tbk];
 
 };
+let format = function (user) {
+    let tbk = {
+        'birse': 'Li',
+        'bordels': 'Bo',
+        'cluns': 'Cl',
+        'boquette': 'An',
+        'chalons': 'Ch',
+        'sibers': 'Me',
+        'kin': 'Ai'
+    };
+
+    return user.profile.buque + " - " + user.profile.nums + "" + tbk[user.profile.tbk] + user.profile.proms + " dit " + user.profile.prenom + " " + user.profile.nom;
+};
+
 Template.activities.onCreated(function bodyOnCreated() {
     this.state = new ReactiveDict();
     this.state.set('sort-by', 'updatedAt');
     this.state.set('sort-sign', -1);
     this.state.set('sort-by-before', 'updatedAt');
     Meteor.subscribe('activities');
+    Meteor.subscribe('orders');
     this.autorun(() => {
         this.subscribe('allUsers');
         setUserOpts();
@@ -43,19 +60,6 @@ Template.activities.rendered = function () {
     $('#responsables').selectize({
         maxItems: 3
     });
-};
-let format = function (user) {
-    let tbk = {
-        'birse': 'Li',
-        'bordels': 'Bo',
-        'cluns': 'Cl',
-        'boquette': 'An',
-        'chalons': 'Ch',
-        'sibers': 'Me',
-        'kin': 'Ai'
-    };
-
-    return user.profile.buque + " - " + user.profile.nums + "" + tbk[user.profile.tbk] + user.profile.proms + " dit " + user.profile.prenom + " " + user.profile.nom;
 };
 let setUserOpts = function () {
     let users = Meteor.users.find({"roles": "admin"});
@@ -113,6 +117,20 @@ Template.activities.helpers({
     levelName() {
         let lvls = ["Débutant", "Intermédiaire", "Avancé"];
         return lvls[this-1];
+    },
+    hasCandidats() {
+        return Orders.find({activities:this._id}).count();
+    },
+    candidats() {
+        let orders = Orders.find({activities:this._id});
+        let users = [];
+        orders.forEach(function(order) {
+            users.push(Meteor.users.findOne(order.user_id));
+        });
+        return users;
+    },
+    candidatName() {
+        return format(this);
     },
     sortSelect(){
         return 'value';

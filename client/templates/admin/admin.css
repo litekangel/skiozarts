@@ -8,6 +8,8 @@
     display:flex;
     /*flex-direction: column;*/
     font-family: Karla;
+    margin-left:105px !important;
+
 }
 .main-admin-row > div {
     flex:1;
@@ -28,6 +30,7 @@
 .main-admin-row i {
     margin: 0.5em;
     color: #fff;
+
 }
 .brand img {
     text-align:center;
