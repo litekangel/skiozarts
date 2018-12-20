@@ -17,13 +17,14 @@ let format = function (user) {
         'sibers': 'Me',
         'kin': 'Ai'
     };
-
-    return user.profile.buque + " - " + user.profile.nums + "" + tbk[user.profile.tbk] + user.profile.proms + " dit " + user.profile.prenom + " " + user.profile.nom;
+    if (user && typeof user !== 'undefined' && typeof user.profile !== 'undefined')
+        return user.profile.buque + " - " + user.profile.nums + "" + tbk[user.profile.tbk] + user.profile.proms + " dit " + user.profile.prenom + " " + user.profile.nom;
 };
-function resizeFont(elemToR, factor=24) {
+
+function resizeFont(elemToR, factor = 24) {
     var parentW = elemToR.offsetWidth;
 
-    $(elemToR).find('.same-line').each(function(n) {
+    $(elemToR).find('.same-line').each(function (n) {
         var newFontSize = (parentW / this.offsetWidth) * factor;
         this.style.fontSize = newFontSize + 'px';
         this.style.lineHeight = '100%';
@@ -43,10 +44,9 @@ let init_dash = function () {
         order.paiement2 = o.paiement2;
         order.paiement3 = o.paiement3;
         order.paid = o.paid;
-        if(typeof o.paid === 'undefined') {
+        if (typeof o.paid === 'undefined') {
             order.paid = 0;
         }
-
         let configs = Config.find();
 
         configs.forEach(function (config) {
@@ -61,10 +61,10 @@ let init_dash = function () {
             order.date_paiement3 = config.date_paiement3;
 
         });
-        if (typeof o.activities !== 'undefined') {
+        if (typeof o.activities !== 'undefined' && o.activities) {
             o.activities.forEach(function (activities_id) {
                 let act = Activities.findOne(activities_id);
-                if(typeof act !== 'undefined') {
+                if (typeof act !== 'undefined' && act) {
                     activities.push(act);
                     addons = addons + parseFloat(act.price);
                 }
@@ -74,7 +74,7 @@ let init_dash = function () {
         for (let option_id in o.options) {
             let opt = Options.findOne(option_id);
             let more = 0;
-            if (typeof opt !== 'undefined') {
+            if (typeof opt !== 'undefined' && opt) {
                 let choices = [];
                 let prices = [];
                 if (Array.isArray(o.options[option_id])) {
@@ -85,9 +85,9 @@ let init_dash = function () {
                     }
                 }
                 else {
-                    choices.push(opt.choices[parseInt(o.options[option_id]) - 1]);
-                    prices.push(opt.prices[parseInt(o.options[option_id]) - 1]);
-                    more = parseFloat(opt.prices[parseInt(o.options[option_id]) - 1]);
+                    choices.push(opt.choices[parseInt(o.options[option_id])]);
+                    prices.push(opt.prices[parseInt(o.options[option_id])]);
+                    more = parseFloat(opt.prices[parseInt(o.options[option_id])]);
                 }
                 addons = addons + more;
                 options.push({name: opt.name, desc: opt.desc, choices: choices, prices: prices})
@@ -99,6 +99,20 @@ let init_dash = function () {
         Session.set('addons', Math.round10(addons));
     });
 };
+let auth_pay = function (order_id, transaction, ceci) {
+
+    let thisOrder = Orders.findOne(order_id);
+    console.log(thisOrder);
+
+    if (typeof thisOrder !== "undefined" && transaction !== thisOrder.transaction) {
+        // Orders.update(thisOrder._id, {$set: {paid:thisOrder.paid, transaction: qp.transaction}});
+        thisOrder.transaction = transaction;
+        // Meteor.call('orders.update', thisOrder);
+        sAlert.success("Votre paiement a bien été pris en compte");
+        Session.set('payment', 0);
+    }
+
+}
 
 Template.Dashboard.onCreated(function () {
     Meteor.subscribe('orders');
@@ -106,17 +120,21 @@ Template.Dashboard.onCreated(function () {
     Meteor.subscribe('activities');
     Meteor.subscribe('options');
     Session.set('user_id', Meteor.userId());
-
+    let cmd = this.data.order();
+    let transac = this.data.transaction();
     this.autorun(() => {
-        $(document).ready(function() {
-            $('.same-liner').each(function() {
+        $(document).ready(function () {
+            $('.same-liner').each(function () {
                 resizeFont(this);
             });
-            $('.same-liner-infos').each(function() {
-                resizeFont(this,8);
+            $('.same-liner-infos').each(function () {
+                resizeFont(this, 8);
             });
         });
         init_dash();
+        if (Session.get('payment') === 1) {
+            auth_pay(cmd, transac);
+        }
     })
 });
 Template.Dashboard.helpers({
@@ -125,9 +143,9 @@ Template.Dashboard.helpers({
     },
     hasOrder() {
         let orders = Orders.find({user_id: Meteor.userId()});
-        if(orders.count() > 0) {
+        if (orders.count() > 0) {
             let tof = true;
-            orders.forEach(function(order) {
+            orders.forEach(function (order) {
                 tof = typeof order.paiement1 !== 'undefined';
             });
             return tof;
@@ -136,5 +154,11 @@ Template.Dashboard.helpers({
             return false;
         }
     },
+    time2Order() {
+        let now = new Date();
+        let order = Session.get('order_resume');
+        let date2 = new Date(order.date_paiement2);
+        return now < date2;
+    }
 });
 

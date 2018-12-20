@@ -5,6 +5,7 @@ import {Meteor} from "meteor/meteor";
 import {Activities} from "../../../../collections/activities";
 import {Options} from "../../../../collections/options";
 import {FlowRouter} from 'meteor/ostrio:flow-router-extra';
+
 import '../../../helpers';
 import '../../common/userOrder';
 
@@ -25,10 +26,12 @@ let format = function (user) {
         'cluns': 'Cl',
         'boquette': 'An',
         'chalons': 'Ch',
+        'paris':'Paris',
         'sibers': 'Me',
         'kin': 'Ai'
     };
 
+    if (user && typeof user !== 'undefined' && typeof user.profile !== 'undefined')
     return user.profile.buque + " - " + user.profile.nums + "" + tbk[user.profile.tbk] + user.profile.proms + " dit " + user.profile.prenom + " " + user.profile.nom;
 };
 
@@ -48,7 +51,7 @@ Template.ProfileTpl.onCreated(function () {
                 resizeFont(this, 9.9);
             });
         });
-        this.subscribe('allUsers');
+        this.subscribe('allUsers', false);
 
         Orders.find({user_id: Session.get('user_id')}).forEach(function (o) {
             //on fill order de toute sorte de trucs;
@@ -67,68 +70,134 @@ Template.ProfileTpl.onCreated(function () {
 
             let configs = Config.find();
             let user = Meteor.users.findOne(Session.get('user_id'));
+            if(typeof user !== "undefined" && user) {
 
-            configs.forEach(function (config) {
-                if (user.profile.proms < 216) {
-                    order.forfait_de_base = config.cout_places_archi;
-                } else {
-                    order.forfait_de_base = config.cout_places_pg;
-                }
-                //prom's = 999 place peks
-                order.date_paiement1 = config.date_paiement1;
-                order.date_paiement2 = config.date_paiement2;
-                order.date_paiement3 = config.date_paiement3;
-
-            });
-            if (typeof o.activities !== 'undefined') {
-                o.activities.forEach(function (activities_id) {
-                    let act = Activities.findOne(activities_id);
-                    if(typeof act !== 'undefined') {
-                        activities.push(act);
-                        addons = addons + parseFloat(act.price);
+                configs.forEach(function (config) {
+                    if (user.profile.proms < 216) {
+                        order.forfait_de_base = config.cout_places_archi;
+                    } else {
+                        order.forfait_de_base = config.cout_places_pg;
                     }
+                    if (typeof user.profile.chouille !== 'undefined' && user.profile.chouille === 1) {
+                        order.forfait_de_base = config.cout_places_tole;
+                    }
+                    //prom's = 999 place peks
+                    order.date_paiement1 = config.date_paiement1;
+                    order.date_paiement2 = config.date_paiement2;
+                    order.date_paiement3 = config.date_paiement3;
                 });
-            }
-
-            for (let option_id in o.options) {
-                let opt = Options.findOne(option_id);
-                let more = 0;
-                if (typeof opt !== 'undefined') {
-                    let choices = [];
-                    let prices = [];
-                    if (Array.isArray(o.options[option_id])) {
-                        for (let choice in o.options[option_id]) {
-                            choices.push(opt.choices[parseInt(choice)]);
-                            prices.push(opt.prices[parseInt(choice)]);
-                            more = parseFloat(opt.prices[parseInt(choice)]);
+                if (typeof o.activities !== 'undefined') {
+                    o.activities.forEach(function (activities_id) {
+                        let act = Activities.findOne(activities_id);
+                        if (typeof act !== 'undefined') {
+                            activities.push(act);
+                            addons = addons + parseFloat(act.price);
                         }
-                    }
-                    else {
-                        choices.push(opt.choices[parseInt(o.options[option_id]) - 1]);
-                        prices.push(opt.prices[parseInt(o.options[option_id]) - 1]);
-                        more = parseFloat(opt.prices[parseInt(o.options[option_id]) - 1]);
-                    }
-                    addons = addons + more;
-                    options.push({name: opt.name, desc: opt.desc, choices: choices, prices: prices})
+                    });
                 }
+
+                for (let option_id in o.options) {
+                    let opt = Options.findOne(option_id);
+                    let more = 0;
+                    if (typeof opt !== 'undefined') {
+                        let choices = [];
+                        let prices = [];
+                        if (Array.isArray(o.options[option_id])) {
+                            for (let choice in o.options[option_id]) {
+                                choices.push(opt.choices[parseInt(choice)]);
+                                prices.push(opt.prices[parseInt(choice)]);
+                                more = parseFloat(opt.prices[parseInt(choice)]);
+                            }
+                        }
+                        else {
+                            choices.push(opt.choices[parseInt(o.options[option_id]) - 1]);
+                            prices.push(opt.prices[parseInt(o.options[option_id]) - 1]);
+                            more = parseFloat(opt.prices[parseInt(o.options[option_id]) - 1]);
+                        }
+                        addons = addons + more;
+                        options.push({name: opt.name, desc: opt.desc, choices: choices, prices: prices})
+                    }
+                }
+                Session.set('addons', Math.round10(addons));
+                Session.set('order_resume', order);
+                Session.set('activities', activities);
+                Session.set('options', options);
             }
-            Session.set('addons', Math.round10(addons));
-            Session.set('order_resume', order);
-            Session.set('activities', activities);
-            Session.set('options', options);
         });
 
     })
 });
+Template.ProfileTpl.events({
+    'click #set-chouille'(event, instance) {
+            let user = Meteor.users.findOne(Session.get('user_id'));
+            // user.profile.chouille = 1;
+            if (typeof user !== 'undefined') {
+                if (typeof user.profile !== "undefined") {
+                    let chouille = 1;
+                    if (typeof user.profile !== 'undefined' && typeof user.profile.chouille !== 'undefined' && user.profile.chouille === 1) {
+                        chouille = 0;
+                    }
+                    Meteor.users.update(user._id, {$set: {"profile.chouille": chouille}});
+                }
+            }
+    },
+    'click #set-referent'(event, instance) {
+        let user = Meteor.users.findOne(Session.get('user_id'));
+        if (typeof user !== 'undefined') {
+            if (typeof user.profile !== "undefined") {
+                let referent = 1;
+                if (typeof user.profile !== 'undefined' && typeof user.profile.chouille !== 'undefined' && user.profile.referent === 1) {
+                    referent = 0;
+                }
+                Meteor.users.update(user._id, {$set: {"profile.referent": referent}});
+            }
+        }
+    },
+});
 Template.ProfileTpl.helpers({
     userName() {
+        // console.log(Meteor.users.findOne(Session.get('user_id')))
         return format(Meteor.users.findOne(Session.get('user_id')));
+    },
+    chouille() {
+        let user = Meteor.users.findOne(Session.get('user_id'));
+        if (typeof user !== 'undefined') {
+            if (typeof user.profile !== "undefined") {
+                let profile = user.profile;
+                if (typeof profile.chouille !== 'undefined' && profile.chouille === 1)
+                    return 'en';
+                return "hors";
+            }
+        }
+    },
+    chColor() {
+        let user = Meteor.users.findOne(Session.get('user_id'));
+        if (user && typeof user.profile !== 'undefined' && typeof user.profile.chouille !== 'undefined' && user.profile.chouille === 1)
+            return 'danger';
+        return "light";
+    },
+    referent() {
+        let user = Meteor.users.findOne(Session.get('user_id'));
+        if (typeof user !== 'undefined') {
+            if (typeof user.profile !== "undefined") {
+                let profile = user.profile;
+                if (typeof profile.referent !== 'undefined' && profile.referent === 1)
+                    return 'Référent SKZ';
+                return "Participant";
+            }
+        }
+    },
+    reColor() {
+        let user = Meteor.users.findOne(Session.get('user_id'));
+        if (user && typeof user.profile !== 'undefined' && typeof user.profile.referent !== 'undefined' && user.profile.referent === 1)
+            return 'danger';
+        return "light";
     },
     thisUser() {
       return Meteor.users.findOne(Session.get('user_id'));
     },
     hasOrder() {
-        let orders = Orders.find({user_id: Meteor.userId()});
+        let orders = Orders.find({user_id: Session.get('user_id')});
         if(orders.count() > 0) {
             let tof = true;
             orders.forEach(function(order) {

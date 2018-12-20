@@ -19,7 +19,7 @@
         }
     </style>
     <div class="col-12">
-        <button class="btn btn-danger">Faire une recherche</button>
+        <!--<button class="btn btn-danger">Faire une recherche</button>-->
         <button class="btn btn-danger">Ajouter une résidence</button>
 
         <br>
@@ -93,7 +93,7 @@
                                         <tbody>
                                     {{#each rooms}}
                                         <tr>
-                                            <td>{{name}}</td>
+                                            <td class="editableColumn" data-field="name">{{name}}</td>
                                             <td class="">
                                                 <a class="dropdown-toggle" data-toggle="dropdown"  href="#">{{tbk2}} <span class="caret"></span></a>
                                                 <div class="dropdown-menu">
@@ -107,9 +107,8 @@
                                                     <a class="dropdown-item tbk" data-tbk="sibers">Siber's</a>
                                                 </div>
                                             </td>
-                                            <td>{{floor}}</td>
-                                            <td>{{places}}</td>
-                                            <td>{{respo}}</td>
+                                            <td data-field="floor" class="editableColumn">{{floor}}</td>
+                                            <td class="editableColumn" data-field="places">{{places}}</td>
                                             <td><small class="badge badge-danger badge-pill delete-room">Supprimer</small></td>
                                         </tr>
                                     {{/each}}
@@ -136,16 +135,16 @@
                             <h3>Ajouter des kagettes</h3>
                             <form class="new-room">
                                     <div class="form-group">
-                                        <label for="">Indicatif</label>
-                                        <input type="text" name="indicator" class="form-control">
+                                        <label for="">Etage</label>
+                                        <input type="text" name="floor" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Nombre de kagettes</label>
                                         <input type="text" name="number" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Etage</label>
-                                        <input type="number" name="floor" id="floor" class="form-control">
+                                        <label for="">Nombre de places</label>
+                                        <input type="number" name="places" id="places" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <input class="btn btn-danger form-control " type="submit"

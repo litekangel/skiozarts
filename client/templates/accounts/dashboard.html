@@ -21,12 +21,14 @@
     {{#if currentUser }}
         <section class="profil">
             <div class="row profile-row" style="">
-                <div class="col-2 profile-img" style="text-align:center">
-                    <img src="/images/avatar/5.jpg" alt="" class="img-fluid img-circle">
-                </div>
-                <div class="col-10">
+                <div class="col-12">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-4 offset-4">
+                            <img src="/images/noirv.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="text-align: center">
                             <h2 class="same-liner">
                                 <span class="same-line">Dashboard</span><br>
                                 <span class="same-line">{{userName}}</span>
@@ -36,7 +38,7 @@
                     </div>
                     {{#with currentUser}}
                         {{#with profile}}
-                            <div class="row same-liner-infos">
+                            <div class="row same-liner-infos" style="padding-left:20px;">
                                 <div class="col-6 same-line">
                                     <span><i class="fa fa-at"></i> {{email}}</span>
                                     <span><i class="fa fa-phone"></i> {{phone}}</span><br>
@@ -55,6 +57,7 @@
                                     </div>
                                 {{/with}}
                             </div>
+
                         {{/with}}
                     {{/with}}
                 </div>
@@ -62,26 +65,36 @@
         </section>
         <section class="commande-section">
             <div class="row">
-                {{#if hasOrder}}
-                    <div class="col-2 carto" style="max-width:100%;">
-                    </div>
-                    <div class="col-8">
-                        <a href="/order/edit/1" class="btn btn-lg btn-danger">Modifier ma commande</a>
-                        {{> userOrder }}
-                    </div>
-                    <div class="col-2 carto">
+                <div class="col-12" style="padding:20px;">
 
-                    </div>
-                {{else}}
-                    <div class="col-12" style="text-align:center">
-                        <h1>C'est Triste</h1>
-                        <p>Nous n'avons trouvé aucune réservation à votre nom pour SKZ 2019</p>
-                        <p>Vous pouvez ne pas en faire si vous n'aimez pas les gens et que vous penser que la branlette
-                            et les grottes, c'est l'avenir de l'humanité !</p>
-                        <p>Sinon, vous pouvez violemment cliquer sur ce bouton</p>
-                        <a href="/reserver" class="btn btn-lg btn-danger">Je résèrve ma place pour SKZ 2019</a>
-                    </div>
-                {{/if}}
+                    {{#if hasOrder}}
+                        <div class="row">
+                            <div class="col" style="text-align: center;">
+                                <a class="btn btn-lg btn-danger" href="/dashboard/edit">Editer mon profil</a>
+                            </div>
+                            {{#if time2Order }}
+                                <div class="col" style="text-align: center">
+                                    <a href="/order/edit/1#go" class="btn btn-lg btn-danger">Modifier ma commande</a>
+                                </div>
+                            {{/if}}
+                        </div>
+                        {{> userOrder }}
+                    {{else}}
+                        <div class="row">
+                            <div class="col" style="text-align: center;">
+                                <a class="btn btn-lg btn-danger" href="/dashboard/edit">Editer mon profil</a>
+                            </div>
+                        </div>
+                        <div class="col-12" style="text-align:center">
+                            <h1>C'est Triste</h1>
+                            <p>Nous n'avons trouvé aucune réservation à votre nom pour SKZ 2019</p>
+                            <p>Vous pouvez ne pas en faire si vous n'avez pas foi en l'humanité !</p>
+                            <p>Sinon, vous pouvez violemment cliquer sur ce bouton</p>
+                            <a href="/reserver#start" class="btn btn-lg btn-danger">Je résèrve ma place pour SKZ
+                                2019</a>
+                        </div>
+                    {{/if}}
+                </div>
             </div>
         </section>
 

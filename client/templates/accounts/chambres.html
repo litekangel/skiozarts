@@ -1,0 +1,262 @@
+<template name="chambreSelection">
+    <style>
+        .room-table tr {
+            min-width: 100%;
+        }
+        .room-table {
+            -webkit-transition: all 0.6s ease-in-out;
+            -moz-transition: all 0.6s ease-in-out;
+            -o-transition: all 0.6s ease-in-out;
+            transition: all 0.6s ease-in-out;
+            background: url("images/brickwall_dark.png") repeat;
+            border-radius: 10px;
+            background: #f5f6fa;
+            padding: 10px;
+            width: 90%;
+            margin: 20px;
+        }
+
+        .room-table th, td {
+            height: 50px;
+            padding: 5px;
+            /*background:#ecf0f1;*/
+            /*border-bottom: ;*/
+        }
+
+        .room-table th {
+            background: url("images/brickwall_dark.png") repeat;
+            color: white;
+            cursor:pointer;
+            font-family: "Yellowtail",cursive;
+            /*padding:10px;*/
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            min-height: 50px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .room-table th.add-member {
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            background: #de0b46;
+            color: white;
+            /*padding:10px;*/
+            border-radius: 0 0 10px 10px;
+            min-height: 50px;
+            text-align: center;
+            font-size: 1.5em;
+            cursor: pointer;
+
+        }
+
+        .room-table th.add-member:hover {
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            /*border-radius: 0 0 10px 10px;*/
+
+            background: black;
+        }
+
+        .room-table th.add-member.full {
+            background: #eee;
+            color: #dddddd;
+            cursor: not-allowed;
+            /*padding:10px;*/
+
+            min-height: 50px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .room-table td {
+            font-weight: bold;
+            padding-left: 10px;
+            cursor: pointer;
+            /*border:2px solid #000;*/
+            /*border-image: linear-gradient(to right, rgba(214, 33, 44, 0.75), rgba(228, 56, 144, 0.75));*/
+            border-bottom: 1px solid #eeeeee;
+
+        }
+
+        .room-table td.taken:hover, .room-table td.untaken:hover {
+            background: #eeeeee;
+        }
+
+        .check-member:hover, .remove-member:hover, .put-member:hover {
+            color: #de0b46;
+        }
+
+        .skz-color {
+            color: #de0b46;
+        }
+
+        .taken {
+            background: #ecf0f1;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        h1 {
+            text-align: center;
+        }
+        #batiments {
+            display: flex; /* add -webkit and -ms prefixes yourself */
+            flex-direction: column;
+            height:100vh;
+            background: url("images/brickwall.png") repeat;
+            padding-right:0;
+            position:fixed;
+        }
+        .building {
+            display:flex;
+            flex-grow: 1;
+            cursor:pointer;
+            align-items: center;
+            justify-content: center;
+        }
+        .building:hover, .neon {
+            background: url("images/brickwall_dark2.png") repeat;
+        }
+        .building h1 {
+            margin:0;
+            cursor: pointer;
+            color: #FB4264;
+            font-size: 3em;
+            /*line-height: 9vw;*/
+            font-weight: bolder;
+            text-shadow: 0 0 3em #F40A35;
+            font-family: 'Yellowtail', cursive;
+
+        }
+        .rooms-container {
+            margin-left:34%;
+        }
+        .building:hover h1, .neon h1 {
+
+            animation: neon 1s ease infinite;
+            -moz-animation: neon 1s ease infinite;
+            -webkit-animation: neon 1s ease infinite;
+        }
+        .building-room {
+            display:none;
+            /*background:#d6222f;*/
+        }
+        @media screen and (min-width: 860px) {
+            @keyframes neon {
+                0%,
+                100% {
+                    text-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw #FED128, .5vw .5vw .1vw #806914;
+                    color: #FED128;
+                }
+                50% {
+                    text-shadow: 0 0 .5vw #800E0B, 0 0 1.5vw #800E0B, 0 0 5vw #800E0B, 0 0 5vw #800E0B, 0 0 .2vw #800E0B, .5vw .5vw .1vw #40340A;
+                    color: #806914;
+                }
+            }
+        }
+    </style>
+    <section>
+        {{#if userAuthorized}}
+            <div class="row">
+                <div class="col-4" id="batiments">
+                    <h1>Nos résidences</h1>
+                    {{#each buildings}}
+                        <div class="building" data-id="{{_id}}">
+                            <h1>{{name}} <br>
+                            <small>Résidence {{residence}}</small>
+                            </h1>
+                        </div>
+
+                    {{/each}}
+                </div>
+                <div class="col-8 rooms-container">
+                    {{#each buildings}}
+                        <div class="building-room" id="{{_id}}">
+                            <h1>{{name}}</h1>
+                            <div class="row">
+                                {{#each rooms}}
+                                    <div class="col-12 col-xl-6">
+                                        <table class="room-table">
+                                            <tr>
+                                                <th colspan="3">{{name}}</th>
+                                            </tr>
+                                            {{#each room_members}}
+                                                <tr class="{{referent_attr}}">
+                                                    {{#if taken}}
+                                                        {{#if referent}}
+                                                            <td class="taken">{{username}}</td>
+                                                            <td class="remove-member" title="retirer de la chambre"><i
+                                                                    class="fa fa-minus"></i></td>
+                                                            <td class="check-member"
+                                                                title="a fourni son chèque de caution et son attestation d'assurance responsabilité civile">
+                                                                <i class="fa fa-check {{userCheck}}"></i></td>
+                                                        {{else}}
+                                                            <td class="taken" colspan="3">{{username}}</td>
+                                                        {{/if}}
+                                                    {{else}}
+                                                        <td colspan="3" class="untaken">
+                                                            <div class="untaken-select" style="display:none">
+                                                                <table>
+                                                                    <tr>
+                                                                        <td colspan="2" class="untaken">
+                                                                            <select class="users-select2" name="state"
+                                                                                    style="width:90%">
+                                                                                {{#each usersInTBK}}
+                                                                                    <option value="{{_id}}">{{ username
+                                                                                            _id }}</option>
+                                                                                {{/each}}
+                                                                            </select>
+                                                                        </td>
+                                                                        <td class="put-member">
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+
+                                                    {{/if}}
+                                                </tr>
+                                            {{/each}}
+                                            <tr>
+                                                <th class="add-member {{isFull}}" colspan="3"><i class="fa fa-plus"></i></th>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                {{/each}}
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+
+        {{else}}
+            <h1>Vous n'êtes pas autorisé à consulter le contenu de cette page.</h1>
+            <div class="row">
+                <div class="col-6 offset-3" style="font-size:1.4em;">
+                    <p>Les raisons sont multiples :</p>
+                    <ul>
+                        <li>Vous n'êtes peut-être pas connecté.</li>
+                        <li>Votre deuxième paiement n'est peut-être pas validé sur le site.</li>
+                        <li>Vous avez été abandonné par Gorgu et Archimède veut votre peau.</li>
+                        <li>L'infaleux a détourné toutes les ressources pour miner du Bitcoin.</li>
+                        <li>La Team SKZ ne vous aime pas.</li>
+                    </ul>
+                </div>
+            </div>
+
+        {{/if}}
+    </section>
+    {{#if referent}}
+        <script>
+            $(function () {
+                $('.users-select2').select2();
+            })
+        </script>
+    {{/if}}
+</template>

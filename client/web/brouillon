@@ -1,7 +1,3 @@
-import './countdown.html';
-import {Orders} from '../../collections/orders';
-
-let timeinterval;
 let json = [
     {
         "user": "Nicolas Riehl",
@@ -3521,57 +3517,10 @@ let json = [
     }
 ];
 
-Meteor.startup(function () {
-    var endtime = 'January 19 2019 00:00:00 UTC+0100';
-    timeinterval = setInterval(function () {
-        Meteor.call("getCurrentTime", function (error, result) {
-            Session.set("time", result);
-            var t = getTimeRemaining(endtime);
-            Session.set("t", t);
-        });
-    }, 1000);
-});
+    <button id="calc" class="btn btn-lg btn-dark">Lancer la machinerie</button>
 
-function getTimeRemaining(endtime) {
-    var t = Date.parse(endtime) - Session.get('time');
-    var seconds = ("0" + Math.floor((t / 1000) % 60)).slice(-2);
-    var minutes = ("0" + Math.floor((t / 1000 / 60) % 60)).slice(-2);
-    var hours = ("0" + Math.floor((t / (1000 * 60 * 60)) % 24)).slice(-2);
-    var days = Math.floor(t / (1000 * 60 * 60 * 24));
 
-    // console.log(t)
-    if (t <= 0)
-        clearInterval(timeinterval);
-
-    return {
-        'total': t,
-        'days': days,
-        'hours': hours,
-        'minutes': minutes,
-        'seconds': seconds
-    };
-
-}
-
-Template.countdown.helpers({
-    t: function () {
-        return Session.get("t");
-    }
-});
-
-Template.showCountdown.helpers({
-    ended: function () {
-        // console.log(Session.get("t"));
-        if (Session.get("t")) {
-            return Session.get("t").total <= 0;
-        }
-    },
-    machine: function () {
-        return Session.get('machine')
-    }
-});
 Template.showCountdown.onCreated(function () {
-    Meteor.subscribe('orders');
     this.autorun(() => {
         this.subscribe('allUsers', false);
     })
@@ -3580,103 +3529,51 @@ Template.showCountdown.events({
     'click #calc'(event, instance) {
         // console.log(json);
         let counter = 0;
-        let o_count = 0;
         let ulist = [];
         let alldb = [];
         let max = 2;
-        // let machine
-        let orq = [];
-        let users = [];
-        let prenoms = [];
-        let paids = [];
-        for(let i in json) {
+        console.log(counter);
+        for (let o in json) {
+            let u = json[o].user.split(' ');
+            if (u.length > max) {
+                max = u.length;
+            }
+            if (u.length > 2) {
+                u[0].replace(/\s+/g, '').toLowerCase();
+                u[0] = new RegExp(u[0], "i");
+                if (u[1].length < 1 && u.length > 2)
+                    u[1] = u[2];
+                u[1].replace(/\s+/g, '').toLowerCase();
+                u[1] = new RegExp(u[1], "i");
+                console.log(u);
+                console.log(json[o].user);
+                Meteor.users.find({
+                    $or: [{"profile.nom": u[0], "profile.prenom": u[1]}, {
+                        "profile.prenom": u[0],
+                        "profile.nom": u[1]
+                    }]
+                }).forEach(function (phi) {
+                    console.log(u[0].toString() + " " + u[1].toString());
+                    console.log(phi);
+                    alldb.push(phi)
+                    if (alldb.indexOf(phi._id) !== -1) {
+                        if (ulist.indexOf(alldb[counter - 1]) !== -1) {
+                            ulist.push(alldb[counter - 1])
+                        }
+                        ulist.push(phi);
 
-            let poi = json[i].user.split(' ');
-            users.push(poi[1]);
-            prenoms.push(poi[0])
-            paids.push(json[i].paid);
-        }
-
-        Orders.find({received: null}).forEach(function (ord) {
-            o_count++;
-            orq.push(ord);
-        });
-        let final = [];
-        let new_json = [];
-        for (let i in orq) {
-            let user = Meteor.users.findOne(orq[i].user_id);
-            if(typeof user !== 'undefined') {
-                let j = {};
-                orq[i].pay = 0;
-                orq[i].np = "";
-                orq[i].user = user;
-                let reg = new RegExp(user.profile.nom, "i")
-                for (let u in users) {
-                    // console.log(u);
-                    if (reg.test(users[u])) {
-
-                        orq[i].np = prenoms[u] + " " + users[u];
-                        orq[i].pay = paids[u];
-                        final.push(orq[i])
+                        console.log("à counter " + counter)
                     }
-                }
+                    counter++;
+                });
             }
         }
-        console.log(orq.length);
-        let vald = 0;
-        let sount = Orders.find({}).forEach(function (order) {
-            //ne pas compter les admins
-            if(order.received) {
-                vald += parseFloat(order.received);
-            }
-        });
-        // console.log(users);
-        console.log("final: "+final.length);
-        console.log("reçu: "+vald);
-        Session.set('machine', final);
-
-
-        // console.log(counter);
-        // for (let o in json) {
-        //     let u = json[o].user.split(' ');
-        //     if (u.length > max) {
-        //         max = u.length;
-        //     }
-        //     if (u.length > 2) {
-        //         u[0].replace(/\s+/g, '').toLowerCase();
-        //         u[0] = new RegExp(u[0], "i");
-        //         if (u[1].length < 1 && u.length > 2)
-        //             u[1] = u[2];
-        //         u[1].replace(/\s+/g, '').toLowerCase();
-        //         u[1] = new RegExp(u[1], "i");
-        //         console.log(u);
-        //         console.log(json[o].user);
-        //         Meteor.users.find({
-        //             $or: [{"profile.nom": u[0], "profile.prenom": u[1]}, {
-        //                 "profile.prenom": u[0],
-        //                 "profile.nom": u[1]
-        //             }]
-        //         }).forEach(function (phi) {
-        //             console.log(u[0].toString() + " " + u[1].toString());
-        //             console.log(phi);
-        //             phi.json = json[o];
-        //             alldb.push(phi);
-        //             if (alldb.indexOf(phi._id) !== -1) {
-        //                 if (ulist.indexOf(alldb[counter - 1]) !== -1) {
-        //                     ulist.push(alldb[counter - 1])
-        //                 }
-        //                 ulist.push(phi);
-        //
-        //             }
-        //             counter++;
-        //         });
-        //     }
-        // }
-        // console.log("expected: " + json.length);
-        // console.log("got: " + counter);
-        // console.log("orders: " + o_count);
-        // console.log(orq.length);
-        // Session.set('machine', orq);
-        // console.log(max)
+        for (let k in alldb) {
+            Meteor.users.
+        }
+        console.log("expected: " + json.length);
+        console.log("got: " + counter);
+        console.log(ulist);
+        console.log(max)
     }
 });

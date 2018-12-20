@@ -129,16 +129,11 @@
             <ul class="liste">
                 <li><a href="/">Accueil</a></li>
                 <li><a href="/event">L'évènement</a>
-                    <ul class="liste sub-menu">
-                        <li><a href="/station">— L'histoire</a></li>
-                        <li><a href="/station">— Notre offre</a></li>
-
-                    </ul>
                 </li>
                 <li><a href="/station">La Station</a>
                     <ul class="liste sub-menu">
-                        <li><a href="/station">— Valmeinier</a></li>
-                        <li><a href="/station">— Les activités</a></li>
+                        <li><a href="/station#valmeinier">— Valmeinier</a></li>
+                        <li><a href="/station#activites">— Les activités</a></li>
 
                     </ul>
                 </li>
@@ -160,12 +155,12 @@
                 {{/if}}
                 {{#if currentUser }}
                     <li><a href="/dashboard">Dashboard</a></li>
+                    <a href="/repartition">Repartition</a>
                     <li><a href="#" id="userLogout">Logout</a></li>
 
                 {{else}}
                     <li><a href="/register">Inscription</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#logModal">Connexion</a></li>
-                    <li><a href="#" class="gadzAuth">Connexion Gadz</a></li>
                 {{/if}}
             </ul>
 
@@ -194,14 +189,19 @@
             </div>
             <ul class="liste socials" style="text-align: left">
                 {{#if currentUser }}
-                    <li>
+                    <li style="text-align: center">
                         <a href="/dashboard">
                         <i class="fa fa-user"></i>
                         </a>
                     </li>
+                    <li>
+                        <a href="/repartition">
+                            <i class="fa fa-hotel" style="transform:rotate(90deg)"></i>
+                        </a>
+                    </li>
                 {{else}}
                     <li>
-                        <a href="#" data-toggle="modal" class="gadzAuth" title="Connexion gadz">
+                        <a href="#" data-toggle="modal" data-target="#logModal" title="Connexion">
                         <i class="fa fa-user"></i>
                         </a>
                     </li>
@@ -212,23 +212,30 @@
                     </li>
                 {{/if}}
                 <li>
-                    <a href=""><i class="fa fa-facebook-square"></i></a>
+                    <a href="https://www.facebook.com/skiozarts"><i class="fa fa-facebook-square"></i></a>
                 </li>
                 <li>
-                    <a href=""><i class="fa fa-twitter-square"></i></a>
+                    <a href="https://twitter.com/skiozarts"><i class="fa fa-twitter-square"></i></a>
                 </li>
                 <li>
-                    <a href=""><i class="fa fa-instagram"></i></a>
+                    <a href="https://instagram.com/"><i class="fa fa-instagram"></i></a>
+                </li>
+                <li style="font-size:1.3rem;">
+                    by TaK<br>
+                    80-199<br>
+                    Me216
                 </li>
             </ul>
         </div>
     </nav>
     <script>
         $(document).ready(function () {
-
-
-
-
+            let passLink = '<p><a href="/forgot-password" class="lost-pass">Mot de passe perdu ?</a></p>';
+            $('.at-signup-link').prepend(passLink);
+            $('.lost-pass').click(function(e) {
+                $('#logModal').modal('hide');
+            })
+            // $('#at-signIn').attr('href', '/register');
         });
 
     </script>

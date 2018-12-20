@@ -7,11 +7,14 @@ import './station.html';
 import './event.html';
 import './equipe.html';
 import {UDatas} from '../../collections/oneid';
+import {FlowRouter} from 'meteor/ostrio:flow-router-extra';
+
 
 Template.HeaderTemplate.helpers({});
 Template.HeaderTemplate.onCreated(function () {
     // this.autorun()
     Meteor.subscribe('uDatas');
+    Meteor.subscribe('allUsers');
 });
 
 
@@ -22,7 +25,14 @@ Template.HeaderTemplate.events({
             event.preventDefault();
             console.log("user logged out")
         });
+    },
+    "click #at-signUp"(event, instance) {
+        event.preventDefault();
+        $('#logModal').modal('hide');
+        FlowRouter.go('/register');
+        $('#at-signIn').trigger('click')
     }
+
 });
 Template.RegisterTemplate.events({
     'click .just_soce_btn'(event, instance) {
@@ -43,6 +53,15 @@ Template.RegisterTemplate.events({
     },
 });
 Template.HeaderTemplate.events({
+    /*'click #at-btn'(event, instance) {
+        event.preventDefault();
+        console.log($('#at-field-email').val());
+        console.log($('#at-field-password').val())
+        Meteor.loginWithPassword({email:$('#at-field-email').val()},$('#at-field-password').val(),
+            function(error){
+                console.log(error);
+            });
+    },*/
     'click .menu-open'(event, instance) {
         event.preventDefault();
         $('.menu-wrapper').addClass("is-opened");
@@ -57,13 +76,15 @@ Template.HeaderTemplate.events({
             $('.top-nav .menu-close').trigger('click');
     },
     'click .gadzAuth'(event, instance) {
-        Meteor.loginWithCas(function (p1, p2) {
+        Meteor.loginWithCas(function (p1, p2,p3) {
             console.log(p1);
             console.log(p2);
+            console.log(p3);
             console.log(Meteor.user());
             if (Meteor.user().profile.name !== Meteor.user().profile.auth) {
                 let name = Meteor.user().profile.name;
                 let data = UDatas.find({auth: name});
+                console.log(data.count());
                 if (data.count() > 0) {
                     data.forEach(function (u) {
                         console.log(u);

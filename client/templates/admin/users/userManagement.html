@@ -1,5 +1,23 @@
 <template name="userManagement">
+    <style>
+        .pagination a {
+            color: #de0b46;
+        }
+        .pagination a:hover {
+            color: #333;
+        }
+    </style>
     {{#if isInRole 'admin' }}
+
+        <div class="card">
+            <div class="card-body">
+                <form action="">
+                    <div class="form-group"><input type="text" placeholder="Rechercher" id="userSearch"
+                                                   class="form-control"></div>
+                </form>
+            </div>
+        </div>
+        {{> userPaginator }}
 
         <div class="card">
             <table class="table">
@@ -16,25 +34,52 @@
                 </tr>
                 </thead>
                 <tbody>
-                {{#each users}}
+                {{#each users }}
                     {{>userM}}
                 {{/each}}
                 </tbody>
             </table>
         </div>
+
+        {{> userPaginator }}
+
     {{else}}
         <h1>Accès interdit</h1>
     {{/if}}
 </template>
 <template name="userM">
     <tr>
-        <td>{{profile.buque}}</td>
+        <td>{{truncate profile.buque}}</td>
         <td>{{profile.nom}}</td>
         <td>{{profile.prenom}}</td>
         <td>{{userEmail}}</td>
         <td>{{profile.nums}}</td>
         <td>{{profile.tbk}}</td>
         <td>{{createdAt}}</td>
-        <td><a href="/admin/users/{{_id}}" class="badge badge-pill badge-danger">Voir</a></td>
+        <td><a href="/admin/users/{{_id}}" class="badge badge-pill badge-danger">Voir</a> <a href="/admin/users/{{_id}}/edit" class="badge badge-pill badge-warning">Editer</a></td>
     </tr>
+</template>
+
+<template name="userPaginator">
+    <div class="card">
+        <div class="card-body">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a id="prevPage" class="prev-page page-link" href="/admin/users/page/{{prevPage}}">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Précédent</span>
+                    </a>
+                </li>
+                {{#each pages}}
+                    <li class="page-item" style="display: none"><a class="page-link" href="/admin/users/page/{{page}}">{{page}}</a></li>
+                {{/each}}
+                <li class="page-item">
+                    <a id="nextPage" class="page-link next-page" href="/admin/users/page/{{nextPage}}">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Suivant</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>

@@ -1,10 +1,15 @@
 import {check} from "meteor/check";
 import {Meteor} from "meteor/meteor";
 
-Meteor.publish('allUsers', function () {
-    if(Roles.userIsInRole(this.userId, 'admin')) {
-        return Meteor.users.find({});
-    }
+Meteor.publish('allUsers', function (page=0) {
+    // if(Roles.userIsInRole(this.userId, 'admin')) {
+    console.log('users');
+
+        if(page === false || page === 0)
+            return Meteor.users.find({});
+
+        return Meteor.users.find({}, {limit:50, skip:page*50});
+    // }
 });
 
 Meteor.methods({

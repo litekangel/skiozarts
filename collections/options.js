@@ -1,6 +1,6 @@
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
+import {Meteor} from 'meteor/meteor';
+import {Mongo} from 'meteor/mongo';
+import {check} from 'meteor/check';
 
 export const Options = new Mongo.Collection('options');
 
@@ -14,7 +14,7 @@ if (Meteor.isServer) {
 Meteor.methods({
     'options.find'(sortBy) {
         check(sortBy, Object);
-        if (! Meteor.userId()) {
+        if (!Meteor.userId()) {
             throw new Meteor.Error('not-authorized');
         }
         Options.find({}, {sort: sortBy});
@@ -22,31 +22,32 @@ Meteor.methods({
     'options.update'(option) {
         check(option, Object);
         // throw new Meteor.Error('not-authorized');
-        // Make sure the user is logged in before inserting a activity
-        if (! Meteor.userId()) {
+        if (!Meteor.userId()) {
             throw new Meteor.Error('not-authorized');
         }
         Options.update(option._id, {
-            name:option.name,
-            desc: option.desc,
-            choices: option.choices,
-            prices: option.prices,
-            multiple: option.multiple,
-            // createdAt: new Date(),
-            updatedAt: new Date(),
-            username: Meteor.user().username,
+            $set: {
+                name: option.name,
+                desc: option.desc,
+                choices: option.choices,
+                prices: option.prices,
+                multiple: option.multiple,
+                // createdAt: new Date(),
+                updatedAt: new Date(),
+                username: Meteor.user().username,
+            }
         });
     },
     'options.insert'(option) {
         check(option, Object);
         // throw new Meteor.Error('not-authorized');
         // Make sure the user is logged in before inserting a activity
-        if (! Meteor.userId()) {
+        if (!Meteor.userId()) {
             throw new Meteor.Error('not-authorized');
         }
 
         Options.insert({
-            name:option.name,
+            name: option.name,
             desc: option.desc,
             choices: option.choices,
             prices: option.prices,
@@ -68,6 +69,6 @@ Meteor.methods({
         check(activityId, String);
         check(setChecked, Boolean);
 
-        Options.update(activityId, { $set: { checked: setChecked } });
+        Options.update(activityId, {$set: {checked: setChecked}});
     },
 });

@@ -30,8 +30,9 @@ Template.ordersTpl.onCreated(function bodyOnCreated() {
     this.state.set('sort-sign', -1);
     this.state.set('sort-by-before', 'updatedAt');
     Meteor.subscribe('orders');
+    Session.set('user-search', {});
     this.autorun(() => {
-        this.subscribe('allUsers');
+        this.subscribe('allUsers', false);
         setUserOpts();
     });
 
@@ -54,8 +55,8 @@ let format = function (user) {
         'sibers': 'Me',
         'kin': 'Ai'
     };
-    if(typeof user !== 'undefined')
-    return user.profile.buque + " - " + user.profile.nums + "" + tbk[user.profile.tbk] + user.profile.proms + " dit " + user.profile.prenom + " " + user.profile.nom;
+    if (user && typeof user !== 'undefined' && typeof user.profile !== 'undefined')
+        return user.profile.buque + " - " + user.profile.nums + "" + tbk[user.profile.tbk] + user.profile.proms + " dit " + user.profile.prenom + " " + user.profile.nom;
 };
 let setUserOpts = function () {
     let users = Meteor.users.find({"roles": "admin"});
@@ -89,7 +90,6 @@ let setLvlOpts = function () {
         }
         lvlOpts.push(option)
     }
-    console.log(lvlOpts);
     Session.set('lvlOpts', lvlOpts);
 };
 
@@ -99,16 +99,32 @@ Template.ordersTpl.helpers({
         if (instance.state.get('sort-by')) {
             let sort_obj = {};
             sort_obj[instance.state.get('sort-by')] = instance.state.get('sort-sign');
-            return Orders.find({}, {sort: sort_obj});
+            return Orders.find(Session.get('user-search'), {sort: sort_obj});
         }
-        return Orders.find({}, {sort: {updatedAt: -1}});
+        console.log(Session.get('user-search'));
+
+        return Orders.find(Session.get('user-search'), {sort: {updatedAt: -1}});
+    },
+    ordersCount() {
+        return Orders.find({}).count();
+    },
+    paidCount() {
+      return Orders.find({received:{$gte: 0.5 }}).count()
     },
     users() {
         return Meteor.users.find({"roles": "admin"});
     },
     userById() {
-        let user = Meteor.users.findOne(String(this.user_id));
+        let user = Meteor.users.findOne(this.user_id);
+        // console.log(format(user));
+        // console.log(Session.get('user-search'));
         return format(user);
+    },
+    isToPayEmpty() {
+        // console.log(this);
+        // return false;
+        // console.log(this.paiement1);
+        return !((typeof this.paiement1 !== 'undefined' && this.paiement1 > 0) && (typeof this.received !== 'undefined' && this.received > 0));
     },
     toPay() {
         // return this;
@@ -150,7 +166,29 @@ Template.ordersTpl.helpers({
 });
 
 Template.ordersTpl.events({
+    'keyup #userSearch'(event, instance) {
+        event.preventDefault();
+        // instance.usersList = Meteor.users.find({})
+        let value = new RegExp($('#userSearch').val(), "i");
+        console.log(value);
+        let q = { $or: [ { "profile.auth": value }, { "profile.nums": value}, { "profile.phone": value }, { "profile.nom": value }, { "profile.buque": value }, { "profile.email": value }  ]}
+        let allreq = [];
+        let users = Meteor.users.find(q).forEach(function (user) {
+            allreq.push(user._id);
+        });
+        Session.set('user-search', {user_id: {$in: allreq}});
 
+        // , {"profile.prenom": value}, {"profile.tbk": value}, {"profile.email": value}
+        console.log(Session.get('user-search'));
+    },
+    'click .delete-order'(event) {
+        let target = event.target;
+        console.log(this);
+        if(confirm('Voulez-vous vraiment supprimer cette commande ?')) {
+            Orders.remove(this._id);
+            sAlert.success("Commande supprimée.");
+        }
+    },
     'submit .new-order'(event) {
         event.preventDefault();
         console.log("envoi");
@@ -237,10 +275,10 @@ Template.ordersTpl.events({
             $set: {checked: !this.checked},
         });
     },
-    'click .delete-order'() {
-        if (confirm('Voulez-vous vraiment supprimer cette activité ?')) {
-            Meteor.call('orders.remove', this._id);
-            // Orders.remove(this._id);
-        }
-    },
+    // 'click .delete-order'() {
+    //     if (confirm('Voulez-vous vraiment supprimer cette commande ?')) {
+    //         Meteor.call('orders.remove', this._id);
+    //         // Orders.remove(this._id);
+    //     }
+    // },
 });

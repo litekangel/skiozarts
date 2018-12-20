@@ -18,6 +18,20 @@ Meteor.methods({
         }
         Rooms.find({}, {sort: sortBy});
     },
+    'rooms.members' (room) {
+        check(room, Object);
+
+        check(room._id, String);
+        if (! Meteor.userId()) {
+            throw new Meteor.Error('not-authorized');
+        }
+        Rooms.update(room._id, { $set: {
+                name:room.name,
+                updatedAt: new Date(),
+                members: room.members,
+                // username: Meteor.user().username,
+            }});
+    },
     'rooms.update'(room) {
         check(room, Object);
 
@@ -29,8 +43,10 @@ Meteor.methods({
         Rooms.update(room._id, { $set: {
                 name:room.name,
                 tbk:room.tbk,
+                floor: room.floor,
                 updatedAt: new Date(),
-                username: Meteor.user().username,
+                places: room.places,
+                username: Meteor.userId(),
             }});
     },
     'rooms.insert'(room) {
@@ -48,6 +64,8 @@ Meteor.methods({
             updatedAt: new Date(),
             building:room.building,
             floor: room.floor,
+            places: room.places,
+            members: [],
             creator: Meteor.userId(),
             username: Meteor.userId(),
         });

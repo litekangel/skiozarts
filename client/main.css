@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Noto+Sans+JP|Oswald');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Noto+Sans+JP|Yellowtail');
 * {
   box-sizing: border-box;
 }
@@ -148,7 +147,7 @@ color:#333;
 }
 
 .commande-section {
-  background:#ecf0f1;
+  background:#fff;
   line-height:1.5;
   /*padding:20px;*/
 }
@@ -241,4 +240,39 @@ color:#333;
   #textSlider.row { margin-right: 0px !important; margin-left: 0px !important; }
   .iamCol { text-align: right; font-size:30pt; }
   .slideCol { font-size: 55pt; text-align: left; }
+}
+article.footer {
+  background:#000;
+  color:#fff;
+  position:fixed;
+  bottom:0;
+  left:105px;
+  width:100%;
+  padding:5px;
+  text-align:left;
+}
+
+#return-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255,0.2);
+  /*background: rgba(0, 0, 0, 0.7);*/
+  width: 50px;
+  height: 50px;
+  display: block;
+  text-decoration: none;
+  -webkit-border-radius: 35px;
+  -moz-border-radius: 35px;
+  border-radius: 35px;
+  display: none;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+    z-index:1000000;
+}
+#return-to-top:hover {
+  background: rgba(255, 255, 255, 0);
 }

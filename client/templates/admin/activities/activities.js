@@ -1,8 +1,9 @@
 import {Meteor} from 'meteor/meteor';
 import {Template} from 'meteor/templating';
 import {ReactiveDict} from 'meteor/reactive-dict';
-import  moment from "moment";
-import  "moment/locale/fr"
+import moment from "moment";
+import "moment/locale/fr"
+
 moment.locale('fr');
 moment().format('LLLL'); // jeudi 2 août 2018 09:56
 import {Activities} from '../../../../collections/activities';
@@ -11,6 +12,7 @@ import '../../../helpers';
 
 
 import './activities.html';
+import Papa from "papaparse";
 
 let tbks = function (tbk) {
     let tbkList = {
@@ -35,7 +37,7 @@ let format = function (user) {
         'sibers': 'Me',
         'kin': 'Ai'
     };
-
+    if (user && typeof user !== 'undefined' && typeof user.profile !== 'undefined')
     return user.profile.buque + " - " + user.profile.nums + "" + tbk[user.profile.tbk] + user.profile.proms + " dit " + user.profile.prenom + " " + user.profile.nom;
 };
 
@@ -44,10 +46,10 @@ Template.activities.onCreated(function bodyOnCreated() {
     this.state.set('sort-by', 'updatedAt');
     this.state.set('sort-sign', -1);
     this.state.set('sort-by-before', 'updatedAt');
-    Meteor.subscribe('activities');
     Meteor.subscribe('orders');
     this.autorun(() => {
-        this.subscribe('allUsers');
+        this.subscribe('allUsers', false);
+        this.subscribe('activities');
         setUserOpts();
     });
 
@@ -85,27 +87,28 @@ let setLvlOpts = function () {
     for (let i = 0; i < lvls.length; i++) {
         let option = {};
         option.label = lvls[i];
-        option.value = i+1;
+        option.value = i + 1;
         let selected = Session.get('lvlSelected');
-        let j = i+1;
+        let j = i + 1;
         if (Array.isArray(selected) && selected.indexOf(j) !== -1) {
             option.selected = true;
         }
         lvlOpts.push(option)
     }
-    console.log(lvlOpts);
+    // console.log(lvlOpts);
     Session.set('lvlOpts', lvlOpts);
 };
 
 Template.activities.helpers({
     activities() {
-        const instance = Template.instance();
-        if (instance.state.get('sort-by')) {
-            let sort_obj = {};
-            sort_obj[instance.state.get('sort-by')] = instance.state.get('sort-sign');
-            return Activities.find({}, {sort: sort_obj});
-        }
-        return Activities.find({}, {sort: {updatedAt: -1}});
+        // const instance = Template.instance();
+        //         // if (instance.state.get('sort-by')) {
+        //         //     let sort_obj = {};
+        //         //     sort_obj[instance.state.get('sort-by')] = instance.state.get('sort-sign');
+        //         //     return Activities.find({}, {sort: sort_obj});
+        //         // }
+        var activities = Activities.find({}).fetch();
+        return activities;
     },
     users() {
         return Meteor.users.find({"roles": "admin"});
@@ -116,23 +119,93 @@ Template.activities.helpers({
     },
     levelName() {
         let lvls = ["Débutant", "Intermédiaire", "Avancé"];
-        return lvls[this-1];
+        return lvls[this - 1];
     },
     hasCandidats() {
-        return Orders.find({activities:this._id}).count();
+        return Orders.find({activities: this._id,  "received": { $gte: 106.67 }}).count();
     },
     candidats() {
-        let orders = Orders.find({activities:this._id});
+        let orders = Orders.find({activities: this._id, "received": { $gte: 106.67 }});
+
         let users = [];
-        orders.forEach(function(order) {
-            users.push(Meteor.users.findOne(order.user_id));
+        let data = [];
+
+        orders.forEach(function (order) {
+            let options = order.options;
+            // console.log(options);
+            let user = Meteor.users.findOne(order.user_id);
+            let usr = {};
+            if (typeof user !== 'undefined' && typeof user.profile !== 'undefined' && typeof user.profile.emergency !== 'undefined') {
+                usr['Nom'] = user.profile.nom;
+                usr['Prenom'] = user.profile.prenom;
+                usr['Bucque'] = user.profile.buque;
+                usr['Centre'] = user.profile.tbk;
+                usr['Telephone'] = user.profile.phone;
+                usr['Personne a contacter'] = user.profile.emergency.nom + ' ' + user.profile.emergency.prenom;
+                usr['Telephone d\'urgence'] = user.profile.emergency.phone;
+                data.push(usr)
+            }
         });
-        return users;
+        let config = {
+            quotes: false,
+            quoteChar: '"',
+            escapeChar: '"',
+            delimiter: ";",
+            header: true,
+            newline: "\r\n",
+            // download: true,
+        };
+        let csv = Papa.unparse(data, config);
+        // console.log(csv);
+
+        return csv;
+        // return users;
+    },
+    participantsCSV() {
+        let users = [];
+        let data = [];
+        // console.log(options);
+
+        for (let i =0; i<this.participants.length; i++) {
+            let user_id = this.participants[i];
+            let user = Meteor.users.findOne(user_id);
+            let usr = {};
+            if (typeof user !== 'undefined' && typeof user.profile !== 'undefined' && typeof user.profile.emergency !== 'undefined') {
+                usr['Nom'] = user.profile.nom;
+                usr['Prenom'] = user.profile.prenom;
+                usr['Bucque'] = user.profile.buque;
+                usr['Centre'] = user.profile.tbk;
+                usr['Telephone'] = user.profile.phone;
+                usr['Personne a contacter'] = user.profile.emergency.nom + ' ' + user.profile.emergency.prenom;
+                usr['Telephone d\'urgence'] = user.profile.emergency.phone;
+                data.push(usr)
+            }
+        }
+        let config = {
+            quotes: false,
+            quoteChar: '"',
+            escapeChar: '"',
+            delimiter: ";",
+            header: true,
+            newline: "\r\n",
+            // download: true,
+        };
+        let csv = Papa.unparse(data, config);
+        // console.log(csv);
+        return csv;
+        // return users;
+    },
+    user_filename() {
+        // console.log(this);
+
+        let now = new Date();
+        let name = this.name.replace(' ', '_');
+        return name + '_' + now.toLocaleDateString();
     },
     candidatName() {
         return format(this);
     },
-    sortSelect(){
+    sortSelect() {
         return 'value';
     },
     realDate() {
@@ -150,7 +223,7 @@ Template.activities.helpers({
 });
 
 Template.activities.events({
-    'click .reset-activity-form'(event,instance) {
+    'click .reset-activity-form'(event, instance) {
         event.preventDefault();
         $('#activity-form-content').trigger('reset');
         $('#activity-form').hide(500);
@@ -160,7 +233,6 @@ Template.activities.events({
     },
     'submit .new-activity'(event) {
         event.preventDefault();
-        console.log("envoi");
         // Get value from form element
         const target = event.target;
         let anims = {};
@@ -168,7 +240,6 @@ Template.activities.events({
         anims.type = target.type.value;
         anims.price = target.price.value;
         anims.respos = target.respos.value;
-        console.log(target.respos.value);
         anims.level = $('#level-selector').val();
         anims.level = anims.level.map(function (x) {
             return parseInt(x);
@@ -178,11 +249,9 @@ Template.activities.events({
         anims.date = target.date.value;
         anims.places = target.places.value;
         anims.desc = target.desc.value;
-        console.log(anims);
         $('#activity-form').removeClass('border border-warning text-warning');
         $('#submit-btn').removeClass('btn-warning');
         $('#submit-btn').addClass('btn-primary');
-        console.log(target._id.value);
         if (target._id.value.length === 0) {
             Meteor.call('activities.insert', anims);
         } else {
@@ -204,12 +273,12 @@ Template.activities.events({
     'click .edit-activity'(event, instance) {
         event.preventDefault();
         $('#activity-form').show(500);
-        console.log(instance);
+        // console.log(instance);
         $('#activity-form').addClass('border border-warning text-warning');
         $('#submit-btn').removeClass('btn-primary');
         $('#submit-btn').addClass('btn-warning');
-        console.log(this._id);
-        console.log(this);
+        // console.log(this._id);
+        // console.log(this);
         $('#name').val(this.name);
         $('#_id').val(this._id);
         $('#desc').val(this.desc);
@@ -217,8 +286,8 @@ Template.activities.events({
 
         $('#type').val(this.type);
         $('#level').val(this.level);
-        console.log(this);
-        console.log(this.level);
+        // console.log(this);
+        // console.log(this.level);
         Session.set('userSelected', this.respos);
         Session.set('lvlSelected', this.level);
         setUserOpts();

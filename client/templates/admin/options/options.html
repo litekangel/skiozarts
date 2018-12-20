@@ -71,67 +71,33 @@
                             <small class="badge badge-danger badge-pill delete-option">Supprimer</small>
                         </span>
                             </div>
-                            <p class="mb-1">{{desc}}</p>
+                            <p class="mb-1">{{{desc}}}</p>
                             <hr style="margin:1rem">
                             <h4>Les Produits
                             <small>Cliquer sur un produit pour voir les commandes</small></h4>
-                        <p>
+                            <div class="table-responsive">
+                            <table class="table">
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prix</th>
+                                <th>Candidats</th>
+                                <th>Action</th>
+                            </tr>
                             {{#each prices_choices}}
-                                <div class="btn-group" role="group" aria-label="Produit">
-                                    <button type="button" class="btn btn-danger"
-                                            style="font-size:1.25rem" data-toggle="modal"
-                                            data-target="#{{id}}{{order}}">{{choice}}</button>
-                                    <button type="button" class="btn btn-dark" style="font-size:1.25rem">{{price}}€
-                                    </button>
-                                </div>
-
-                                <div class="modal fade" id="{{id}}{{order}}" tabindex="-1" role="dialog"
-                                         aria-labelledby="{{id}}{{order}}Label" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h3 class="modal-title" id="{{id}}{{order}}Label">Liste des
-                                                        participants à {{name}} - {{choice}} </h3>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <table class="table">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Candidat</th>
-                                                            <th>Email</th>
-                                                            <th>Téléphone</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        {{#each candidats}}
-                                                            <tr>
-                                                                <td>{{candidatName}}</td>
-                                                                <td>{{email}}</td>
-                                                                <td>{{profile.phone}}</td>
-                                                                <td><a href="/admin/users/{{_id}}"
-                                                                       class="badge badge-pill badge-danger">Voir</a>
-                                                                </td>
-                                                            </tr>
-                                                        {{/each}}
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Fermer
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary">exporter</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <tr>
+                                    <td>{{choice}}</td>
+                                    <td>{{price}}€</td>
+                                    <td>{{nbCandidates}} candidat(s)</td>
+                                    <td>
+                                    <a href="data:text/csv;charset=utf-8,{{ candidats }}"
+                                        download="{{user_filename}}.csv"
+                                    type="text/csv" class="btn btn-danger"
+                                            style="font-size:1.25rem">Voir</a>
+                                    </td>
+                                </tr>
                             {{/each}}
-                            </p>
+                        </table>
+                            </div>
                         </div>
                     {{/each}}
                 </div>

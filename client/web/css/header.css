@@ -201,10 +201,21 @@ p.center {
     color: #333;
     font-size:1.4em;
 }
-.equipe-section img {
+.equipe-section img.img-circle {
     max-width:200px;
     max-height:200px;
 }
 .redded {
     color: #DE0B46;
+}
+section.event {
+    background: url(/images/topography.png) repeat;
+    height: 100%;
+    color: #333;
+    font-size:1.5em;
+    text-align: center;
+    min-height:100vh;
+}
+.les-skz img {
+    max-height:175px;
 }

@@ -1,147 +1,168 @@
 <template name="userOrder">
-    {{#with order }}
-        <h1>Récapitulatif de commande</h1>
-        <table class="table table-dark">
-            <thead>
-            <tr>
-                <th>Paiement</th>
-                <th>Somme</th>
-                <th>Echéance</th>
-                <th>Statut</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1<sup>er</sup> Paiement</td>
-                <td>{{ paiement1 }} €</td>
-                <td>{{ date_paiement1 }}</td>
-                <td>
-                    {{#if status 1}}
-                        <span class="badge badge-primary">Validé</span>
-                    {{else}}
-                        {{#if payWait 1}}
-                            <span class="badge badge-light">En attente</span>
-                        {{else}}
-                            <a href="/order/pay"
-                               class="badge badge-danger">Payer</a>
-                        {{/if}}
-                    {{/if}}
-                </td>
-            </tr>
-            <tr>
-                <td>2<sup>nd</sup> Paiement</td>
-                <td>{{paiement2}} €</td>
-                <td>{{date_paiement2}}</td>
-                <td> {{#if status 2}}
-                    <span class="badge badge-primary">Validé</span>
-                {{else}}
-                    {{#if payWait 2}}
-                        <span class="badge badge-light">En attente</span>
-                    {{else}}
-                        <a href="/order/pay"
-                           class="badge badge-danger">Payer</a>
-                    {{/if}}
-                {{/if}}</td>
-
-            </tr>
-            <tr>
-                <td>3<sup>ème</sup> Paiement</td>
-                <td>{{paiement3}} €</td>
-                <td>{{date_paiement3}}</td>
-                <td> {{#if status 3}}
-                    <span class="badge badge-primary">Validé</span>
-                {{else}}
-                    {{#if payWait 3}}
-                        <span class="badge badge-light">En attente</span>
-                    {{else}}
-                        <a href="/order/pay"
-                           class="badge badge-danger">Payer</a>
-                    {{/if}}
-                {{/if}}</td>
-
-            </tr>
-            <tr style="font-weight:bolder;">
-                <td>Total</td>
-                <td colspan="3">{{paiementTotal}} €</td>
-            </tr>
-            </tbody>
-        </table>
-
-        {{#with activities}}
-            <h1>Mes activités sélectionnées</h1>
-            <table class="table table-dark">
-                <thead>
-                <tr>
-                    <th>Activité</th>
-                    <th>Description</th>
-                    <th>Type</th>
-                    <th style="text-align:right">Prix</th>
-                </tr>
-                </thead>
-                <tbody>
-                {{#each activities}}
-                    <tr>
-                        <td>{{name}}</td>
-                        <td>{{desc}}</td>
-                        <td>{{type}}</td>
-                        <td style="text-align:right">{{price}} €</td>
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        {{/with}}
-        {{#with options}}
-            <h1>Mes options & packs sélectionnées</h1>
-            {{#each options}}
-                <h3 style="font-weight:bold;">{{name}}<br>
-                    <small>{{desc}}</small>
-                </h3>
-                <h4 style="font-weight:bold">Mes choix</h4>
+    <div class="row">
+        <div class="col-12">
+            {{#with order }}
+                <h1>Récapitulatif de commande<br>
+                    <small style="font-size:1.5rem;">Modifiez votre commande pour sélectionner les options (skis/snow, transports, assurances, saucisson, goodies...)</small>
+                    <br>
+                <small style="font-size:1.5rem;">Vous avez déjà payé : {{received}} €</small></h1>
+                <div class="progress">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{payRatio}}%"
+                         aria-valuenow="{{received}}" aria-valuemin="0" aria-valuemax="{{total}}">{{received}}€
+                    </div>
+                </div>
+                <br>
                 <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th>Paiement</th>
+                        <th>Somme</th>
+                        <th>Echéance</th>
+                        <th>Statut</th>
+                    </tr>
+                    </thead>
                     <tbody>
-                    {{#each choices_and_prices}}
-                        <tr>
-                            <td>{{choice}}</td>
-                            <td class="pull-right" style="width:100%; text-align:right">{{price}}
-                                €
-                            </td>
-                        </tr>
-                    {{/each}}
+                    <tr>
+                        <td>1<sup>er</sup> Paiement</td>
+                        <td>{{ paiement1 }} €</td>
+                        <td>{{ moment date_paiement1 }}</td>
+                        <td>
+                            {{#if status 1}}
+                                <span class="badge badge-primary">Validé</span>
+                            {{else}}
+                                {{#if payWait 1}}
+                                    <span class="badge badge-light">En attente</span>
+                                {{else}}
+                                    <a href="/order/edit/3"
+                                       class="badge badge-danger">Payer {{difference_payer}}</a>
+                                {{/if}}
+                            {{/if}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2<sup>nd</sup> Paiement</td>
+                        <td>{{paiement2}} €</td>
+                        <td>{{moment date_paiement2}}</td>
+                        <td> {{#if status 2}}
+                            <span class="badge badge-primary">Validé</span>
+                        {{else}}
+                            {{#if payWait 2}}
+                                <span class="badge badge-light">En attente</span>
+                            {{else}}
+                                <a href="/order/edit/3"
+                                   class="badge badge-danger">Payer {{difference_payer}}</a>
+                            {{/if}}
+                        {{/if}}</td>
+
+                    </tr>
+                    <tr>
+                        <td>3<sup>ème</sup> Paiement</td>
+                        <td>{{paiement3}} €</td>
+                        <td>{{moment date_paiement3}}</td>
+                        <td> {{#if status 3}}
+                            <span class="badge badge-primary">Validé</span>
+                        {{else}}
+                            {{#if payWait 3}}
+                                <span class="badge badge-light">En attente</span>
+                            {{else}}
+                                <a href="/order/edit/3"
+                                   class="badge badge-danger">Payer {{difference_payer}}</a>
+                            {{/if}}
+                        {{/if}}</td>
+
+                    </tr>
+                    <tr style="font-weight:bolder;">
+                        <td>Total</td>
+                        <td colspan="3">{{paiementTotal}} €</td>
+                    </tr>
                     </tbody>
                 </table>
-                <br>
-            {{/each}}
-        {{/with}}
-        <h1>Résumé</h1>
-        <table class="table table-dark table resume">
-            <thead>
-            <tr>
-                <th>Intitulé</th>
-                <th style="text-align: right">Montant</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Pack de base<br>
-                    <small>Comprenant le forfait de ski, le logement et l'alimentation de base pour
-                        une semaine
-                    </small>
-                </td>
-                <td style="text-align: right">{{forfait_de_base}} €</td>
-            </tr>
-            <tr>
-                <td>Options et Animations<br>
-                    <small>Services supplémentaires proposés pour agrémenter la semaine
-                        (Boulangerie, Viennoiseries, assurances...)
-                    </small>
-                </td>
-                <td style="text-align: right">{{addons}} €</td>
-            </tr>
-            <tr>
-                <td>Total</td>
-                <td style="text-align: right">{{paiementTotal}} €</td>
-            </tr>
-            </tbody>
-        </table>
-    {{/with}}
+
+                {{#with activities}}
+                    <h1>Mes activités sélectionnées</h1>
+                    <table class="table table-dark">
+                        <thead>
+                        <tr>
+                            <th>Activité</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th style="text-align:right">Prix</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each activities}}
+                            <tr>
+                                <td>{{name}}</td>
+                                <td>{{{desc}}}</td>
+                                <td>{{type}}</td>
+                                <td style="text-align:right">{{price}} €</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                {{/with}}
+                {{#with options}}
+                    <h1>Mes options & packs sélectionnées</h1>
+                    {{#each options}}
+                        <h3 style="font-weight:bold;">{{name}}<br>
+                            <small>{{{desc}}}</small>
+                        </h3>
+                        <h4 style="font-weight:bold">Mes choix</h4>
+                        <table class="table table-dark">
+                            <tbody>
+                            {{#each choices_and_prices}}
+                                <tr>
+                                    <td>{{choice}}</td>
+                                    <td class="pull-right" style="width:100%; text-align:right">{{price}}
+                                        €
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                        <br>
+                    {{/each}}
+                {{/with}}
+                <h1>Résumé</h1>
+                <table class="table table-dark table resume" style="margin-bottom:50px">
+                    <thead>
+                    <tr>
+                        <th>Intitulé</th>
+                        <th style="text-align: right">Montant</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {{#if chouille }}
+                            <td>Pack Chouille<br>
+                                <small>Comprenant le logement et l'alimentation de base pour
+                                    une semaine
+                                </small>
+                            </td>
+                            {{else}}
+                        <td>Pack de base<br>
+                            <small>Comprenant le forfait de ski, le logement et l'alimentation de base pour
+                                une semaine
+                            </small>
+                        </td>
+                        {{/if}}
+                        <td style="text-align: right">{{forfait_de_base}} €</td>
+                    </tr>
+                    <tr>
+                        <td>Options et Animations<br>
+                            <small>Services supplémentaires proposés pour agrémenter la semaine
+                                (Boulangerie, Viennoiseries, assurances...)
+                            </small>
+                        </td>
+                        <td style="text-align: right">{{addons}} €</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td style="text-align: right">{{paiementTotal}} €</td>
+                    </tr>
+                    </tbody>
+                </table>
+            {{/with}}
+        </div>
+    </div>
 </template>

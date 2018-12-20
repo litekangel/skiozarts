@@ -1,4 +1,9 @@
 <template name="activities">
+    <style>
+        .modal-backdrop{
+            z-index: auto !important;
+        }
+    </style>
     <div class="col-12">
         <div id="activity-form" class="card" style="display:none;">
             <form id="activity-form-content" class="new-activity">
@@ -27,7 +32,7 @@
                         <label for="">Nombre de places</label>
                         <input type="number" name="places" id="places" class="form-control" required>
                     </div>
-                                        <div class="form-group">
+                    <div class="form-group">
                         <label for="">Description de l'anim's</label>
                         <input type="hidden" name="_id" id="_id">
                         <textarea name="desc" id="desc" cols="30" rows="10" class="form-control" required></textarea>
@@ -50,7 +55,7 @@
                     <p class="form-group">
                         <input type="submit" class="btn btn-primary" id="submit-btn"
                                value="Valider"/>
-                        <input type="reset" class="btn reset-activity-form" value="Annuler" />
+                        <input type="reset" class="btn reset-activity-form" value="Annuler"/>
                     </p></div>
             </form>
         </div>
@@ -74,12 +79,19 @@
                             <h3 class="mb-1">{{name}}</h3>
                             <span class="pull-right">
                                 {{#if price }}
-                                <small class="badge badge-pill">{{price}} €</small>
-                                    {{/if}}
-                            <small class="badge badge-primary badge-pill">{{type}}</small>
+                                    <small class="badge badge-pill">{{price}} €</small>
+                                {{/if}}
+                                <small class="badge badge-primary badge-pill">{{type}}</small>
                             <small class="badge badge-primary badge-pill">{{places}} places</small>
-                            <small class="badge badge-success badge-pill">Voir les participants</small>
-                            <small class="badge badge-secondary badge-pill">Voir les candidats</small>
+                            <a href="data:text/csv;charset=utf-8,{{ candidats }}"
+                               download="candidats_{{user_filename}}.csv"
+                               type="text/csv"
+                               style=""><small class="badge badge-secondary badge-pill">Voir les {{ hasCandidats}} candidants</small></a>
+                               <a href="data:text/csv;charset=utf-8,{{ participantsCSV }}"
+                                  download="participants_{{user_filename}}.csv"
+                                  type="text/csv"
+                                  style=""><small class="badge badge-success badge-pill"
+                                                  >Voir les participants</small></a>
                                 <small class="badge badge-warning badge-pill edit-activity">Editer</small>
                             <small class="badge badge-danger badge-pill delete-activity">Supprimer</small>
                         </span>
@@ -87,27 +99,8 @@
                         <h5>{{realDate}}</h5>
                         <p class="mb-1">{{desc}}</p>
                         {{#if hasCandidats}}
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Candidat</th>
-                                <th>Email</th>
-                                <th>Téléphone</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {{#each candidats}}
-                                <tr>
-                                    <td>{{candidatName}}</td>
-                                    <td>{{email}}</td>
-                                    <td>{{profile.phone}}</td>
-                                    <td><a href="/admin/users/{{_id}}" class="badge badge-pill badge-danger">Voir</a></td>
-                                </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
-                            {{/if}}
+
+                        {{/if}}
                         {{#each level}}
                             <small class="badge badge-info">{{levelName}}</small>
                         {{/each}}

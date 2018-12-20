@@ -1,6 +1,5 @@
 <template name="AdminMainLayout">
-    {{#if currentUser }}
-
+    {{#if isInRole 'admin' }}
         <div class="row main-admin-row">
 
             <div id="right-panel" class="col-12">
@@ -10,8 +9,8 @@
                 </div>
             </div><!-- /#right-panel -->
         </div>
-    {{else}}
-        {{ accessDenied }}
-    {{/if}}
 
+    {{/if}}
 </template>
+<!--else}}-->
+<!--accessDenied }}-->

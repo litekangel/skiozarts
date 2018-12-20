@@ -5,10 +5,10 @@
             background-size: cover;
             padding-bottom: 50px;
         }
+
         ul.accordeon {
             display: flex;
             min-height: 75vh;
-            max-height: 100vh;
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -23,23 +23,28 @@
             background: #E74C3C;
             cursor: pointer;
             transition: all .5s ease;
-            min-width:10%;
-            max-width:15%
+            min-width: 10%;
+            max-width: 15%
 
         }
+
         .accordeon li:hover {
             background: #e53f2e;
         }
+
         .accordeon li.active {
             flex: 6;
             background: #fff;
             cursor: default;
-            min-width:55%;
+            min-width: 55%;
+            background-image: linear-gradient(to bottom, #ffffff, #f7f7f7, #f0f0f0, #e8e8e8);
 
         }
+
         .accordeon li.active h2 {
             color: #E74C3C;
         }
+
         .accordeon li.active .section-content {
             flex: 5;
             opacity: 1;
@@ -47,6 +52,7 @@
             color: #333;
             text-align: left;
         }
+
         .accordeon li .section-title {
             flex: 1;
             display: flex;
@@ -58,19 +64,54 @@
             text-align: center;
             color: white;
         }
+
         .accordeon li .section-title h2 {
             margin: 0;
             transform: rotate(-90deg);
             white-space: nowrap;
         }
+        .section-title {
+            display:none;
+        }
+
         .accordeon li .section-content {
             /*flex: 1;*/
             /*display: flex;*/
             /*align-items: center;*/
-            margin: auto;
+            /*margin: auto;*/
+            margin-top:1.3em;
+            margin-left:1.3em;
+            margin-right:1.3em;
             padding: 0;
             opacity: 0;
             transition: all .25s .1s ease-out;
+            padding-bottom:20px;
+        }
+        #go-bottom {
+            position: fixed;
+            bottom: 20px;
+            margin: 0 auto;
+            right: 0;
+            left:0;
+            /*background: rgba(255, 255, 255,0.2);*/
+            /*background: rgba(0, 0, 0, 0.7);*/
+            width: 150px;
+            height: auto;
+            display: block;
+            text-decoration: none;
+            -webkit-border-radius: 35px;
+            -moz-border-radius: 35px;
+            border-radius: 35px;
+            display: none;
+            -webkit-transition: all 0.3s linear;
+            -moz-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            z-index:1000000;
+        }
+        #return-to-top:hover {
+            /*background: rgba(255, 255, 255, 0);*/
         }
 
     </style>
@@ -81,39 +122,50 @@
                 <article class="skz" style="max-width:15%; text-align: center; margin:auto; margin-top:10px;">
                     <img src="/images/blancv.png" alt="" class="img-fluid">
                 </article>
-                <h1 style="text-align: center; color:#fff">Réservez votre place dès maintenant !</h1><br>
+                <h1 style="text-align: center; color:#fff">Réservez votre place dès maintenant !<br>
+                <small>Défilez pour voir le contenu</small></h1><br>
             </div>
         </div>
     </section>
     <section class="register_wrap">
         {{#each order}}
-
+            {{#if listeAttente }}
+                <div style="text-align: center; padding:20px;">
+                    <h1>Déso, Plus de places disponibles</h1>
+                <p>Vous êtes sur liste d'attente, <br>
+                    Vous ne pouvez pas réserver pour le moment, <br>mais restez à l'affût !</p>
+                </div>
+                {{else}}
             <ul class="accordeon">
                 <li id="prelude" class="active">
-                    <div class="section-title">
-                        <h2>Etape 1</h2>
-                    </div>
+                    <!--<div class="section-title">-->
+                        <!--<h2>Etape 1</h2>-->
+                    <!--</div>-->
                     <div class="section-content">
-                       <div><h1>Vous y êtes presque !</h1> <br>
+                        <div id="start"><h1>Vous y êtes presque !</h1> <br>
 
-                           <p>Le processus de réservation est composé de quatre courtes étapes !</p>
-                           <p>Vous allez bientôt pouvoir profiter du Pack exceptionnel que vous propose la Team SKZ 216 !</p>
+                            <p>Le processus de réservation est composé de quatre courtes étapes !</p>
+                            <p>Vous allez bientôt pouvoir profiter du Pack exceptionnel que vous propose la Team SKZ 216
+                                !</p>
                             <p>Vous n'êtes pas prêt·e·s pour la semaine all inclusive
-                            <small>comme mon écriture</small>
-                                que vous allez vivre !</p>
-                        <br>
+                                <small>comme mon écriture</small>
+                                que vous allez vivre !
+                            </p>
+                            <br>
                             <p>Veuillez simplement vous munir d'un exemplaire en état de fonctionnement de votre cerveau<br>
-                                et ce sera rapide...<br><small>Une pensée pour les Clun'sssois·e·s !</small></p>
-                        <br><br>
-                           <p><strong>La Team SKZ216</strong></p><br><br>
-                        <button class="btn btn-lg btn-danger start_btn">C'est parti !</button>
+                                et ce sera rapide...<br>
+                                <small>Une pensée pour les Clun'sssois·e·s !</small>
+                            </p>
+                            <br><br>
+                            <p><strong>La Team SKZ216</strong></p><br><br>
+                            <button class="btn btn-lg btn-danger start_btn">C'est parti !</button>
                         </div>
                     </div>
                 </li>
                 <li id="just_start">
-                    <div class="section-title">
-                        <h2>Etape 2</h2>
-                    </div>
+                    <!--<div class="section-title" id="go">-->
+                        <!--<h2>Etape 2</h2>-->
+                    <!--</div>-->
                     <div class="section-content">
                         <h2>Configurons votre réservation</h2>
                         <form id="reserver_form_1">
@@ -143,6 +195,14 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>Quelle est votre taille de chaussure ?</label>
+                                <select name="size" id="size" class="form-control">u
+                                    {{#each shoeSize }}
+                                        <option value="{{size}}" {{shoeSizeSelected }}>{{size}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <input type="submit" class="btn btn-lg btn-danger" value="Enregistrer">
                             </div>
                             <!--Rajouter des commentaires débiles à la fin du truc (si vous avez un max de carré vous êtes psychorigide de niveau >= 3, vous êtes un AS de la Glisse (badge Ass de la glisse avec un cul))-->
@@ -150,12 +210,16 @@
                     </div>
                 </li>
                 <li id="mid_things">
-                    <div class="section-title">
-                        <h2>Etape 3
-                            </h2>
-                    </div>
+                    <!--<div class="section-title">-->
+                        <!--<h2>Etape 3-->
+                        <!--</h2>-->
+                    <!--</div>-->
                     <div class="section-content">
-                        <h2>Choix des activités et des options</h2>
+                        <h2>Choix des activités et des options<br>
+                            <small>Nous vous conseillons fortement de prendre une assurance en cas d'accident sur les
+                                pistes au vu des frais que ça peut engendrer
+                            </small>
+                        </h2>
                         <form action="" id="reserver_form_2">
                             <div class="form-group one-at-time active" id="one-">
                                 <label for="">Par quelles activités es-tu intéressé·e ? (Pas plus de 4 activités
@@ -166,35 +230,42 @@
                             {{#each allOptions}}
                                 <div class="form-group one-at-time" id="one-{{@index}}">
                                     <h3>{{name}}</h3>
-                                    <label for="{{option_id}}">{{desc}}</label>
+                                    <label for="{{option_id}}">{{{desc}}}</label>
                                     {{> universeSelectize name=option_id id=option_id  options=ChoicesOptions multiple=option_multiple create=false remove=true}}
                                 </div>
                             {{/each}}
-                            <div class="form-group">
+                            <div class="form-group" style="margin-bottom:100px;">
                                 <button class="btn btn-lg one-at-time-prev">Précédent</button>
                                 <input type="submit" value="Enregistrer"
                                        class="one-at-time-next btn btn-lg btn-danger"></div>
-                        </form> </div>
+                        </form>
+                    </div>
                 </li>
                 <li id="last_things">
-                    <div class="section-title">
-                        <h2>Etape 4</h2>
-                    </div>
+                    <!--<div class="section-title">-->
+                        <!--<h2>Etape 4</h2>-->
+                    <!--</div>-->
                     <div class="section-content">
                         <p>
-                            <h2>Vous touchez au but !<br>
+                        <h2>Vous touchez au but !<br>
                             <small>Finalisation et Paiement</small>
-                            </h2>
-                            <br>
-                            Vous pourrez retrouver un récapitulatif de votre commande dans votre <a>Dashboard</a>.
+                        </h2>
+                        <br>
+                        Vous pourrez retrouver un récapitulatif de votre commande dans votre <a>Dashboard</a>.
                         </p>
                         <p>
                             Vous pouvez procéder au paiement pour voir votre commande validée et
                             votre réservation effective.<br>
                         </p>
                         <p>
-                            <strong>Notez qu'après la date limite du premier paiement, vous ne pourrez plus modifier votre commande.</strong>
-                            </p>
+                            <strong>Notez qu'après la date limite du premier paiement, vous ne pourrez plus modifier
+                                votre commande.</strong>
+                        </p>
+                        <div class="progress">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{payRatio}}%"
+                                 aria-valuenow="{{received}}" aria-valuemin="0" aria-valuemax="{{total}}">{{received}}€
+                            </div>
+                        </div>
                         <table class="table">
                             <thead>
                             <tr>
@@ -208,7 +279,7 @@
                             <tr>
                                 <td>1<sup>er</sup> Paiement</td>
                                 <td>{{ toPay1 }} €</td>
-                                <td>{{ date_paiement1 }}</td>
+                                <td>{{ moment date_paiement1 }}</td>
                                 <td>
                                     {{#if status 1}}
                                         <span class="btn btn-primary">Validé</span>
@@ -216,15 +287,15 @@
                                         {{#if payWait 1}}
                                             <span class="btn btn-light">En attente</span>
                                         {{else}}
-                                            <button class="btn btn-danger pay-trigger-btn">Payer</button>
+                                            <button class="btn btn-danger pay-trigger-btn">Payer {{difference_payer}}</button>
                                         {{/if}}
                                     {{/if}}
-                                    </td>
+                                </td>
                             </tr>
                             <tr>
                                 <td>2<sup>nd</sup> Paiement</td>
                                 <td>{{toPay2}} €</td>
-                                <td>{{date_paiement2}}</td>
+                                <td>{{moment date_paiement2}}</td>
                                 <td>
                                     {{#if status 2}}
                                         <span class="btn btn-primary">Validé</span>
@@ -232,7 +303,7 @@
                                         {{#if payWait 2}}
                                             <span class="btn btn-light">En attente</span>
                                         {{else}}
-                                            <button class="btn btn-danger pay-trigger-btn">Payer</button>
+                                            <button class="btn btn-danger pay-trigger-btn">Payer {{difference_payer}}</button>
                                         {{/if}}
                                     {{/if}}
                                 </td>
@@ -240,32 +311,64 @@
                             <tr>
                                 <td>3<sup>ème</sup> Paiement</td>
                                 <td>{{toPay3}} €</td>
-                                <td>{{date_paiement3}}</td>
+                                <td>{{moment date_paiement3}}</td>
                                 <td>
                                     {{#if status 3}}
-                                    <span class="btn btn-primary">Validé</span>
-                                {{else}}
-                                    {{#if payWait 3}}
-                                        <span class="btn btn-light">En attente</span>
+                                        <span class="btn btn-primary">Validé</span>
                                     {{else}}
-                                        <button class="btn btn-danger pay-trigger-btn">Payer</button>
+                                        {{#if payWait 3}}
+                                            <span class="btn btn-light">En attente</span>
+                                        {{else}}
+                                            <button class="btn btn-danger pay-trigger-btn">Payer {{difference_payer}}</button>
+                                        {{/if}}
                                     {{/if}}
-                                {{/if}}
                                 </td>
                             </tr>
                             </tbody>
                         </table>
+                        <p>
+                            <strong>Sur la fenêtre de paiement LYDIA, cliquez sur le bouton "Retourner au site du
+                                marchand" pour voir votre paiement pris en compte.</strong>
+                        </p>
                         <div style="text-align: center">
-                        <button class="btn btn-lg one-at-time-prev">Précédent pour éditer la commande</button><br><br>
-                        <div id="lydia-btn"></div>
+                            <button class="btn btn-lg one-at-time-prev">Précédent pour éditer la commande</button>
+                            <br><br>
+                            <div id="lydia-btn"></div>
+                            {{#if isInRole 'admin' }}
+                                <button class="btn btn-lg btn-primary" id="admin-pay-toggler">Payer en tant qu'admin
+                                </button>
+                                <div id="admin-pay" style="display: none">
+                                    <form action="">
+                                        <div class="form-group">
+                                            <label for="">Somme versée</label>
+                                            <input type="number" step="0.01" name="pay-amount" id="pay-amount"
+                                                   class="form-control">
+                                            <!--<input type="hidden" name="pay-nb" id="pay-nb" value="}}">-->
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" id="pay-admin-btn"
+                                                   class="form-control btn btn-lg btn-primary" value="Payer">
+                                        </div>
+                                    </form>
+                                </div>
+                            {{/if}}
                         </div>
                     </div>
                 </li>
             </ul>
 
 
-
+            {{/if}}
         {{/each}}
     </section>
+    <!--<a href="javascript:" id="go-bottom"><img src="/images/downbtn.png" class="img-fluid" title="Plus bas !"/><br></a>-->
+
     <script src="/js/LYDIASDK.js"></script>
+    <script>
+       /* $(document).ready(function (ev) {
+            console.log("on est sur les nerfs");
+            $('#go-bottom').fadeIn();
+            $('#return-to-top').fadeOut();
+        });*/
+    </script>
 </template>

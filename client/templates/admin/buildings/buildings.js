@@ -75,7 +75,7 @@ let format = function (user) {
         'sibers': 'Me',
         'kin': 'Ai'
     };
-
+    if (user && typeof user !== 'undefined' && typeof user.profile !== 'undefined')
     return user.profile.buque + " - " + user.profile.nums + "" + tbk[user.profile.tbk] + user.profile.proms + " dit " + user.profile.prenom + " " + user.profile.nom;
 };
 let tbks = function (tbk) {
@@ -209,7 +209,7 @@ Template.Buildings.events({
         console.log(this);
         let target = event.target;
         for (let i=1; i <= target.number.value; i++) {
-            Meteor.call('rooms.insert', {"name": target.indicator.value + (i < 10 ? "0" : "") + (i), "building": this._id, "floor": target.indicator.value});
+            Meteor.call('rooms.insert', {"name": target.floor.value + (i < 10 ? "0" : "") + (i), "building": this._id, "floor": target.floor.value, "places": target.places.value});
         }
     },
     'click .add-floor'(event, instance) {
@@ -228,6 +228,28 @@ Template.Buildings.events({
             Meteor.call('buildings.remove', this._id);
             // Activities.remove(this._id);
         }
+    },
+    'click .editableColumn'(event, instance) {
+        let target = $(event.target);
+            let html = target.html();
+            console.log(html)
+            if(html.indexOf('input') === -1) {
+                let field = target.attr('data-field');
+                let input = $('<input class="editableColumn-input" name="' + field + '" type="text" />');
+                input.val(html);
+                console.log(input);
+                target.html(input);
+            }
+    },
+    'blur .editableColumn-input'(event, instance)  {
+        let target = $(event.target);
+        let td = target.parent();
+        console.log(target.val());
+        this[target.attr('name')] = target.val();
+        td.html('');
+        // console.log(this);
+        // console.log(td);
+        Meteor.call('rooms.update', this);
     },
     'click .delete-room'() {
         if (confirm('Voulez-vous vraiment supprimer cette chambre ?')) {

@@ -5,6 +5,9 @@ import './dashboard.js';
 import './order-edit';
 import './order-pay';
 import './override-atInput.js';
+import './user-edit';
+import './chambres';
+import './reset-password.js';
 // var mySubmitFunc = function(error, state){
 //     if (!error) {
 //         if (state === "signIn") {
@@ -133,6 +136,10 @@ let mySubmitFunc = function(error, state){
 
         }
     }
+    else {
+        console.log("merde");
+        console.log(error);
+    }
 };
 let myPostSubmitFunc = function(userId, info){
     console.log(userId);
@@ -153,7 +160,6 @@ AccountsTemplates.configure({
     overrideLoginErrors: true,
     sendVerificationEmail: false,
     focusFirstInput: true,
-
     // Appearance
     // showAddRemoveServices: false,
     // showForgotPasswordLink: false,

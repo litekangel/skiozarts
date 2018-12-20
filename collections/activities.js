@@ -19,10 +19,19 @@ Meteor.methods({
         }
         Activities.find({}, {sort: sortBy});
     },
-    'activities.update'(anims) {
+    'activities.participants'(anims) {
         check(anims, Object);
         check(anims._id, String);
 
+        Activities.update(anims._id, { $set: {
+                updatedAt: new Date(),
+               participants:anims.participants,
+                username: Meteor.userId(),
+            }})
+    },
+    'activities.update'(anims) {
+        check(anims, Object);
+        check(anims._id, String);
 
         Activities.update(anims._id, { $set: {
                 name:anims.name,
@@ -31,10 +40,11 @@ Meteor.methods({
                 places:anims.places,
                 date: new Date(anims.date),
                 level: anims.level,
+                participants: anims.participants,
                 type:anims.type,
                 price:anims.price,
                 desc:anims.desc,
-                username: Meteor.user().username,
+                username: Meteor.userId(),
             }})
     },
     'activities.insert'(anims) {

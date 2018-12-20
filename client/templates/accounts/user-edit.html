@@ -1,1 +1,28 @@
-<template name="UserEdit"></template>
+<template name="UserEdit">
+    <style>
+        .user-edit h3 {
+            font-size:2em;
+        }
+    </style>
+    <section>
+        <div class="row">
+            <div class="col-12" style="text-align: center"><img src="/images/noirv.png" style="max-width: 50%; margin:auto;" alt="" class="img-fluid"></div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col-12 user-edit" style="padding:50px; padding-top: 0;">
+                <div style="text-align: center"><a href="/dashboard" class="btn btn-lg btn-danger">Retourner à mon Dashboard</a></div><br>
+                <h1>Formulaire d'édition du profil</h1>
+                {{#autoForm schema=userSchema collection="Meteor.users" doc=thisUser id="accountForm" type="update"}}
+                    <fieldset>
+                        {{> afObjectField name='profile'}}
+                    </fieldset>
+                    <br><br>
+                    <button type="submit" class="btn btn-lg btn-danger">Enregistrer</button>
+                {{/autoForm}}
+            </div>
+        </div>
+
+    </section>
+</template>

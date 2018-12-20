@@ -31,6 +31,8 @@
                             <h2 class="same-liner" style="width:100%;">
                                 <span class="same-line">Edition utilisateur - mode admin</span><br>
                                 <span class="same-line">{{userName}}</span>
+                                <small class="badge badge-{{chColor}} badge-pill" id="set-chouille" style="font-size: 0.25em;cursor:pointer" alt="Mettre {{chouille}} Pack Chouille">{{chouille}} Pack Chouille</small>
+                                <small class="badge badge-{{reColor}} badge-pill" id="set-referent" style="font-size: 0.25em;cursor:pointer" alt="Mettre {{referent}}">{{referent}}</small>
                             </h2>
                             <hr>
                         </div>
@@ -56,6 +58,7 @@
                                 {{/with}}
                             </div>
                         {{/with}}
+
                     {{/with}}
                 </div>
             </div>
@@ -64,6 +67,7 @@
             <div class="row">
                 {{#if hasOrder}}
                     <div class="col-12">
+                        <!--<h1>Takeu80</h1>-->
                         {{>userOrder}}
                     </div>
                 {{else}}
